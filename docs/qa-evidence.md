@@ -1,5 +1,11 @@
 # Mindflow V1 QA evidence
 
+## Independent round-two acceptance (2026-10-30)
+
+Independent B reviewed exact production candidate `f784ccf806edcf070381484a657948ebd7752613`; see [the round-two independent report](independent-qa-report-round-2.md). Clean install, typecheck/lint/build/audit passed; the unchanged candidate suite independently produced 17 data tests passed and 31 Chromium E2E passed / 1 original desktop-touch skip. B's two added storage tests passed (19 total). The two 4500-child cards also passed real UI export -> clear all synthetic stores -> restore and full comparison in both Chromium projects.
+
+The independent decision remains No-Go: QA-004 historical cause is not confirmed; controlled IndexedDB contention reproduces large -> reload -> normal in old and current code. Node return focus and legacy over-capacity migration remain open. Current hosted CI success is recorded separately from historical cause, inaccessible artifact contents, and unverified Safari/iPhone/Cloudflare deployment. New regression failures are retained, not disabled; see the report for full counts, evidence and reproduction commands.
+
 Executed 2026-10-30 (Asia/Shanghai), cloud Linux; Node 24.19.0, npm 11.9.0, Chromium 154.0.8037.57. These results apply to this delivery's implementation, not a published production site. Final SHA is supplied in the delivery report (a commit cannot embed its own hash).
 
 ## Reproduction and actual results
