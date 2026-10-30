@@ -1,5 +1,13 @@
 # Mindflow V1 QA evidence
 
+## Independent round-three acceptance — exact dc55255
+
+Independent B tested production candidate `dc5525552d1da11a4a5126fdc3440a5dffb688da` on 2026-10-30 (Asia/Shanghai). See [the round-three independent report](independent-qa-report-round-3.md) and [B's synthetic raw validation text](evidence/round3/independent-validation.txt).
+
+Candidate checks independently reproduced: clean install/types/lint/build/audit passed, 27 data tests passed, 53 Chromium browser tests passed / 1 unchanged desktop-touch skip. B added two boundary data tests (exact 2000 cards, near-40MiB roundtrip and over-limit rejection) and two browser scenarios in both projects (post-put transaction abort/retry and depth-16 DOM focus/fallback), all passed. The combined data suite has 29 passes; the four new browser cases ran separately and all passed.
+
+Current font durability and tree focus defects are fixed in the covered scope; 501-card volume migration passes. Overall decision remains No-Go under the prior QA-004 historical-RCA closure gate: the old CI's unique cause is still NOT CONFIRMED. This does not negate current repair evidence. Over-2000/40MiB legacy compatibility and all real iPhone/Safari/Cloudflare platform checks remain outside verified support. No production approval or merge.
+
 Executed 2026-10-30 (Asia/Shanghai), cloud Linux; Node 24.19.0, npm 11.9.0, Chromium 154.0.8037.57. These results apply to this delivery's implementation, not a published production site. Final SHA is supplied in the delivery report (a commit cannot embed its own hash).
 
 ## Reproduction and actual results
