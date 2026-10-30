@@ -15,3 +15,5 @@ Stages 1–4 implemented and verified: 10 data tests and 12 Chromium browser cas
 - Add plaintext warning, limited safe Markdown and standalone validation / strict CSP: implemented.
 - Investigate exact PR failure: old API logs blocked by Forbidden; public job page available but detailed log route is 404. Do not equate local success with a diagnosed CI failure.
 - Run complete clean-install check chain, push same development branch, inspect PR CI, record outstanding evidence for B.
+
+Round 2 complete local chain: 17 data tests pass; 31 browser pass / 1 original capability skip; audit0. Feature commit a8178a6 pushed to the original branch, PR and push CI both SUCCESS. Historical QA-004 root cause remains blocked on original logs, explicitly unclosed. New candidate is for B to reassess, not a release approval.
