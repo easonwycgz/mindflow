@@ -1,5 +1,13 @@
 # Mindflow V1 QA evidence
 
+## Independent round-four acceptance — ba60e55
+
+B independently tested exact production candidate `ba60e55110b92658d450036e59ef415b6e946336`; see [round-four independent report](independent-qa-report-round-4.md), [synthetic raw evidence](evidence/round4/independent-validation.txt) and [owner gate decision request](qa-004-gate-decision-request-round-4.md).
+
+Original candidate checks independently reproduced 35 data passes and 61 Chromium browser passes / 1 unchanged desktop-touch skip; typecheck/lint/build/audit passed, 0 known production vulnerabilities. B's additional data suite produced 5 passes / 1 failure; additional UI scenarios produced 4 passes / 2 failures across separate runs. R4-001 is a new P1: changing a valid favorite boolean in verified staging is accepted during promotion, yields a success message and writes data different from the verified backup. It is reproduced in fake-indexeddb and native desktop/mobile Chromium. No production code or prior test was modified.
+
+Normal 2001 low-byte, 10,001-card/21-part and <2000-card 50.3MB/88.5MB complete roundtrips passed. Atomic rollback/refresh tests passed, but migration integrity as a whole fails. No-Directory-API plus no workspace quota still prevents safe export (source retained), a conditional P1 compatibility risk. Historical RCA remains NOT CONFIRMED / QA-004 OPEN pending explicit owner gate decision. Overall No-Go; no main merge or production approval. Current font/focus fixes remain PASS; QA-008 remains PARTIAL and real platforms stay NOT VERIFIED.
+
 Executed 2026-10-30 (Asia/Shanghai), cloud Linux; Node 24.19.0, npm 11.9.0, Chromium 154.0.8037.57. These results apply to this delivery's implementation, not a published production site. Final SHA is supplied in the delivery report (a commit cannot embed its own hash).
 
 ## Reproduction and actual results
