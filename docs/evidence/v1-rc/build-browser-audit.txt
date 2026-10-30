@@ -1,0 +1,74 @@
+
+> mindflow@1.0.0 prebuild
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 build
+> tsc -b && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 142 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                          0.33 kB
+dist/migration.html                                0.56 kB │ gzip:   0.36 kB
+dist/index.html                                    0.67 kB │ gzip:   0.41 kB
+dist/assets/style-BGrn-dwi.css                    10.28 kB │ gzip:   3.29 kB
+dist/assets/migration-kjdj7X33.js                  1.02 kB │ gzip:   0.73 kB
+dist/assets/workbox-window.prod.es5-BBnX5xw4.js    5.75 kB │ gzip:   2.36 kB
+dist/assets/main-CHwLQiEH.js                      26.34 kB │ gzip:  11.12 kB
+dist/assets/style-Bp_TMkjA.js                    473.37 kB │ gzip: 143.41 kB
+✓ built in 3.65s
+
+PWA v1.3.0
+mode      generateSW
+precache  13 entries (510.93 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-2fbc6a65.js
+
+> mindflow@1.0.0 test:e2e
+> playwright test e2e/app.spec.ts
+
+[WebServer] (node:50638) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:50650) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/app.spec.ts:4:1 › import, recursive reading, search, favorites and persistence (2.6s)
+  ✓   2 [chromium] › e2e/app.spec.ts:17:1 › safe rendering never requests remote images or executes HTML (1.1s)
+  ✓   3 [chromium] › e2e/app.spec.ts:22:1 › backup export and restore preserve favorites and reject corrupt input (1.8s)
+  ✓   4 [chromium] › e2e/app.spec.ts:29:1 › production service worker reopens imported content offline (1.4s)
+  ✓   5 [chromium] › e2e/app.spec.ts:35:1 › random recommendation excludes current card, favorites filter and large text fit (1.7s)
+  ✓   6 [chromium] › e2e/app.spec.ts:41:1 › reading scroll position survives reopening (1.9s)
+(node:50963) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [chromium-mobile] › e2e/app.spec.ts:4:1 › import, recursive reading, search, favorites and persistence (2.5s)
+  ✓   8 [chromium-mobile] › e2e/app.spec.ts:17:1 › safe rendering never requests remote images or executes HTML (1.5s)
+  ✓   9 [chromium-mobile] › e2e/app.spec.ts:22:1 › backup export and restore preserve favorites and reject corrupt input (1.7s)
+  ✓  10 [chromium-mobile] › e2e/app.spec.ts:29:1 › production service worker reopens imported content offline (1.5s)
+  ✓  11 [chromium-mobile] › e2e/app.spec.ts:35:1 › random recommendation excludes current card, favorites filter and large text fit (2.1s)
+  ✓  12 [chromium-mobile] › e2e/app.spec.ts:41:1 › reading scroll position survives reopening (1.9s)
+
+  12 passed (25.3s)
+found 0 vulnerabilities
+

@@ -1,0 +1,121 @@
+{
+  "sourceCommit": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "environment": "LOCAL_HTTP_ONLY",
+  "cloudflareDeployed": false,
+  "httpsVerified": false,
+  "assets": [
+    {
+      "path": "index.html",
+      "bytes": 666,
+      "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "migration.html",
+      "bytes": 560,
+      "sha256": "4d99f3d48cea2a98fbd726d0825d316332b12c70dbd5b392809364abf982686b",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 333,
+      "sha256": "f8a35bdac22aa8b9be559a1c0276741334a1fe1370cf064bdab03fa00c88ba58",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "icon-192.png",
+      "bytes": 1097,
+      "sha256": "5de02cf3c52a5e00883c3b391b7c6760886fbdf99a1af8970409dd3c18624692",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "icon-512.png",
+      "bytes": 3776,
+      "sha256": "7fd4acae02111223b969363b17b9c57bbb6a8acc1370e68cbba07a7176a86351",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "sw.js",
+      "bytes": 1650,
+      "sha256": "703df3599d43f563b05b795a0ac05074e0de429b0c2f95a589b350d6e4ce17e6",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "assets/main-CHwLQiEH.js",
+      "bytes": 26335,
+      "sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "assets/migration-kjdj7X33.js",
+      "bytes": 1019,
+      "sha256": "ad7711baf98398a41876e9ac40dda706770ae7e98570e2c1395e74c37aabdc23",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "assets/style-BGrn-dwi.css",
+      "bytes": 10284,
+      "sha256": "447de589b096e724903a9e2a13aa78f07a1bd7e280de49f080a50e2408dcaeba",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "assets/style-Bp_TMkjA.js",
+      "bytes": 473373,
+      "sha256": "475d7afdff4a66b36d7da06c6552afc4a0d734710c50b26526f4d3b741d6b8b2",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "bytes": 5748,
+      "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+      "status": 200,
+      "strictLocalHeaders": true
+    },
+    {
+      "path": "workbox-2fbc6a65.js",
+      "bytes": 15026,
+      "sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e",
+      "status": 200,
+      "strictLocalHeaders": true
+    }
+  ],
+  "viewports": [
+    {
+      "name": "desktop",
+      "jsonImport": true,
+      "browse": true,
+      "tree": true,
+      "faq": true,
+      "search": true,
+      "favorite": true,
+      "reloadPersists": true,
+      "serviceWorkerControls": true,
+      "blockingConsoleErrors": [],
+      "onlyLocalRequests": true
+    },
+    {
+      "name": "mobile",
+      "jsonImport": true,
+      "browse": true,
+      "tree": true,
+      "faq": true,
+      "search": true,
+      "favorite": true,
+      "reloadPersists": true,
+      "serviceWorkerControls": true,
+      "blockingConsoleErrors": [],
+      "onlyLocalRequests": true
+    }
+  ],
+  "pass": true
+}

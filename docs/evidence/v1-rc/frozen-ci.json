@@ -1,0 +1,146 @@
+[
+  {
+    "event": "pr",
+    "run": "41055762320",
+    "job": "124062769809",
+    "url": "https://github.com/easonwycgz/mindflow/actions/runs/41055762320",
+    "sourceCommit": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+    "allStepsSuccess": true,
+    "allStepURLsBindFrozenCommit": true,
+    "internalArtifactsRead": false,
+    "steps": [
+      {
+        "name": "Set up job",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/setup-node@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run npm ci",
+        "conclusion": "success"
+      },
+      {
+        "name": "Types and lint",
+        "conclusion": "success"
+      },
+      {
+        "name": "Data regression",
+        "conclusion": "success"
+      },
+      {
+        "name": "Production build",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run npx playwright install --with-deps chromium",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser regression",
+        "conclusion": "success"
+      },
+      {
+        "name": "Production audit",
+        "conclusion": "success"
+      },
+      {
+        "name": "Public synthetic evidence summary",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/setup-node@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Complete job",
+        "conclusion": "success"
+      }
+    ]
+  },
+  {
+    "event": "push",
+    "run": "41055755638",
+    "job": "124062747699",
+    "url": "https://github.com/easonwycgz/mindflow/actions/runs/41055755638",
+    "sourceCommit": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+    "allStepsSuccess": true,
+    "allStepURLsBindFrozenCommit": true,
+    "internalArtifactsRead": false,
+    "steps": [
+      {
+        "name": "Set up job",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/setup-node@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run npm ci",
+        "conclusion": "success"
+      },
+      {
+        "name": "Types and lint",
+        "conclusion": "success"
+      },
+      {
+        "name": "Data regression",
+        "conclusion": "success"
+      },
+      {
+        "name": "Production build",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run npx playwright install --with-deps chromium",
+        "conclusion": "success"
+      },
+      {
+        "name": "Browser regression",
+        "conclusion": "success"
+      },
+      {
+        "name": "Production audit",
+        "conclusion": "success"
+      },
+      {
+        "name": "Public synthetic evidence summary",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/setup-node@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "conclusion": "success"
+      },
+      {
+        "name": "Complete job",
+        "conclusion": "success"
+      }
+    ]
+  }
+]

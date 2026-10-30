@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "title": "Mindflow 合成验收 A：太阳能入门",
+  "hook": "这是一张公开合成测试卡，不含私人聊天。",
+  "summary": "用于试运行导入、搜索、收藏、知识树和FAQ操作。这里只包含合成数据。",
+  "topic_type": "technical",
+  "tags": [
+    "合成",
+    "work验收"
+  ],
+  "key_takeaways": [
+    "只用于非生产体验。",
+    "本机数据不会上传。"
+  ],
+  "branches": [
+    {
+      "id": "a-root",
+      "title": "合成根节点",
+      "summary": "进入知识树阅读。",
+      "content": "这是公开合成正文。\n\n## 阅读要点\n\n- 保留原始测试数据\n- 检查本机保存状态\n\n**非生产环境**",
+      "children": [
+        {
+          "id": "a-child",
+          "title": "合成子节点",
+          "summary": "测试展开、阅读和返回。",
+          "content": "这是子节点正文，可以返回知识树继续浏览。",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "question": "这些是真实私人数据吗？",
+      "answer": "不是。这是公开的合成验收数据。",
+      "basis": "supplement"
+    },
+    {
+      "question": "下载请求是否代表备份已保存？",
+      "answer": "不代表，请检查下载记录并重新验证完整文件。",
+      "basis": "supplement"
+    }
+  ],
+  "caveats": [
+    "不代表正式生产发布。"
+  ],
+  "source": {
+    "chat_title": null,
+    "chat_url": null
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "frozenCommit": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "originalFeatureBranchMustRemain": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "originalMainMustRemain": "e061135f1b197347bbdd35c519334405aa0a12c5",
+  "governanceBranch": "docs/v1-rc-df48c9d-governance",
+  "applicationAndExistingTrackedFilesChanged": [],
+  "syntheticFixtures": [
+    {
+      "path": "docs/synthetic/mindflow-v1-work-example-a.json",
+      "sha256": "2048b2a7abe07b263b3e5fba81d26602076ee0c9948870210d6e97b211c56c1c",
+      "validatedWithFrozenSchemaAndSafetyLimits": true,
+      "privateSource": false
+    },
+    {
+      "path": "docs/synthetic/mindflow-v1-work-example-b.json",
+      "sha256": "575806f34a67d844639e6f3b4431506d7f26597164ca1a1b7a523625ad4713c4",
+      "validatedWithFrozenSchemaAndSafetyLimits": true,
+      "privateSource": false
+    }
+  ],
+  "cloudflare": {
+    "project": "001beta",
+    "runtimeCredentialConfigured": false,
+    "runtimeAccountIDConfigured": false,
+    "runtimeDomainsEnforced": false,
+    "draftSaved": true,
+    "requiresPublish": true,
+    "previewURL": null,
+    "deployedCommit": null
+  },
+  "managerDecisionDate": "2026-10-30 Asia/Shanghai",
+  "qa004CurrentDefect": "PASS/CLOSED under explicit owner decision",
+  "historicalUniqueRCA": "NOT CONFIRMED; risk accepted for nonproduction only",
+  "conditionalP1": "OPEN",
+  "production": "NO-GO"
+}
