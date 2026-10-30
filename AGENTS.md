@@ -12,3 +12,9 @@
 - Ajv runtime compilation is forbidden; regenerate the standalone validator from contracts. Do not reintroduce unsafe-eval.
 - Test the actual CSP in production E2E. Preserve desktop/mobile coverage, offline checks and native vertical touch behavior.
 - Distinguish old CI log access blockers, current candidate CI outcomes and independent acceptance. Never claim B approved this candidate.
+
+## Round 3 evidence and compatibility
+- Preserve B's round-2 test copies byte-for-byte and every previous QA report; do not merge/write QA branches.
+- Settings may acknowledge Saved only after the IndexedDB transaction commits. A tiny localStorage font-intent journal may be used solely to resume an interrupted setting write; cards remain in IndexedDB.
+- Single backups retain the v1 envelope and 500-card limit. Transfer sets use unchanged v1 volumes plus a separate packaging manifest; validate the whole bounded set before one restore transaction.
+- Explicit user-authorized exception: sanitized, synthetic-only plain-text validation logs and source hashes may be committed under docs/evidence/round3 for public read access. Never commit real user content, browser backups, credentials, environment dumps or raw private traces.

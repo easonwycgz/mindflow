@@ -4,7 +4,15 @@ import {
   useState,
   type ChangeEvent,
   type TouchEvent,
+  type KeyboardEvent,
 } from "react";
+import {
+  FONT_INTENT_KEY,
+  FontWriter,
+  pendingFont,
+  patchSettings,
+} from "./settings";
+import { exportVolumes, restoreVolumes, type TransferFile } from "./volumes";
 import { ReadingText } from "./ReadingText";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import example from "../contracts/mindflow-card-example-v1.json";
@@ -42,6 +50,7 @@ function Tree({
       {nodes.map((n) => (
         <li key={n.id}>
           <button
+            data-node-id={n.id}
             aria-pressed={selected === n.id}
             onClick={() => onSelect(n.id)}
           >
@@ -87,6 +96,116 @@ export default function App() {
   const touch = useRef<{ x: number; y: number; time: number } | null>(null);
   const [confirmRestore, setConfirmRestore] = useState(false);
   const restoreFile = useRef<HTMLInputElement>(null);
+  const volumeInput = useRef<HTMLInputElement>(null);
+  const [volumeFiles, setVolumeFiles] = useState<TransferFile[]>([]);
+  const [fontDraft, setFontDraft] = useState<Settings["fontSize"]>("normal");
+  const [fontStatus, setFontStatus] = useState<
+    "idle" | "saving" | "saved" | "error"
+  >("idle");
+  const [fontError, setFontError] = useState("");
+  const fontRequest = useRef(0);
+  const writer = useRef<FontWriter | null>(null);
+  function fontWriter() {
+    return writer.current ?? (writer.current = new FontWriter(localStorage));
+  }
+  async function saveFont(fontSize: Settings["fontSize"]) {
+    const request = ++fontRequest.current;
+    setFontDraft(fontSize);
+    setFontStatus("saving");
+    setFontError("");
+    try {
+      const committed = await fontWriter().choose(fontSize);
+      if (request === fontRequest.current) {
+        setSettings((prev) => ({ ...prev, fontSize: committed.fontSize }));
+        setFontStatus("saved");
+      }
+    } catch (e) {
+      if (request === fontRequest.current) {
+        const actual = await db.settings.get("main").catch(() => undefined);
+        if (actual)
+          setSettings((prev) => ({ ...prev, fontSize: actual.fontSize }));
+        setFontStatus("error");
+        setFontError(e instanceof Error ? e.message : "数据库不可用");
+      }
+    }
+  }
+  function download(name: string, text: string) {
+    const url = URL.createObjectURL(
+      new Blob([text], { type: "application/json" }),
+    );
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function returnToTree() {
+    const tree = document.getElementById("tree-navigation");
+    if (!tree) return;
+    const buttons = Array.from(
+      tree.querySelectorAll<HTMLButtonElement>("button[data-node-id]"),
+    );
+    const target =
+      buttons.find((b) => b.dataset.nodeId === reading?.nodeId) ??
+      buttons[0] ??
+      tree;
+    for (
+      let parent = target.parentElement;
+      parent && parent !== tree;
+      parent = parent.parentElement
+    )
+      if (parent instanceof HTMLDetailsElement) parent.open = true;
+    target.scrollIntoView({ block: "center" });
+    target.focus({ preventScroll: true });
+  }
+  function treeKeys(e: KeyboardEvent<HTMLDivElement>) {
+    const current = e.target as HTMLButtonElement;
+    if (!current.matches("button[data-node-id]")) return;
+    const tree = e.currentTarget;
+    const all = Array.from(
+      tree.querySelectorAll<HTMLButtonElement>("button[data-node-id]"),
+    ).filter((b) => b.getClientRects().length > 0);
+    const index = all.indexOf(current);
+    let next: HTMLElement | undefined;
+    if (e.key === "ArrowDown") next = all[Math.min(index + 1, all.length - 1)];
+    if (e.key === "ArrowUp") next = all[Math.max(index - 1, 0)];
+    if (e.key === "Home") next = all[0];
+    if (e.key === "End") next = all.at(-1);
+    const children =
+      current.parentElement?.querySelector<HTMLDetailsElement>(
+        ":scope > details",
+      );
+    if (e.key === "ArrowRight" && children) {
+      if (children.open)
+        next =
+          children.querySelector<HTMLButtonElement>("button[data-node-id]") ??
+          undefined;
+      else children.open = true;
+    }
+    if (e.key === "ArrowLeft") {
+      if (children?.open) children.open = false;
+      else
+        next =
+          current.parentElement?.parentElement
+            ?.closest("li")
+            ?.querySelector<HTMLButtonElement>(":scope > button") ?? undefined;
+    }
+    if (
+      [
+        "ArrowDown",
+        "ArrowUp",
+        "Home",
+        "End",
+        "ArrowRight",
+        "ArrowLeft",
+      ].includes(e.key)
+    )
+      e.preventDefault();
+    if (next) {
+      next.focus();
+      next.scrollIntoView({ block: "nearest" });
+    }
+  }
   const {
     offlineReady: [offlineReady],
     needRefresh: [needRefresh],
@@ -95,7 +214,13 @@ export default function App() {
     onRegisterError: () =>
       setMessage("离线资源安装失败，请保持联网并重新打开。"),
   });
-  async function load() {
+  async function load(initial = false) {
+    const pending = initial ? pendingFont() : null;
+    if (pending) {
+      setFontDraft(pending.fontSize);
+      setFontStatus("saving");
+    }
+
     const [c, r, s] = await Promise.all([
       db.cards.toArray(),
       db.reading.toArray(),
@@ -106,11 +231,32 @@ export default function App() {
     if (s) {
       setSettings(s);
       setActive(s.lastCardId);
+      if (
+        !pending &&
+        (initial || (fontStatus !== "saving" && fontStatus !== "error"))
+      )
+        setFontDraft(s.fontSize);
     }
     setReady(true);
+    if (pending) {
+      const request = ++fontRequest.current;
+      try {
+        const committed = await fontWriter().resume();
+        if (committed && request === fontRequest.current) {
+          setSettings((prev) => ({ ...prev, fontSize: committed.fontSize }));
+          setFontDraft(committed.fontSize);
+          setFontStatus("saved");
+        }
+      } catch (e) {
+        if (request === fontRequest.current) {
+          setFontStatus("error");
+          setFontError(e instanceof Error ? e.message : "恢复保存失败");
+        }
+      }
+    }
   }
   useEffect(() => {
-    void load().catch(() => {
+    void load(true).catch(() => {
       setMessage("无法打开本地数据库。请检查浏览器存储权限，勿清除已有数据。");
     });
     const update = () => setOnline(navigator.onLine);
@@ -174,9 +320,8 @@ export default function App() {
     }
   }
   async function select(id: string) {
-    const s = { ...settings, lastCardId: id };
-    await db.settings.put(s);
-    setSettings(s);
+    await patchSettings({ lastCardId: id });
+    setSettings((prev) => ({ ...prev, lastCardId: id }));
     setActive(id);
   }
   async function state(change: Partial<Reading>) {
@@ -203,7 +348,9 @@ export default function App() {
         throw Error("文件过大");
       if (isRestore) {
         await restore(await f.text());
-        await load();
+        localStorage.removeItem(FONT_INTENT_KEY);
+        setFontStatus("idle");
+        await load(true);
         setMessage("备份恢复成功");
       } else {
         await imported(await f.text());
@@ -294,7 +441,7 @@ export default function App() {
             <p className="muted">把值得留下的想法，变成随时可读的知识卡片。</p>
             <div className="tools">
               <button
-                disabled={busy || !ready}
+                disabled={busy || !ready || fontStatus === "saving"}
                 onClick={() => setPasteOpen(true)}
               >
                 粘贴 JSON
@@ -305,12 +452,12 @@ export default function App() {
                   aria-label="导入卡片"
                   type="file"
                   accept="application/json,.json"
-                  disabled={busy || !ready}
+                  disabled={busy || !ready || fontStatus === "saving"}
                   onChange={(e) => void file(e)}
                 />
               </label>
               <button
-                disabled={busy || !ready}
+                disabled={busy || !ready || fontStatus === "saving"}
                 onClick={() =>
                   void action(async () => {
                     const c = await importCard(JSON.stringify(example));
@@ -339,7 +486,7 @@ export default function App() {
                   MB；可连续导入组成知识库。
                 </p>
                 <button
-                  disabled={busy || !paste.trim()}
+                  disabled={busy || !paste.trim() || fontStatus === "saving"}
                   onClick={() =>
                     void action(async () => {
                       await imported(paste);
@@ -413,7 +560,7 @@ export default function App() {
                 备份文件未经加密，以明文包含全部知识内容、阅读状态与设置。任何获得文件的人都能读取；请勿公开分享，并妥善保管。
               </p>
               <button
-                disabled={!ready || busy}
+                disabled={!ready || busy || fontStatus === "saving"}
                 onClick={() =>
                   void action(async () => {
                     const blob = new Blob([await backup()], {
@@ -432,11 +579,82 @@ export default function App() {
                 导出完整备份
               </button>
               <button
-                disabled={!ready || busy}
+                disabled={!ready || busy || fontStatus === "saving"}
                 onClick={() => setConfirmRestore(true)}
               >
                 恢复备份
               </button>
+              <button
+                disabled={!ready || busy || fontStatus === "saving"}
+                onClick={() =>
+                  void action(async () => {
+                    setVolumeFiles(await exportVolumes());
+                    setMessage(
+                      "分卷备份已生成。请下载清单及每一卷，恢复时同时选择全部文件。",
+                    );
+                  })
+                }
+              >
+                生成分卷备份
+              </button>
+              {volumeFiles.length > 0 && (
+                <section aria-label="分卷下载">
+                  <p>
+                    未加密。请完整保存以下 {volumeFiles.length}{" "}
+                    个文件；清单用于检验完整性和顺序。
+                  </p>
+                  {volumeFiles.map((f, i) => (
+                    <button
+                      key={f.name}
+                      onClick={() => download(f.name, f.text)}
+                    >
+                      {i === 0 ? "下载迁移清单" : `下载分卷 ${i}`}
+                    </button>
+                  ))}
+                </section>
+              )}
+              <button
+                disabled={!ready || busy || fontStatus === "saving"}
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "分卷恢复会替换全部卡片、阅读状态和设置。请先备份；选择清单及全部分卷。",
+                    )
+                  )
+                    volumeInput.current?.click();
+                }}
+              >
+                恢复全部分卷
+              </button>
+              <input
+                ref={volumeInput}
+                aria-label="恢复分卷文件"
+                hidden
+                type="file"
+                multiple
+                accept=".json"
+                onChange={(e) => {
+                  const files = Array.from(e.target.files ?? []);
+                  e.target.value = "";
+                  if (!files.length) return;
+                  void action(async () => {
+                    if (
+                      files.length > 17 ||
+                      files.reduce((n, f) => n + f.size, 0) > MAX_BACKUP_BYTES
+                    )
+                      throw Error("请选择完整分卷，合计最多40 MB");
+                    const inputs = [];
+                    for (const f of files)
+                      inputs.push({ name: f.name, text: await f.text() });
+                    await restoreVolumes(inputs);
+                    localStorage.removeItem(FONT_INTENT_KEY);
+                    await load(true);
+                    setVolumeFiles([]);
+                    setFontStatus("idle");
+                    setMessage("分卷恢复成功，全部数据已原子写入");
+                  });
+                }}
+              />
               {confirmRestore && (
                 <div role="group" aria-label="确认恢复">
                   <p>恢复将替换当前全部卡片、阅读状态和设置。请先导出备份。</p>
@@ -462,20 +680,30 @@ export default function App() {
               <label className="font">
                 字号
                 <select
-                  value={settings.fontSize}
-                  onChange={(e) => {
-                    const fontSize = e.target.value as Settings["fontSize"];
-                    void action(async () => {
-                      const s = { ...settings, fontSize };
-                      await db.settings.put(s);
-                      setSettings(s);
-                    });
-                  }}
+                  value={fontDraft}
+                  disabled={!ready || busy}
+                  onChange={(e) =>
+                    void saveFont(e.target.value as Settings["fontSize"])
+                  }
                 >
                   <option value="normal">标准</option>
                   <option value="large">大字</option>
                 </select>
               </label>
+              <p aria-live="polite" data-testid="font-save-state">
+                {fontStatus === "saving"
+                  ? "正在保存字号；尚未提交，刷新后会继续完成。"
+                  : fontStatus === "saved"
+                    ? `字号已保存：${settings.fontSize === "large" ? "大字" : "标准"}`
+                    : fontStatus === "error"
+                      ? `字号保存失败：${fontError}；未确认保存，请重试。`
+                      : "字号与本机已保存设置一致。"}
+              </p>
+              {fontStatus === "error" && (
+                <button onClick={() => void saveFont(fontDraft)}>
+                  重试保存字号
+                </button>
+              )}
               <p>
                 无账户、无 AI
                 调用、无数据上传。不加载远程图片。内容默认按纯文本安全显示，Markdown
@@ -555,7 +783,7 @@ export default function App() {
               {reading.section === "summary" && (
                 <>
                   <h3>01 / 先抓住核心</h3>
-                  <ReadingText text={card.content.summary}/>
+                  <ReadingText text={card.content.summary} />
                   <h3>值得带走的想法</h3>
                   <ol className="takeaways">
                     {card.content.key_takeaways.map((t, i) => (
@@ -583,19 +811,16 @@ export default function App() {
                       aria-label="节点内容"
                     >
                       <h3>{node.title}</h3>
-                      <ReadingText text={node.content}/>
-                      <button
-                        onClick={() =>
-                          document
-                            .getElementById("tree-navigation")
-                            ?.scrollIntoView({ block: "start" })
-                        }
-                      >
-                        返回知识树
-                      </button>
+                      <ReadingText text={node.content} />
+                      <button onClick={returnToTree}>返回知识树</button>
                     </section>
                   )}
-                  <div id="tree-navigation">
+                  <div
+                    id="tree-navigation"
+                    tabIndex={-1}
+                    aria-label="知识树导航"
+                    onKeyDown={treeKeys}
+                  >
                     <Tree
                       nodes={card.content.branches}
                       selected={reading.nodeId}
@@ -615,7 +840,7 @@ export default function App() {
                   {card.content.faq.map((q, i) => (
                     <details className="faq" key={i}>
                       <summary>{q.question}</summary>
-                      <ReadingText text={q.answer}/>
+                      <ReadingText text={q.answer} />
                       <small>{basis[q.basis]}</small>
                     </details>
                   ))}

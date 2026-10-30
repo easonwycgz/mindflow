@@ -71,3 +71,7 @@ No Cloudflare credentials were present in environment configuration or variable 
 ## Second-round candidate (supersedes first-round limitations where fixed)
 
 See [round2-handoff.md](round2-handoff.md) for exact QA mappings, changes, actual validation and remaining blockers. Clean-install chain completed: typecheck/lint/build PASS; unit/integration 17 PASS; browser 31 PASS / 1 pre-existing capability SKIP / 0 FAIL; production audit0. Strict CSP is now applied during production E2E and unsafe-eval removed. Original independent report/tests copied unchanged. No independent acceptance or real iPhone claim is made.
+
+## Third-round candidate
+
+[Round3 handoff](round3-handoff.md) records the pinned B report, actual persistence/focus/migration changes and scope. Clean-install local chain: 27 data PASS; Chromium desktop/mobile53 PASS /1 unchanged capability SKIP; types/lint/build PASS; production audit0. B's font contention and tree-focus tests remain byte-identical and now pass. Public synthetic-only logs and source hashes are in docs/evidence/round3, explicitly requested by the user to avoid artifact API access problems. Historical CI unique cause remains unconfirmed; no independent approval or production deployment is claimed.

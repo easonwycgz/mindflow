@@ -23,7 +23,7 @@ export interface Reading {
   nodeId: string | null;
   scroll: number;
 }
-const readingSchema = z
+export const readingSchema = z
   .object({
     cardId: z.uuid(),
     favorite: z.boolean(),
@@ -32,7 +32,7 @@ const readingSchema = z
     scroll: z.number().finite().min(0).max(10000000),
   })
   .strict();
-const settingsSchema = z
+export const settingsSchema = z
   .object({
     id: z.literal("main"),
     fontSize: z.enum(["normal", "large"]),
@@ -95,25 +95,28 @@ const recordSchema = z
     content: cardBoundary,
   })
   .strict();
-const payloadSchema = z
+export const payloadSchema = z
   .object({
     cards: z.array(recordSchema).max(MAX_LIBRARY_CARDS),
     reading: z.array(readingSchema).max(MAX_LIBRARY_CARDS),
     settings: settingsSchema,
   })
   .strict();
-const backupSchema = z
+export const backupSchema = z
   .object({
     version: z.literal(1),
     checksum: z.string().regex(/^[a-f0-9]{64}$/),
     payload: payloadSchema,
   })
   .strict();
-type Payload = z.infer<typeof payloadSchema>;
+export type Payload = z.infer<typeof payloadSchema>;
 // Reserve worst-case reading/settings growth so later reading cannot invalidate a backup.
-export function assertCapacity(cards: StoredCard[]) {
-  if (cards.length > MAX_LIBRARY_CARDS)
-    throw Error("知识库最多 500 张卡片；原数据保持不变");
+export function assertCapacity(
+  cards: StoredCard[],
+  maxCards = MAX_LIBRARY_CARDS,
+) {
+  if (cards.length > maxCards)
+    throw Error(`知识库最多 ${maxCards} 张卡片；原数据保持不变`);
   const bytes =
     new TextEncoder().encode(JSON.stringify(cards)).length +
     cards.length * 512 +
@@ -143,8 +146,11 @@ export async function backup(target = db) {
     throw Error("备份超过 40 MB，未生成不可恢复文件");
   return text;
 }
-async function validatePayload(payload: Payload) {
-  assertCapacity(payload.cards);
+export async function validatePayload(
+  payload: Payload,
+  maxCards = MAX_LIBRARY_CARDS,
+) {
+  assertCapacity(payload.cards, maxCards);
   const ids = new Set<string>(),
     hashes = new Set<string>();
   for (const c of payload.cards) {
@@ -190,6 +196,9 @@ export async function restore(text: string, target = db) {
   if ((await hash(payload)) !== envelope.checksum)
     throw Error("备份完整性校验失败");
   await validatePayload(payload);
+  await replacePayload(payload, target);
+}
+export async function replacePayload(payload: Payload, target = db) {
   await target.transaction(
     "rw",
     target.cards,

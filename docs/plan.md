@@ -17,3 +17,11 @@ Stages 1–4 implemented and verified: 10 data tests and 12 Chromium browser cas
 - Run complete clean-install check chain, push same development branch, inspect PR CI, record outstanding evidence for B.
 
 Round 2 complete local chain: 17 data tests pass; 31 browser pass / 1 original capability skip; audit0. Feature commit a8178a6 pushed to the original branch, PR and push CI both SUCCESS. Historical QA-004 root cause remains blocked on original logs, explicitly unclosed. New candidate is for B to reassess, not a release approval.
+
+## Round 3 targeted work
+1. Read pinned B report32319f4 and copy three tests byte-identically; retain all QA branches/history.
+2. Implement commit-aware settings patches, refresh intent replay and saving/error UI; add real write-lock, failure and concurrency tests.
+3. Restore selected tree DOM focus with keyboard continuation/fallback; preserve deep-tree and scroll tests.
+4. Provide bounded legacy501 transfer-set export/restore using unchanged v1 volumes, manifest and one transaction; test complete UI roundtrip and interruption/corruption.
+5. Keep QA-008 partial and register the already-scoped V1.1 work. Run clean-install full regression, publish synthetic-only readable evidence, push same branch and inspect final matching PR/push CI.
+6. Return new candidate to B; no independent Go decision, main merge or production deployment.
