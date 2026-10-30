@@ -39,3 +39,9 @@ Round 2 complete local chain: 17 data tests pass; 31 browser pass / 1 original c
 3. Fault-inject business metadata, contents/relationships/order, files/root/receipts, late batches and the actual add boundary. Retain quantity/byte/stress/refresh/quota coverage.
 4. Add explicit one-file-at-a-time download fallback without Directory API or workspace duplication; validate actual files, cancellation and allocation failures. Retain environmental risk rather than promising every browser/disk.
 5. Clean-install complete regression and production audit; publish synthetic-only readable logs and source hashes; same branch/PR with final matching push and PR CI. Return candidate to B, never main or production.
+
+## Fifth-round P2 follow-up — only R5-001
+- Read B's b250a86 report, evidence and tests; record R4-001 closed and permitted-download migration PASS without changing the passed persistence/integrity implementation.
+- Reproduce both original browser wording failures; replace file-existence promises with request/unknown status, observable error classification and explicit user-reported blocked/cancelled feedback.
+- Add targeted browser coverage for normal/unknown, real denial, cancellation, exceptions and retry. Run related data safety/browser regressions plus static/build/audit checks; keep actual developer counts separate from B's prior execution.
+- Same feature branch/PR, publish readable synthetic-only evidence, verify matching final CI, return candidate to B and stop. No release/gate changes.

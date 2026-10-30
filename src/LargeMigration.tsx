@@ -42,6 +42,10 @@ export function LargeMigration({
       accept: () => void;
     } | null>(null),
     [downloadProgress, setDownloadProgress] = useState({ count: 0, last: "" }),
+    [downloadFeedback, setDownloadFeedback] = useState<{
+      state: "requested" | "blocked" | "cancelled" | "failed";
+      message: string;
+    } | null>(null),
     [page, setPage] = useState(0);
   const manifestInput = useRef<HTMLInputElement>(null),
     partsInput = useRef<HTMLInputElement>(null),
@@ -79,6 +83,7 @@ export function LargeMigration({
   }
   async function streamDownloads() {
     setDownloadProgress({ count: 0, last: "" });
+    setDownloadFeedback(null);
     await run(async () => {
       setCurrent(null);
       await exportPagedMigration(db, undefined, {
@@ -113,6 +118,7 @@ export function LargeMigration({
               requested: false,
               accept: () => finish(),
             });
+            setDownloadFeedback(null);
             setNotice(
               `等待下载 ${file.name}。这是下载请求，不代表磁盘保存已确认。`,
             );
@@ -124,14 +130,53 @@ export function LargeMigration({
     });
   }
   function download(name: string, text: string) {
-    const url = URL.createObjectURL(
-      new Blob([text], { type: "application/json" }),
+    let url: string | undefined;
+    try {
+      url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+      const message =
+        "已发起下载请求，请检查浏览器下载记录。当前无法确认浏览器是否接受请求或是否保存成功；不代表磁盘保存已确认。";
+      setDownloadFeedback({ state: "requested", message });
+      setNotice(message);
+    } catch (e) {
+      const error = e instanceof Error ? e : Error("无法发起本地下载");
+      const state =
+        error.name === "AbortError"
+          ? "cancelled"
+          : ["NotAllowedError", "SecurityError"].includes(error.name)
+            ? "blocked"
+            : "failed";
+      const reason =
+        state === "cancelled"
+          ? "下载已取消"
+          : state === "blocked"
+            ? "下载未能启动或被浏览器阻止"
+            : "下载失败，无法确认文件是否保存";
+      const message = `${reason}：${error.message}。请检查下载记录，解除限制或确认空间充足后重新尝试逐卷下载；不要清除原数据库。`;
+      setDownloadFeedback({ state, message });
+      throw Error(message);
+    } finally {
+      if (url) {
+        const objectURL = url;
+        setTimeout(() => URL.revokeObjectURL(objectURL), 1000);
+      }
+    }
+  }
+  function reportDownload(state: "blocked" | "cancelled") {
+    const message =
+      state === "blocked"
+        ? "你已报告下载未启动或被浏览器阻止"
+        : "你已报告下载已取消";
+    setDownloadFeedback({
+      state,
+      message: `${message}；迁出已停止。请检查下载记录，解除限制后重新尝试逐卷下载，原数据库保留。`,
+    });
+    rejectDownload.current?.(
+      Error(`${message}；迁出已停止，不完整集合不能恢复`),
     );
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = name;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   async function chooseDirectory() {
     try {
@@ -257,13 +302,32 @@ export function LargeMigration({
           >
             已保存当前文件，继续
           </button>
+          {pendingDownload.requested && (
+            <>
+              <button onClick={() => reportDownload("blocked")}>
+                下载未启动或被阻止
+              </button>
+              <button onClick={() => reportDownload("cancelled")}>
+                本次下载已取消
+              </button>
+            </>
+          )}
         </section>
       )}
       {downloadProgress.count > 0 && (
         <p data-testid="direct-download-progress">
           已请求下载 {downloadProgress.count} 个文件，最后为{" "}
           {downloadProgress.last}。
-          中断时这些文件仍在设备下载位置；没有完整清单和全部卷不能恢复。
+          当前无法确认这些请求是否保存成功，请检查浏览器下载记录。已成功保存的文件（如有）请保留；没有完整清单和全部卷不能恢复。
+        </p>
+      )}
+      {downloadFeedback && (
+        <p
+          role="status"
+          data-testid="download-feedback"
+          data-download-state={downloadFeedback.state}
+        >
+          {downloadFeedback.message}
         </p>
       )}
       <p>
@@ -399,7 +463,17 @@ export function LargeMigration({
         </section>
       )}
       {running && (
-        <button onClick={() => controller.current?.abort()}>
+        <button
+          onClick={() => {
+            if (pendingDownload)
+              setDownloadFeedback({
+                state: "cancelled",
+                message:
+                  "迁出已取消；已发起下载的保存结果仍无法确认，请检查浏览器下载记录。原数据库保留，不完整集合不能恢复。",
+              });
+            controller.current?.abort();
+          }}
+        >
           取消或暂停当前迁移
         </button>
       )}

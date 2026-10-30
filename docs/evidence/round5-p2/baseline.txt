@@ -1,0 +1,72 @@
+
+> mindflow@1.0.0 test:e2e
+> playwright test e2e/independent-round5.spec.ts -g blocked browser
+
+[WebServer] (node:43080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:43092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source (2.6s)
+(node:43229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium-mobile] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source (3.1s)
+
+
+  1) [chromium] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source 
+
+    Error: expect(received).not.toContain(expected) // indexOf
+
+    Expected substring: not "这些文件仍在设备下载位置"
+    Received string:        "已请求下载 1 个文件，最后为 mindflow-090047c3-aa61-4be5-abb0-2fb590a7b5c2-stream-00000001.json。 中断时这些文件仍在设备下载位置；没有完整清单和全部卷不能恢复。"
+
+      31 |   await page.getByRole('button',{name:'取消或暂停当前迁移'}).click();await expect(page.getByTestId('paged-migration-state')).toContainText('不完整');expect(await snapshot(page)).toBe(before);
+      32 |   await info.attach('download-policy-denial',{body:JSON.stringify({failure,progress,sourcePreserved:true,verifiedCompletion:false}),contentType:'application/json'});
+    > 33 |   expect(progress).not.toContain('这些文件仍在设备下载位置');
+         |                        ^
+      34 |  });
+      35 | });
+      36 |
+        at /workspace/mindflow/e2e/independent-round5.spec.ts:33:24
+
+    Error Context: test-results/independent-round5-B-R5-do-e518a-ncellation-preserves-source-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/independent-round5-B-R5-do-e518a-ncellation-preserves-source-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/independent-round5-B-R5-do-e518a-ncellation-preserves-source-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium-mobile] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source 
+
+    Error: expect(received).not.toContain(expected) // indexOf
+
+    Expected substring: not "这些文件仍在设备下载位置"
+    Received string:        "已请求下载 1 个文件，最后为 mindflow-d3b095ed-da72-4224-bffd-379f018f5d6d-stream-00000001.json。 中断时这些文件仍在设备下载位置；没有完整清单和全部卷不能恢复。"
+
+      31 |   await page.getByRole('button',{name:'取消或暂停当前迁移'}).click();await expect(page.getByTestId('paged-migration-state')).toContainText('不完整');expect(await snapshot(page)).toBe(before);
+      32 |   await info.attach('download-policy-denial',{body:JSON.stringify({failure,progress,sourcePreserved:true,verifiedCompletion:false}),contentType:'application/json'});
+    > 33 |   expect(progress).not.toContain('这些文件仍在设备下载位置');
+         |                        ^
+      34 |  });
+      35 | });
+      36 |
+        at /workspace/mindflow/e2e/independent-round5.spec.ts:33:24
+
+    Error Context: test-results/independent-round5-B-R5-do-e518a-ncellation-preserves-source-chromium-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/independent-round5-B-R5-do-e518a-ncellation-preserves-source-chromium-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/independent-round5-B-R5-do-e518a-ncellation-preserves-source-chromium-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source 
+    [chromium-mobile] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source 
