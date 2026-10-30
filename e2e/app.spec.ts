@@ -5,7 +5,7 @@ test('import, recursive reading, search, favorites and persistence',async({page}
  await page.goto('/');await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(example));
  await expect(page.getByRole('heading',{name:example.title})).toBeVisible();
  await page.getByRole('button',{name:'☆ 收藏',exact:true}).click();
- await page.getByRole('button',{name:'知识树',exact:true}).click();await page.getByRole('button',{name:'一个两区域示意',exact:true}).click();
+ await page.getByRole('button',{name:'知识树',exact:true}).click();await page.getByText('展开 直觉：为什么位置会改变电的价值？ 的子节点',{exact:true}).click();await page.getByRole('button',{name:'一个两区域示意',exact:true}).click();
  await expect(page.getByRole('region',{name:'节点内容'})).toContainText('真实电网');
  await page.reload();await expect(page.getByRole('button',{name:'★ 已收藏',exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'节点内容'})).toContainText('真实电网');
  await page.getByRole('button',{name:'常见问题',exact:true}).click();await page.getByText(example.faq[0].question,{exact:true}).click();await expect(page.getByText(example.faq[0].answer,{exact:true})).toBeVisible();

@@ -67,3 +67,7 @@ No Cloudflare credentials were present in environment configuration or variable 
 4. Export/download backup; change data, restore backup; verify content, favorite, reading location and settings. Invalid JSON must preserve existing cards.
 5. Check notch/home-indicator safe areas, long Chinese text, large font and VoiceOver; verify file picker/download/share behavior.
 6. Install an update and confirm all local data survives. Record phone model, iOS version and outcomes before stable release.
+
+## Second-round candidate (supersedes first-round limitations where fixed)
+
+See [round2-handoff.md](round2-handoff.md) for exact QA mappings, changes, actual validation and remaining blockers. Clean-install chain completed: typecheck/lint/build PASS; unit/integration 17 PASS; browser 31 PASS / 1 pre-existing capability SKIP / 0 FAIL; production audit0. Strict CSP is now applied during production E2E and unsafe-eval removed. Original independent report/tests copied unchanged. No independent acceptance or real iPhone claim is made.

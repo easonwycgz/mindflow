@@ -1,6 +1,6 @@
 # Mindflow V1
 
-本地优先的知识卡片 PWA。React + TypeScript + Vite、vite-plugin-pwa、Dexie/IndexedDB、Zod/Ajv、Tailwind。无账户、AI API、云端数据库或埋点；卡片不会上传。导入内容按纯文本显示，不执行 HTML、打开来源链接或加载远程图片。
+本地优先的知识卡片 PWA。React + TypeScript + Vite、vite-plugin-pwa、Dexie/IndexedDB、Zod/Ajv、Tailwind。无账户、AI API、云端数据库或埋点；卡片不会上传。支持安全的 Markdown 标题、列表和粗体；不执行 HTML、不打开来源链接或加载远程图片。数学公式暂保留原文。
 
 ## 开发与验证
 
@@ -17,14 +17,14 @@ npx playwright install --with-deps chromium
 npm run test:e2e
 ```
 
-如使用系统浏览器：`CHROMIUM_PATH=/usr/bin/chromium npm run test:e2e`。默认执行桌面与移动视口 Chromium。可选 WebKit：先 `npx playwright install --with-deps webkit`，再 `TEST_WEBKIT=1 npm run test:e2e`。WebKit 模拟不等于真机验收。Playwright 会启动生产预览服务；HTML 报告在 `playwright-report/`，失败 trace 在 `test-results/`。应用测试期间仅使用公开演示或合成数据。实际执行记录见 [docs/qa-evidence.md](docs/qa-evidence.md)。
+如使用系统浏览器：`CHROMIUM_PATH=/usr/bin/chromium npm run test:e2e`。默认执行桌面与移动视口 Chromium。可选 WebKit：先 `npx playwright install --with-deps webkit`，再 `TEST_WEBKIT=1 npm run test:e2e`。WebKit 模拟不等于真机验收。Playwright 会启动应用 dist/_headers 的生产测试服务器（含实际严格 CSP）；HTML 报告在 `playwright-report/`，失败 trace 在 `test-results/`。应用测试期间仅使用公开演示或合成数据。第一轮历史记录见 [docs/qa-evidence.md](docs/qa-evidence.md)，当前候选见 [第二轮交接报告](docs/round2-handoff.md)。
 
 ## 使用和数据安全
 
-- 导入符合 `contracts/mindflow-card-schema-v1.json` 的本地 JSON，或点击“体验示例”。首次为空库。
+- 可直接点击“粘贴 JSON”，粘贴 ChatGPT 生成的完整卡片并“校验并导入”，无需创建文件。也可通过文件导入符合 `contracts/mindflow-card-schema-v1.json` 的本地 JSON，或点击“体验示例”。首次为空库。每次导入一张卡片，可连续导入组成多卡知识库；不增加协议之外的多卡包装字段。
 - 单卡最大 2 MiB，知识树最多 16 层；同一张卡的节点 ID 不可重复。重复内容被拒绝，改变后的内容保留为另一张卡，原卡和阅读状态不受影响。
 - 卡片、阅读位置、收藏和设置保存在当前浏览器 IndexedDB。随机切换使用当前搜索/收藏筛选范围，尽量避免当前卡。
-- “备份、设置与隐私”可下载包含卡片、阅读状态、设置及完整性摘要的备份。恢复前会提示替换全部数据；校验失败不写入。备份最多 40 MiB / 500 卡，并受安全节点数量限制。校验和不提供加密或身份验证，请妥善保管私人文件。
+- “备份、设置与隐私”可下载包含卡片、阅读状态、设置及完整性摘要的备份。恢复前会提示替换全部数据；校验失败不写入。知识库采用统一可恢复容量预算：最多 500 张、40 MiB（为阅读状态及设置预留空间）。单卡保持 50,000 个 JSON 值的限制；整库按逐卡预算校验，不再错误地共用单卡计数。导入超限在事务写入前拒绝，导出与恢复使用同一规则。旧版本已超限的异常库会明确拒绝导出，而不会生成不可恢复文件；当前版本未提供超限旧库分卷迁移界面。校验和不提供加密或身份验证，请妥善保管私人文件。
 - 清除网站数据、无痕模式、卸载、系统存储回收可能造成数据丢失。请定期导出并在另一位置保存备份。不要把私人 JSON 或备份放进仓库、public/ 或部署目录。
 
 ## Cloudflare Pages 静态部署
@@ -44,3 +44,9 @@ npm run test:e2e
 在真实 iPhone Safari HTTPS 站点：首次联网打开，导入公开示例，添加到主屏幕；打开摘要、子节点和 FAQ，收藏并调整字号；关闭重开确认阅读位置；导出备份。开启飞行模式，强制退出后从主屏幕重开，确认可读和可搜索；恢复备份确认收藏、设置仍在。再测畸形 JSON 不影响已有数据。检查刘海/底部安全区、长中文、大字、VoiceOver、文件选择/下载与分享。验证有新版本时更新后数据仍在。
 
 真实 iPhone 离线冷启动、Safari 存储回收行为和更新流程无法用桌面模拟证明，必须单独记录设备型号、iOS 版本及结果。
+
+## 第二轮交互与安全变化
+
+移动端已有卡片时阅读区排在知识库管理区前面；管理功能仍可向下滚动访问。节点正文位于树导航前方，点击节点会滚动并聚焦正文，可返回知识树；子树逐层展开，恢复选中节点时自动展开祖先。阅读区支持水平滑动及上一张/下一张按钮，垂直滚动、表单、树操作和文本选择不触发切卡。
+
+Ajv 校验器在 `npm ci` / typecheck / test / build 前从正式协议生成，浏览器不再运行 Ajv compile，生产 CSP 已去除 unsafe-eval。仅支持基本 Markdown；代码块、表格、LaTeX/KaTeX 完整排版留待 V1.1，仍不执行用户 HTML。
