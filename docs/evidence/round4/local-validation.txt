@@ -1,0 +1,181 @@
+Round4 validation start UTC: 2026-10-30T10:06:29Z
+v24.19.0
+11.9.0
+Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)
+npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+> mindflow@1.0.0 prepare
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+added 495 packages in 9s
+
+> mindflow@1.0.0 pretypecheck
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 typecheck
+> tsc -b
+
+
+> mindflow@1.0.0 lint
+> eslint .
+
+
+> mindflow@1.0.0 pretest
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /workspace/mindflow
+
+
+ Test Files  7 passed (7)
+      Tests  35 passed (35)
+   Start at  10:06:47
+   Duration  32.03s (transform 580ms, setup 0ms, import 1.88s, tests 55.23s, environment 1ms)
+
+
+> mindflow@1.0.0 prebuild
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 build
+> tsc -b && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 142 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                          0.33 kB
+dist/migration.html                                0.56 kB │ gzip:   0.36 kB
+dist/index.html                                    0.67 kB │ gzip:   0.42 kB
+dist/assets/style-BGrn-dwi.css                    10.28 kB │ gzip:   3.29 kB
+dist/assets/migration-B9umUJX0.js                  1.02 kB │ gzip:   0.73 kB
+dist/assets/workbox-window.prod.es5-BBnX5xw4.js    5.75 kB │ gzip:   2.36 kB
+dist/assets/main-DXu13Kpz.js                      26.34 kB │ gzip:  11.12 kB
+dist/assets/style-4a8ZqUkY.js                    467.09 kB │ gzip: 141.47 kB
+✓ built in 3.11s
+
+PWA v1.3.0
+mode      generateSW
+precache  13 entries (504.80 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-2fbc6a65.js
+
+> mindflow@1.0.0 test:e2e
+> playwright test
+
+[WebServer] (node:26639) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 62 tests using 1 worker
+
+(node:26651) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/app.spec.ts:4:1 › import, recursive reading, search, favorites and persistence (1.7s)
+  ✓   2 [chromium] › e2e/app.spec.ts:17:1 › safe rendering never requests remote images or executes HTML (817ms)
+  ✓   3 [chromium] › e2e/app.spec.ts:22:1 › backup export and restore preserve favorites and reject corrupt input (1.3s)
+  ✓   4 [chromium] › e2e/app.spec.ts:29:1 › production service worker reopens imported content offline (1.3s)
+  ✓   5 [chromium] › e2e/app.spec.ts:35:1 › random recommendation excludes current card, favorites filter and large text fit (1.4s)
+  ✓   6 [chromium] › e2e/app.spec.ts:41:1 › reading scroll position survives reopening (1.4s)
+  ✓   7 [chromium] › e2e/independent-font-diagnostic.spec.ts:2:1 › B-R2 font: waiting for applied settings before reload persists ten times (3.8s)
+  ✓   8 [chromium] › e2e/independent-font-diagnostic.spec.ts:12:1 › B-R2 font: immediate reload under real IndexedDB contention preserves chosen setting (1.1s)
+  ✓   9 [chromium] › e2e/independent-qa.spec.ts:9:1 › QA: direct JSON paste entry exists (617ms)
+  ✓  10 [chromium] › e2e/independent-qa.spec.ts:13:1 › QA: 390px returning reader sees card and reading tabs in first screen (1.2s)
+  ✓  11 [chromium] › e2e/independent-qa.spec.ts:22:1 › QA: backup UI warns files are unencrypted (940ms)
+  ✓  12 [chromium] › e2e/independent-qa.spec.ts:26:1 › QA: synthetic markdown/math stays inert and never contacts external hosts (753ms)
+  ✓  13 [chromium] › e2e/independent-qa.spec.ts:34:1 › QA: selecting tree node scrolls its content into the mobile viewport (1.1s)
+  -  14 [chromium] › e2e/independent-qa.spec.ts:44:1 › QA: real Chromium touch swipe switches cards without a management button
+  ✓  15 [chromium] › e2e/independent-round2.spec.ts:4:1 › B-R2: UI two 4500-child cards export, clear synthetic stores, restore exact content (2.8s)
+  ✓  16 [chromium] › e2e/independent-round2.spec.ts:34:1 › B-R2: paste/file parity, no clipboard API, closed-page persistence and no external upload (2.4s)
+  ✓  17 [chromium] › e2e/independent-round2.spec.ts:56:1 › B-R2: returning from node moves accessible focus to tree navigation (971ms)
+  ✓  18 [chromium] › e2e/independent-round2.spec.ts:64:1 › B-R2: touch exclusions, thresholds and explicit card buttons (1.2s)
+  ✓  19 [chromium] › e2e/independent-round3.spec.ts:3:1 › B-R3: transaction abort after successful put is not Saved, retry commits before acknowledgement (1.6s)
+  ✓  20 [chromium] › e2e/independent-round3.spec.ts:30:1 › B-R3: depth-16 selected node focus, keyboard continuation and both missing-target fallbacks (1.8s)
+  ✓  21 [chromium] › e2e/round2.spec.ts:4:1 › QA-002: paste and file import share validation and dedup, multiple cards persist offline (1.8s)
+  ✓  22 [chromium] › e2e/round2.spec.ts:13:1 › QA-003: depth-16 disclosure, focused body and selected ancestors survive reload (2.4s)
+  ✓  23 [chromium] › e2e/round2.spec.ts:20:1 › QA-008/009: basic Markdown is structured under actual strict CSP (800ms)
+  ✓  24 [chromium] › e2e/round2.spec.ts:24:1 › QA-006: vertical touch scroll does not switch cards or cancel reading (1.3s)
+  ✓  25 [chromium] › e2e/round3.spec.ts:44:1 › R3 font: explicit committed status, real write lock Saving, rapid changes and reload (1.2s)
+  ✓  26 [chromium] › e2e/round3.spec.ts:66:1 › R3 font: refresh before transaction commit replays durable intent, not a false Saved (1.2s)
+  ✓  27 [chromium] › e2e/round3.spec.ts:85:1 › R3 font: database error feedback, committed style preserved and retry succeeds (995ms)
+  ✓  28 [chromium] › e2e/round3.spec.ts:117:1 › R3 tree: deep keyboard return, repeat, arrow navigation and removed-node fallback (1.3s)
+  ✓  29 [chromium] › e2e/round3.spec.ts:158:1 › R3 legacy UI: 501 valid cards download all volumes, clear, atomic restore and exact comparison (4.4s)
+R4_STRESS_METRICS {"project":"chromium","cards":2001,"totalExportBytes":49424718,"maxPartBytes":8249812,"maxBatchCards":4,"observedJSHeapBytes":[35980802,63925855,51639476,43170514],"note":"Chromium reported phase samples, not a process/native peak-memory guarantee"}
+  ✓  30 [chromium] › e2e/round4.spec.ts:121:1 › R4 combined stress: 2001 cards AND >40MiB, bounded export, refresh-resume, quota rollback and exact restore (40.1s)
+  ✓  31 [chromium] › e2e/round4.spec.ts:421:1 › R4 page refresh during blocked export leaves original intact and no completion manifest (1.3s)
+(node:27908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  32 [chromium-mobile] › e2e/app.spec.ts:4:1 › import, recursive reading, search, favorites and persistence (1.7s)
+  ✓  33 [chromium-mobile] › e2e/app.spec.ts:17:1 › safe rendering never requests remote images or executes HTML (768ms)
+  ✓  34 [chromium-mobile] › e2e/app.spec.ts:22:1 › backup export and restore preserve favorites and reject corrupt input (1.3s)
+  ✓  35 [chromium-mobile] › e2e/app.spec.ts:29:1 › production service worker reopens imported content offline (1.2s)
+  ✓  36 [chromium-mobile] › e2e/app.spec.ts:35:1 › random recommendation excludes current card, favorites filter and large text fit (1.5s)
+  ✓  37 [chromium-mobile] › e2e/app.spec.ts:41:1 › reading scroll position survives reopening (1.6s)
+  ✓  38 [chromium-mobile] › e2e/independent-font-diagnostic.spec.ts:2:1 › B-R2 font: waiting for applied settings before reload persists ten times (4.0s)
+  ✓  39 [chromium-mobile] › e2e/independent-font-diagnostic.spec.ts:12:1 › B-R2 font: immediate reload under real IndexedDB contention preserves chosen setting (1.1s)
+  ✓  40 [chromium-mobile] › e2e/independent-qa.spec.ts:9:1 › QA: direct JSON paste entry exists (599ms)
+  ✓  41 [chromium-mobile] › e2e/independent-qa.spec.ts:13:1 › QA: 390px returning reader sees card and reading tabs in first screen (1.4s)
+  ✓  42 [chromium-mobile] › e2e/independent-qa.spec.ts:22:1 › QA: backup UI warns files are unencrypted (1.2s)
+  ✓  43 [chromium-mobile] › e2e/independent-qa.spec.ts:26:1 › QA: synthetic markdown/math stays inert and never contacts external hosts (733ms)
+  ✓  44 [chromium-mobile] › e2e/independent-qa.spec.ts:34:1 › QA: selecting tree node scrolls its content into the mobile viewport (1.1s)
+  ✓  45 [chromium-mobile] › e2e/independent-qa.spec.ts:44:1 › QA: real Chromium touch swipe switches cards without a management button (1.1s)
+  ✓  46 [chromium-mobile] › e2e/independent-round2.spec.ts:4:1 › B-R2: UI two 4500-child cards export, clear synthetic stores, restore exact content (2.9s)
+  ✓  47 [chromium-mobile] › e2e/independent-round2.spec.ts:34:1 › B-R2: paste/file parity, no clipboard API, closed-page persistence and no external upload (2.6s)
+  ✓  48 [chromium-mobile] › e2e/independent-round2.spec.ts:56:1 › B-R2: returning from node moves accessible focus to tree navigation (991ms)
+  ✓  49 [chromium-mobile] › e2e/independent-round2.spec.ts:64:1 › B-R2: touch exclusions, thresholds and explicit card buttons (1.3s)
+  ✓  50 [chromium-mobile] › e2e/independent-round3.spec.ts:3:1 › B-R3: transaction abort after successful put is not Saved, retry commits before acknowledgement (1.6s)
+  ✓  51 [chromium-mobile] › e2e/independent-round3.spec.ts:30:1 › B-R3: depth-16 selected node focus, keyboard continuation and both missing-target fallbacks (1.8s)
+  ✓  52 [chromium-mobile] › e2e/round2.spec.ts:4:1 › QA-002: paste and file import share validation and dedup, multiple cards persist offline (1.6s)
+  ✓  53 [chromium-mobile] › e2e/round2.spec.ts:13:1 › QA-003: depth-16 disclosure, focused body and selected ancestors survive reload (2.5s)
+  ✓  54 [chromium-mobile] › e2e/round2.spec.ts:20:1 › QA-008/009: basic Markdown is structured under actual strict CSP (794ms)
+  ✓  55 [chromium-mobile] › e2e/round2.spec.ts:24:1 › QA-006: vertical touch scroll does not switch cards or cancel reading (1.2s)
+  ✓  56 [chromium-mobile] › e2e/round3.spec.ts:44:1 › R3 font: explicit committed status, real write lock Saving, rapid changes and reload (1.4s)
+  ✓  57 [chromium-mobile] › e2e/round3.spec.ts:66:1 › R3 font: refresh before transaction commit replays durable intent, not a false Saved (1.2s)
+  ✓  58 [chromium-mobile] › e2e/round3.spec.ts:85:1 › R3 font: database error feedback, committed style preserved and retry succeeds (1.2s)
+  ✓  59 [chromium-mobile] › e2e/round3.spec.ts:117:1 › R3 tree: deep keyboard return, repeat, arrow navigation and removed-node fallback (1.3s)
+  ✓  60 [chromium-mobile] › e2e/round3.spec.ts:158:1 › R3 legacy UI: 501 valid cards download all volumes, clear, atomic restore and exact comparison (4.4s)
+R4_STRESS_METRICS {"project":"chromium-mobile","cards":2001,"totalExportBytes":49424718,"maxPartBytes":8249807,"maxBatchCards":4,"observedJSHeapBytes":[22586152,81071021,64160679,20636141],"note":"Chromium reported phase samples, not a process/native peak-memory guarantee"}
+  ✓  61 [chromium-mobile] › e2e/round4.spec.ts:121:1 › R4 combined stress: 2001 cards AND >40MiB, bounded export, refresh-resume, quota rollback and exact restore (37.5s)
+  ✓  62 [chromium-mobile] › e2e/round4.spec.ts:421:1 › R4 page refresh during blocked export leaves original intact and no completion manifest (1.5s)
+
+  1 skipped
+  61 passed (2.9m)
+found 0 vulnerabilities
+
+ROUND4_VALIDATION_EXIT_STATUS=0

@@ -13,6 +13,7 @@ import {
   patchSettings,
 } from "./settings";
 import { exportVolumes, restoreVolumes, type TransferFile } from "./volumes";
+import { LargeMigration } from "./LargeMigration";
 import { ReadingText } from "./ReadingText";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import example from "../contracts/mindflow-card-example-v1.json";
@@ -676,6 +677,19 @@ export default function App() {
                 type="file"
                 accept=".json"
                 onChange={(e) => void file(e, true)}
+              />
+              <a className="button" href="/migration.html">
+                打开独立迁移页（不加载整库）
+              </a>
+              <LargeMigration
+                disabled={!ready || busy || fontStatus === "saving"}
+                onBusy={setBusy}
+                onRestored={async () => {
+                  localStorage.removeItem(FONT_INTENT_KEY);
+                  setFontStatus("idle");
+                  await load(true);
+                  setMessage("分页迁移恢复成功，所有数据已提交");
+                }}
               />
               <label className="font">
                 字号

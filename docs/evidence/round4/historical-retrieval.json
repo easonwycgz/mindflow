@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-30 Asia/Shanghai",
+  "historicalRun": 41014649370,
+  "job": 123928110503,
+  "productSHA": "740b98bb0d6f0bf9214e12345bdb51b3e4d605fa",
+  "mergeSnapshot": "993122a706d40e978c1f5bed3f1ee130d4051854",
+  "sourceAndLockDiffExit": 0,
+  "apiAttemptError": "failed to get run: Get \"https://api.github.com/repos/easonwycgz/mindflow/actions/runs/41014649370?exclude_pull_requests=true\": Forbidden",
+  "recoveredRawLogBytes": 0,
+  "exactStepRouteHTTP": 404,
+  "loginRequiredOnJobPage": true,
+  "steps": [
+    {
+      "data-name": "Set up job",
+      "data-number": "1",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Run actions/checkout@v4",
+      "data-number": "2",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Run actions/setup-node@v4",
+      "data-number": "3",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Run npm ci",
+      "data-number": "4",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Run npm run typecheck && npm run lint && npm test && npm run build",
+      "data-number": "5",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Run npx playwright install --with-deps chromium",
+      "data-number": "6",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Run npm run test:e2e",
+      "data-number": "7",
+      "data-conclusion": "failure"
+    },
+    {
+      "data-name": "Post Run actions/setup-node@v4",
+      "data-number": "13",
+      "data-conclusion": "skipped"
+    },
+    {
+      "data-name": "Post Run actions/checkout@v4",
+      "data-number": "14",
+      "data-conclusion": "success"
+    },
+    {
+      "data-name": "Complete job",
+      "data-number": "15",
+      "data-conclusion": "success"
+    }
+  ],
+  "classification": "NOT CONFIRMED",
+  "note": "Access failure is not proof of deletion/expiry. Historical test symptom is attributed to B/user evidence, not recovered raw log."
+}

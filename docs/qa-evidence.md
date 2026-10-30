@@ -75,3 +75,7 @@ See [round2-handoff.md](round2-handoff.md) for exact QA mappings, changes, actua
 ## Third-round candidate
 
 [Round3 handoff](round3-handoff.md) records the pinned B report, actual persistence/focus/migration changes and scope. Clean-install local chain: 27 data PASS; Chromium desktop/mobile53 PASS /1 unchanged capability SKIP; types/lint/build PASS; production audit0. B's font contention and tree-focus tests remain byte-identical and now pass. Public synthetic-only logs and source hashes are in docs/evidence/round3, explicitly requested by the user to avoid artifact API access problems. Historical CI unique cause remains unconfirmed; no independent approval or production deployment is claimed.
+
+## Round 4 targeted candidate
+
+See round4-handoff.md, historical RCA and migration design. Whole local chain: data35 PASS; browser61 PASS /1 original capability SKIP /0 FAIL; types/lint/build PASS; audit0. New paging crosses count2001 and49,424,718 data bytes simultaneously, with refresh-resume/native interruption/quota rollback. Original settings/db/model/Markdown/CSP implementations unchanged. Public synthetic logs/metrics/hashes are in docs/evidence/round4. QA-004 historical unique cause NOT CONFIRMED; user requests formal owner/B gate evaluation, stillOPEN. Physical/platform residual migration risks remain explicit, not universal compatibility claims.

@@ -25,3 +25,10 @@ Round 2 complete local chain: 17 data tests pass; 31 browser pass / 1 original c
 4. Provide bounded legacy501 transfer-set export/restore using unchanged v1 volumes, manifest and one transaction; test complete UI roundtrip and interruption/corruption.
 5. Keep QA-008 partial and register the already-scoped V1.1 work. Run clean-install full regression, publish synthetic-only readable evidence, push same branch and inspect final matching PR/push CI.
 6. Return new candidate to B; no independent Go decision, main merge or production deployment.
+
+## Round 4 targeted work
+- Read pinned B6e53ec9 report/evidence, preserve history and copy its two tests verbatim.
+- Recover accessible historical step/source/lock facts; document CONFIRMED/LIKELY/NOT CONFIRMED and submit explicit gate decision request. User chose formal owner/B evaluation; no gate changed.
+- Add bounded working-set migration with separate staging, a non-reader entry, unchanged v1 parts and constant-size chain root; keep old migration APIs/tests.
+- Validate count/byte matrices, combined native2001/>40MiB stress, interruption/quota/refresh rollback and readable evidence.
+- Clean-install all checks, same-branch commit, verify matching final PR/push CI; no main merge or production deployment.

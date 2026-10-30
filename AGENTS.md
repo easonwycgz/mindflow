@@ -18,3 +18,11 @@
 - Settings may acknowledge Saved only after the IndexedDB transaction commits. A tiny localStorage font-intent journal may be used solely to resume an interrupted setting write; cards remain in IndexedDB.
 - Single backups retain the v1 envelope and 500-card limit. Transfer sets use unchanged v1 volumes plus a separate packaging manifest; validate the whole bounded set before one restore transaction.
 - Explicit user-authorized exception: sanitized, synthetic-only plain-text validation logs and source hashes may be committed under docs/evidence/round3 for public read access. Never commit real user content, browser backups, credentials, environment dumps or raw private traces.
+
+## Round 4 targeted constraints
+- Keep current font/focus/Markdown fixes and schemas unchanged; retain pinned B tests verbatim.
+- Large migration must not load the whole library or all file texts into JavaScript. Use the dedicated migration.html entry for large data.
+- Source snapshots are readonly; incomplete export has no completion manifest. Stage all restore parts before one atomic destination transaction; never auto-promote on startup.
+- Separate migration workspace may be discarded without touching source/destination library. Origin-quota failure must retain originals and offer direct local-directory export where supported.
+- User-authorized synthetic-only text/metrics/source hashes are also permitted under docs/evidence/round4; historical evidence files remain unchanged.
+- Historical QA-004 unique RCA remains NOT CONFIRMED unless recovered evidence proves it; gate changes require an explicit owner/B decision.

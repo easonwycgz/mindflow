@@ -23,3 +23,10 @@
 - Legacy501 libraries have a bounded multi-file transfer path using unchanged v1 envelopes plus a separate manifest; aggregate limit40MiB/max2000 cards/max16×8MiB parts, validated globally before one atomic three-store replacement. Standard single-backup limits stay unchanged. See volumes.ts and the compatibility design for actual dependency/resource analysis.
 - QA-008 remains PARTIAL, consistent with the locked contract and B's scope finding. Explicit V1.1 backlog records full math, tables and fenced-code rendering.
 - Public synthetic-only text evidence is an explicit user-authorized exception to the normal no-generated-artifacts rule. CI also emits readable step summaries; private browser data and credentials remain prohibited.
+
+## Round 4 — superseding only large-migration resource architecture
+- Current settings/focus/Markdown fixes and the primary v1 database remain unchanged. App adds a migration tool; dedicated migration.html avoids the normal reader's whole-library loading.
+- New paged packaging uses unchanged v1 parts, a constant-size root and ordered hash chain. Counts/total bytes have no former2000/40MiB product cap; each card/part retains safety limits. Four-record source/target batches, disk indexes and sequential File.text avoid aggregate JavaScript arrays.
+- Export uses one readonly snapshot, spools parts to a separate workspace or writes a user-selected local directory without workspace allocation. Completion root is last. Restore stages/validates every part first, then atomically replaces the original three stores; external staged reads keep the native transaction alive via Dexie.waitFor. No main DB version upgrade.
+- Physical quota/native transaction resource limits remain; non-directory/no-space combinations are explicitly unresolved. Direct directory core was tested with real local file sink, not claimed as manual picker or Safari validation.
+- Original historical raw logs remain inaccessible (APIForbidden, exact route404); source/lock identity and failing step recovered, unique timeline not recovered. User requests owner/B evaluation of new closure criteria; gate remainsOPEN until a formal decision.

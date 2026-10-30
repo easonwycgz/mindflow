@@ -1,0 +1,27 @@
+
+> mindflow@1.0.0 pretest
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 test
+> vitest run tests/round4.test.ts --reporter=verbose
+
+
+ RUN  v4.1.12 /workspace/mindflow
+
+ ✓ tests/round4.test.ts > R4 count matrix: 501, 2000 and 2001 cards export and restore without a whole-library cap 9672ms
+ ✓ tests/round4.test.ts > R4 byte matrix: near and beyond 40MiB, large legal cards, complete disk-sink files and exact restore 14224ms
+ ✓ tests/round4.test.ts > R4 restore resumes after reopening workspace; missing, mixed, corrupt and conflicting duplicate parts never touch target 1192ms
+ ✓ tests/round4.test.ts > R4 quota and abort at staging/promotion retain original and validated staging for retry 136ms
+ ✓ tests/round4.test.ts > R4 incomplete export never publishes completion manifest and never deletes source; disk mode bypasses workspace quota 825ms
+ ✓ tests/round4.test.ts > R4 stage corruption and illegal oversized single cards reject without truncation or destination mutation 83ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  10:13:11
+   Duration  26.69s (transform 210ms, setup 0ms, import 376ms, tests 26.13s, environment 0ms)
+
