@@ -26,3 +26,10 @@
 - Separate migration workspace may be discarded without touching source/destination library. Origin-quota failure must retain originals and offer direct local-directory export where supported.
 - User-authorized synthetic-only text/metrics/source hashes are also permitted under docs/evidence/round4; historical evidence files remain unchanged.
 - Historical QA-004 unique RCA remains NOT CONFIRMED unless recovered evidence proves it; gate changes require an explicit owner/B decision.
+
+## Round 5 integrity and evidence
+- Restore readiness is never an integrity proof. Preserve exact original manifest/volume texts, bind complete cards/reading/settings to the manifest chain, and write the same private values verified at use; never re-query mutable rows for the destination write.
+- Pre-fix restore staging without original-file proofs must be rejected and re-staged from user files, without clearing the library. Keep all earlier tests and pinned B round-4 tests byte-identical.
+- No-workspace export may use explicit per-file local downloads with the same readonly snapshot/parts/root. A download request or user acknowledgement is not proof of disk persistence. Never delete source data to free quota; preserve and label incomplete files.
+- Synthetic-only text logs/source hashes are permitted under docs/evidence/round5 by the user's explicit evidence request. No real backups, secrets, environment dumps or private traces.
+- R4-001 is a developer repair candidate pending B's independent verdict; conditional storage/platform risk and QA-004 OPEN are not closed by developer tests.

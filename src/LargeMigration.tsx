@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { db } from "./db";
+import type { TransferFile } from "./volumes";
 import {
   beginPagedRestore,
   commitPagedRestore,
@@ -35,16 +36,23 @@ export function LargeMigration({
     [current, setCurrent] = useState<MigrationJob | null>(null),
     [notice, setNotice] = useState(""),
     [running, setRunning] = useState(false),
+    [pendingDownload, setPendingDownload] = useState<{
+      file: TransferFile;
+      requested: boolean;
+      accept: () => void;
+    } | null>(null),
+    [downloadProgress, setDownloadProgress] = useState({ count: 0, last: "" }),
     [page, setPage] = useState(0);
   const manifestInput = useRef<HTMLInputElement>(null),
     partsInput = useRef<HTMLInputElement>(null),
-    controller = useRef<AbortController | null>(null);
+    controller = useRef<AbortController | null>(null),
+    rejectDownload = useRef<((reason: Error) => void) | null>(null);
   async function refresh() {
     setJobs(await listMigrationJobs());
   }
   useEffect(() => {
     void refresh().catch(() =>
-      setNotice("迁移暂存不可用；原库没有改动。可尝试直接导出目录。"),
+      setNotice("迁移暂存不可用；原库没有改动。可使用无需暂存空间的逐卷下载。"),
     );
   }, []);
   async function run(fn: () => Promise<void>) {
@@ -54,12 +62,66 @@ export function LargeMigration({
     try {
       await fn();
     } catch (e) {
-      setNotice(e instanceof Error ? e.message : "迁移失败，原库未被部分替换");
+      setNotice(
+        (e instanceof Error ? e.message : "迁移失败") +
+          "。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完成清单或任何分卷都不能恢复。",
+      );
     } finally {
+      rejectDownload.current?.(
+        Error("本次下载快照已结束；未完成集合不能恢复，原库保留"),
+      );
+      rejectDownload.current = null;
+      setPendingDownload(null);
       setRunning(false);
       onBusy(false);
       await refresh().catch(() => undefined);
     }
+  }
+  async function streamDownloads() {
+    setDownloadProgress({ count: 0, last: "" });
+    await run(async () => {
+      setCurrent(null);
+      await exportPagedMigration(db, undefined, {
+        signal: controller.current!.signal,
+        onProgress: (p) =>
+          setNotice(
+            `正在逐卷迁出：${p.cards} 卡 / ${p.parts} 卷；尚未生成完整清单`,
+          ),
+        sink: (file) =>
+          new Promise<void>((resolve, reject) => {
+            const signal = controller.current!.signal;
+            let settled = false;
+            const abort = () =>
+              finish(Error("迁出已取消，已下载文件是不完整集合；原库保留"));
+            const finish = (error?: Error) => {
+              if (settled) return;
+              settled = true;
+              signal.removeEventListener("abort", abort);
+              rejectDownload.current = null;
+              setPendingDownload(null);
+              if (error) reject(error);
+              else resolve();
+            };
+            rejectDownload.current = finish;
+            signal.addEventListener("abort", abort, { once: true });
+            if (signal.aborted) {
+              abort();
+              return;
+            }
+            setPendingDownload({
+              file,
+              requested: false,
+              accept: () => finish(),
+            });
+            setNotice(
+              `等待下载 ${file.name}。这是下载请求，不代表磁盘保存已确认。`,
+            );
+          }),
+      });
+      setNotice(
+        "全部分卷和完成清单已请求下载；磁盘保存尚未验证。请保留全部文件，重新选择清单和分卷完整校验后再迁移。原库未改动。",
+      );
+    });
   }
   function download(name: string, text: string) {
     const url = URL.createObjectURL(
@@ -155,6 +217,54 @@ export function LargeMigration({
         <button disabled={blocked} onClick={() => void chooseDirectory()}>
           直接导出到本地目录
         </button>
+      )}
+      <button disabled={blocked} onClick={() => void streamDownloads()}>
+        逐卷下载（无需暂存空间）
+      </button>
+      <p>
+        无目录 API
+        或暂存配额不足时，可逐卷下载到设备文件中；每次只生成一卷，不复制整库到浏览器暂存。
+        每卷请在 60
+        秒内下载并确认，否则快照中止、原库保留。浏览器必须允许文件下载。
+        完成清单最后生成；下载请求不等于磁盘保存成功，必须保留全部文件并重新完整验证。
+        恢复仍需要足够暂存及事务空间，不得清空唯一原库腾空间。
+      </p>
+      {pendingDownload && (
+        <section aria-label="无需暂存的逐卷下载">
+          <p>{pendingDownload.file.name}</p>
+          <button
+            onClick={() => {
+              try {
+                download(pendingDownload.file.name, pendingDownload.file.text);
+                if (!pendingDownload.requested)
+                  setDownloadProgress((p) => ({
+                    count: p.count + 1,
+                    last: pendingDownload.file.name,
+                  }));
+                setPendingDownload({ ...pendingDownload, requested: true });
+              } catch (e) {
+                rejectDownload.current?.(
+                  e instanceof Error ? e : Error("无法发起本地下载"),
+                );
+              }
+            }}
+          >
+            下载当前文件
+          </button>
+          <button
+            disabled={!pendingDownload.requested}
+            onClick={pendingDownload.accept}
+          >
+            已保存当前文件，继续
+          </button>
+        </section>
+      )}
+      {downloadProgress.count > 0 && (
+        <p data-testid="direct-download-progress">
+          已请求下载 {downloadProgress.count} 个文件，最后为{" "}
+          {downloadProgress.last}。
+          中断时这些文件仍在设备下载位置；没有完整清单和全部卷不能恢复。
+        </p>
       )}
       <p>
         暂存空间不足时，可在支持目录写入的桌面 Chromium

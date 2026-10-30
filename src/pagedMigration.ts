@@ -11,7 +11,7 @@ import {
   type StoredCard,
   type Reading,
 } from "./db";
-import { hash, parseJSON, MAX_BACKUP_VALUES } from "./model";
+import { canonical, hash, parseJSON, MAX_BACKUP_VALUES } from "./model";
 import { VOLUME_BYTES, type TransferFile } from "./volumes";
 export const MIGRATION_BATCH = 4;
 const hex = z.string().regex(/^[a-f0-9]{64}$/);
@@ -46,6 +46,7 @@ export interface MigrationJob extends MigrationProgress {
   chain: string;
   error?: string;
   direct?: boolean;
+  integrityVersion?: 1;
 }
 interface StageCard {
   job: string;
@@ -312,6 +313,10 @@ export async function beginPagedRestore(
   if (old) {
     if (old.root?.checksum !== root.checksum)
       throw Error("同一迁移标识的清单发生变化");
+    if (old.integrityVersion !== 1)
+      throw Error(
+        "旧版恢复暂存缺少原始卷证明；请只删除该暂存，再重新选择原清单和分卷。原库未改动",
+      );
     return old;
   }
   const job: MigrationJob = {
@@ -327,8 +332,12 @@ export async function beginPagedRestore(
     maxPartBytes: 0,
     maxBatchCards: 0,
     chain: await initialChain(root.setId, root.settings),
+    integrityVersion: 1,
   };
-  await work.jobs.add(job);
+  await work.transaction("rw", work.jobs, work.files, async () => {
+    await work.jobs.add(job);
+    await work.files.add({ job: id, index: 0, text: file.text });
+  });
   return job;
 }
 export async function stagePagedPart(
@@ -339,6 +348,8 @@ export async function stagePagedPart(
   const job = await work.jobs.get(jobId);
   if (!job?.root || job.kind !== "restore" || job.state === "complete")
     throw Error("请先选择恢复清单");
+  if (job.integrityVersion !== 1)
+    throw Error("旧版恢复暂存缺少原始卷证明；请重新暂存原备份，原库未改动");
   const root = job.root;
   const prefix = `mindflow-${job.setId}-stream-`,
     suffix = file.name.startsWith(prefix) ? file.name.slice(prefix.length) : "";
@@ -400,6 +411,7 @@ export async function stagePagedPart(
     work.reading,
     work.receipts,
     work.jobs,
+    work.files,
     async () => {
       const current = await work.jobs.get(jobId);
       if (current?.parts !== job.parts)
@@ -420,6 +432,8 @@ export async function stagePagedPart(
         })),
       );
       await work.receipts.add({ job: jobId, ...entry });
+      // Preserve the exact bytes bound by the external manifest's chain. Derived rows alone are not proof.
+      await work.files.add({ job: jobId, index, text: file.text });
       if (index === root.totalParts) {
         if (
           next.cards !== root.totalCards ||
@@ -442,6 +456,9 @@ export async function stagePagedPart(
   );
   return next;
 }
+// All authority comes from original file texts bound by the root chain, never from a ready flag.
+// A verified batch is a private value snapshot; the destination writes those exact values,
+// without re-reading mutable staging rows between verification and use.
 export async function commitPagedRestore(
   jobId: string,
   target: MindDB = db,
@@ -451,12 +468,52 @@ export async function commitPagedRestore(
     onProgress?: (p: MigrationProgress) => void;
   } = {},
 ) {
+  const mismatch = () =>
+    Error(
+      "暂存完整性校验失败：数据与原始清单/分卷不一致；全部写入回滚，请重新暂存原备份",
+    );
   const job = await work.jobs.get(jobId);
   if (job?.kind !== "restore" || job.state !== "ready" || !job.root)
     throw Error("所有分卷验证完成前禁止替换原库");
+  if (job.integrityVersion !== 1)
+    throw Error("旧版恢复暂存缺少原始卷证明；请重新暂存原备份，原库未改动");
+  const root = rootSchema.parse(job.root);
+  const checkRoot = async () => {
+    const proof = await work.files.get([jobId, 0]);
+    if (!proof) throw mismatch();
+    const original = rootSchema.parse(parseJSON(proof.text, 16 * 1024));
+    const { checksum, ...body } = original;
+    if (
+      canonical(original) !== canonical(root) ||
+      (await external(() => hash(body))) !== checksum ||
+      jobId !== "restore-" + root.setId ||
+      job.setId !== root.setId
+    )
+      throw mismatch();
+    const current = await work.jobs.get(jobId);
+    if (
+      current?.integrityVersion !== 1 ||
+      canonical(current.root) !== canonical(root)
+    )
+      throw mismatch();
+    if (
+      (await work.cards.where("job").equals(jobId).count()) !==
+        root.totalCards ||
+      (await work.reading.where("job").equals(jobId).count()) !==
+        root.totalCards ||
+      (await work.files.where("job").equals(jobId).count()) !==
+        root.totalParts + 1 ||
+      (await work.receipts.where("job").equals(jobId).count()) !==
+        root.totalParts
+    )
+      throw mismatch();
+  };
+  // Cheap preflight before opening a destructive transaction; every proof is rechecked inside it.
+  await checkRoot();
   let count = 0,
-    maxBatch = 0,
-    last = "";
+    totalBytes = 0,
+    maxBatch = 0;
+  let chain = await initialChain(root.setId, root.settings);
   await target.transaction(
     "rw",
     target.cards,
@@ -466,69 +523,140 @@ export async function commitPagedRestore(
       await target.cards.clear();
       await target.reading.clear();
       await target.settings.clear();
-      while (true) {
+      for (let index = 1; index <= root.totalParts; index++) {
         cancelled(options.signal);
-        const batch = await external(() =>
-          work.cards
-            .where("[job+id]")
-            .between([jobId, last], [jobId, Dexie.maxKey], false, true)
-            .limit(MIGRATION_BATCH)
-            .toArray(),
-        );
-        if (!batch.length) break;
-        maxBatch = Math.max(maxBatch, batch.length);
-        const reading = await external(() =>
-          work.reading.bulkGet(
-            batch.map((c) => [jobId, c.id] as [string, string]),
-          ),
-        );
-        if (reading.some((r) => !r)) throw Error("暂存阅读数据缺失");
-        await external(async () => {
-          if (
-            batch.some(
-              (c) => c.id !== c.record.id || c.hash !== c.record.hash,
-            ) ||
-            reading.some((r) => r!.cardId !== r!.record.cardId)
-          )
-            throw Error("暂存标识已改变，全部写入回滚");
-          const part: Payload = {
-            cards: batch.map((c) => c.record),
-            reading: reading.map((r) => r!.record),
-            settings: {
-              ...job.root!.settings,
-              lastCardId:
-                job.root!.settings.lastCardId &&
-                batch.some((c) => c.id === job.root!.settings.lastCardId)
-                  ? job.root!.settings.lastCardId
-                  : null,
-            },
-          };
-          await validatePayload(
-            backupSchema.parse({
-              version: 1,
-              checksum: "0".repeat(64),
-              payload: part,
-            }).payload,
+        const { payload, entry } = await external(async () => {
+          const [file, receipt] = await work.transaction(
+            "r",
+            work.files,
+            work.receipts,
+            () =>
+              Promise.all([
+                work.files.get([jobId, index]),
+                work.receipts.get([jobId, index]),
+              ]),
           );
+          if (!file || !receipt || bytes(file.text) > VOLUME_BYTES)
+            throw mismatch();
+          const envelope = backupSchema.parse(
+            parseJSON(file.text, VOLUME_BYTES, MAX_BACKUP_VALUES, 68),
+          );
+          if ((await hash(envelope.payload)) !== envelope.checksum)
+            throw mismatch();
+          await validatePayload(envelope.payload);
+          const { payload } = envelope;
+          const entry = {
+            index,
+            name: filename(root.setId, index),
+            checksum: await hash(file.text),
+            cards: payload.cards.length,
+            bytes: bytes(file.text),
+          };
+          if (canonical(receipt) !== canonical({ job: jobId, ...entry }))
+            throw mismatch();
+          const expectedLast =
+            root.settings.lastCardId &&
+            payload.cards.some((c) => c.id === root.settings.lastCardId)
+              ? root.settings.lastCardId
+              : null;
+          if (
+            payload.settings.fontSize !== root.settings.fontSize ||
+            payload.settings.lastCardId !== expectedLast ||
+            (!payload.cards.length && root.totalCards !== 0)
+          )
+            throw mismatch();
+          chain = await nextChain(chain, entry);
+          return { payload, entry };
         });
-        await target.cards.bulkAdd(batch.map((c) => c.record));
-        await target.reading.bulkAdd(reading.map((r) => r!.record));
-        count += batch.length;
-        last = batch.at(-1)!.id;
-        options.onProgress?.({ ...job, cards: count, maxBatchCards: maxBatch });
+        // The original part is an invocation-private value snapshot, never exposed through callbacks.
+        const states = new Map(payload.reading.map((r) => [r.cardId, r]));
+        for (
+          let offset = 0;
+          offset < payload.cards.length;
+          offset += MIGRATION_BATCH
+        ) {
+          cancelled(options.signal);
+          const cards = payload.cards.slice(offset, offset + MIGRATION_BATCH);
+          const reading = cards.map((c) => states.get(c.id)!);
+          await external(async () => {
+            const [stagedCards, stagedReading] = await work.transaction(
+              "r",
+              work.cards,
+              work.reading,
+              () =>
+                Promise.all([
+                  work.cards.bulkGet(
+                    cards.map((c) => [jobId, c.id] as [string, string]),
+                  ),
+                  work.reading.bulkGet(
+                    cards.map((c) => [jobId, c.id] as [string, string]),
+                  ),
+                ]),
+            );
+            for (let i = 0; i < cards.length; i++) {
+              if (
+                canonical(stagedCards[i]) !==
+                  canonical({
+                    job: jobId,
+                    id: cards[i].id,
+                    hash: cards[i].hash,
+                    record: cards[i],
+                  }) ||
+                canonical(stagedReading[i]) !==
+                  canonical({
+                    job: jobId,
+                    cardId: cards[i].id,
+                    record: reading[i],
+                  })
+              )
+                throw mismatch();
+            }
+          });
+          // No re-query of staging here. A writer after the comparison cannot change these values.
+          await target.cards.bulkAdd(cards);
+          await target.reading.bulkAdd(reading);
+          if (
+            canonical(await target.cards.bulkGet(cards.map((c) => c.id))) !==
+              canonical(cards) ||
+            canonical(await target.reading.bulkGet(cards.map((c) => c.id))) !==
+              canonical(reading)
+          )
+            throw mismatch();
+          count += cards.length;
+          maxBatch = Math.max(maxBatch, cards.length);
+          options.onProgress?.({
+            ...job,
+            cards: count,
+            maxBatchCards: maxBatch,
+          });
+        }
+        totalBytes += entry.bytes;
       }
       cancelled(options.signal);
-      if (count !== job.root!.totalCards)
-        throw Error("暂存数量变化；全部写入回滚");
       if (
-        job.root!.settings.lastCardId &&
-        !(await target.cards.get(job.root!.settings.lastCardId))
+        count !== root.totalCards ||
+        totalBytes !== root.totalBytes ||
+        chain !== root.chain
       )
-        throw Error("恢复后的全局阅读引用缺失，全部写入回滚");
-      await target.settings.put(job.root!.settings);
+        throw mismatch();
+      await external(checkRoot);
+      if (
+        root.settings.lastCardId &&
+        !(await target.cards.get(root.settings.lastCardId))
+      )
+        throw mismatch();
+      await target.settings.put(root.settings);
+      if (
+        (await target.cards.count()) !== root.totalCards ||
+        (await target.reading.count()) !== root.totalCards ||
+        canonical(await target.settings.get("main")) !==
+          canonical(root.settings)
+      )
+        throw mismatch();
     },
   );
-  // A crash here may leave a ready staging job, but never a partially replaced library. No automatic promotion on startup.
+  // Resolves only after native transaction complete; never after request success alone.
+  // A crash before the workspace mark leaves a ready job but an entirely old or new destination.
   await work.jobs
     .update(jobId, { state: "complete", maxBatchCards: maxBatch })
     .catch(() => undefined);

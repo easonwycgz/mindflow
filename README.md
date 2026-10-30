@@ -66,3 +66,11 @@ Ajv 校验器在 `npm ci` / typecheck / test / build 前从正式协议生成，
 浏览器暂存配额不足时，支持本地目录API的桌面Chromium可直接写到有空间的本地/外接目录，不复制整库到浏览器工作区；目录授权UI尚未人工走查，Safari/iPhone不作支持声明。可在另一有空间的同候选浏览器中先验证再恢复，不要先清除唯一原库。极端配额不足且无目录API的环境仍有兼容风险，详情见 [迁移设计和保全方案](docs/round4-historical-migration-design.md)。不宣称无限规模或所有旧库/平台已兼容。
 
 历史QA-004的当前字号修复保持PASS，但唯一历史RCA仍NOT CONFIRMED；用户已要求提交负责人/B正式评议新关闭规则，评议前仍OPEN。见 [历史RCA](docs/qa-004-historical-ci-rca.md)、[第四轮交接](docs/round4-handoff.md)。本轮合成日志及资源样本在 docs/evidence/round4/，不依赖Actions工件API。
+
+### 第五轮候选：恢复暂存完整性与无暂存下载
+
+分页恢复会保留并重新验证原始清单/卷，逐批比较完整业务记录，直接写入同一已验证私有值；旧版ready暂存需从原文件重新暂存，不能直接信任。恢复证明会增加暂存占用，请保留原库和原文件。
+
+在`migration.html`中新增“逐卷下载（无需暂存空间）”：无需Directory API或整库origin副本，每次下载一卷并确认继续，清单最后生成；每卷须在既有60秒期限内操作。网页只确认请求下载，不能确认设备磁盘保存；重新选择所有文件完整验证后，才可在有空间的目标环境原子恢复。取消、quota或下载失败时不清原库，部分文件不能冒充完整集合。
+
+设计及环境矩阵见[第五轮完整性设计](docs/round5-staging-integrity-design.md)，最终开发者证据见[第五轮交接](docs/round5-handoff.md)。这些不是B的独立验收结论。QA-004仍OPEN，历史唯一RCA仍NOT CONFIRMED；极端平台/存储组合风险未由开发者关闭。

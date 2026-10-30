@@ -32,3 +32,10 @@ Round 2 complete local chain: 17 data tests pass; 31 browser pass / 1 original c
 - Add bounded working-set migration with separate staging, a non-reader entry, unchanged v1 parts and constant-size chain root; keep old migration APIs/tests.
 - Validate count/byte matrices, combined native2001/>40MiB stress, interruption/quota/refresh rollback and readable evidence.
 - Clean-install all checks, same-branch commit, verify matching final PR/push CI; no main merge or production deployment.
+
+## Round 5 targeted work
+1. Fetch pinned B3752a12 report/evidence and reproduce R4-001 before editing; preserve all QA history and copy B's two test files verbatim.
+2. Bind restored fields to original root/volume proof texts. Validate complete values at use, write those exact private values, and verify native target commit; legacy staging re-selected rather than trusted.
+3. Fault-inject business metadata, contents/relationships/order, files/root/receipts, late batches and the actual add boundary. Retain quantity/byte/stress/refresh/quota coverage.
+4. Add explicit one-file-at-a-time download fallback without Directory API or workspace duplication; validate actual files, cancellation and allocation failures. Retain environmental risk rather than promising every browser/disk.
+5. Clean-install complete regression and production audit; publish synthetic-only readable logs and source hashes; same branch/PR with final matching push and PR CI. Return candidate to B, never main or production.

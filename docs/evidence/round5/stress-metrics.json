@@ -1,0 +1,124 @@
+[
+  {
+    "kind": "B-R4 measured",
+    "value": {
+      "cards": 501,
+      "parts": 2,
+      "volumeBytes": 1581376,
+      "manifestBytes": 395,
+      "maxPart": 1578037,
+      "maxBatch": 4
+    }
+  },
+  {
+    "kind": "B-R4 measured",
+    "value": {
+      "cards": 2000,
+      "parts": 4,
+      "volumeBytes": 6317345,
+      "manifestBytes": 396,
+      "maxPart": 1579453,
+      "maxBatch": 4
+    }
+  },
+  {
+    "kind": "B-R4 measured",
+    "value": {
+      "cards": 2001,
+      "parts": 5,
+      "volumeBytes": 6320692,
+      "manifestBytes": 396,
+      "maxPart": 1579366,
+      "maxBatch": 4
+    }
+  },
+  {
+    "kind": "B-R4 measured",
+    "value": {
+      "cards": 10001,
+      "parts": 21,
+      "volumeBytes": 31607689,
+      "manifestBytes": 399,
+      "maxPart": 1580289,
+      "maxBatch": 4
+    }
+  },
+  {
+    "kind": "B-R4 measured",
+    "value": {
+      "cards": 34,
+      "parts": 7,
+      "volumeBytes": 50337817,
+      "manifestBytes": 395,
+      "maxPart": 7778945,
+      "maxBatch": 4
+    }
+  },
+  {
+    "kind": "B-R4 measured",
+    "value": {
+      "cards": 60,
+      "parts": 12,
+      "volumeBytes": 88493973,
+      "manifestBytes": 396,
+      "maxPart": 7778947,
+      "maxBatch": 4
+    }
+  },
+  {
+    "kind": "R4_STRESS_METRICS",
+    "value": {
+      "project": "chromium",
+      "cards": 2001,
+      "totalExportBytes": 49424718,
+      "maxPartBytes": 8249814,
+      "maxBatchCards": 4,
+      "observedJSHeapBytes": [
+        26377691,
+        31057310,
+        92008676,
+        18084111
+      ],
+      "note": "Chromium reported phase samples, not a process/native peak-memory guarantee"
+    }
+  },
+  {
+    "kind": "R5_STREAM_DOWNLOAD",
+    "value": {
+      "cards": 2001,
+      "totalBytes": 54301665,
+      "parts": 7,
+      "noDirectoryAPI": true,
+      "workspaceAddsBlocked": true,
+      "realDownloadsRestored": true
+    }
+  },
+  {
+    "kind": "R4_STRESS_METRICS",
+    "value": {
+      "project": "chromium-mobile",
+      "cards": 2001,
+      "totalExportBytes": 49424718,
+      "maxPartBytes": 8249811,
+      "maxBatchCards": 4,
+      "observedJSHeapBytes": [
+        26465270,
+        55692496,
+        89140329,
+        41611842
+      ],
+      "note": "Chromium reported phase samples, not a process/native peak-memory guarantee"
+    }
+  },
+  {
+    "kind": "R5_STREAM_DOWNLOAD",
+    "value": {
+      "cards": 2001,
+      "totalBytes": 54301665,
+      "parts": 7,
+      "noDirectoryAPI": true,
+      "workspaceAddsBlocked": true,
+      "realDownloadsRestored": true
+    }
+  }
+]
