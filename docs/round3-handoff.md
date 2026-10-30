@@ -63,7 +63,9 @@ npm audit --omit=dev
 - [数据测试详细文本](evidence/round3/data-details.txt)：逐条数据测试实际结果。
 - [源文件SHA256清单](evidence/round3/source-sha256.txt)：在候选根目录运行 `sha256sum -c docs/evidence/round3/source-sha256.txt` 可核对证据对应的应用、测试、配置、脚本。
 - 这些文件提交在公开仓库，可用Git show、raw网页或blob网页直接读取，不依赖Actions工件API。此为用户明确授权的合成文本证据例外，不上传私人备份、凭证或环境信息。
-- CI额外在可读Actions Summary发布静态检查/数据/构建/E2E/audit文本（带产品head SHA），工件保留完整HTML/trace和文本14天。最终PR/push运行必须对应同一交付head，并在交付消息实际核实，不拿前一个SHA的绿灯代替。
+- CI配置额外写入GITHUB_STEP_SUMMARY文本（带产品head SHA），工件保留完整HTML/trace和文本14天。不过本轮公开run/job页面未显示摘要正文，工件内部内容未下载复核，**不把它们称为已验证公开可读的证据**；B可直接读取的证据以本仓库上述文本/摘要清单为准。
+- 功能修复提交 `54c3da525e429c5fcb3ba6056e52df573731f3fd` 的 [PR run41029931957](https://github.com/easonwycgz/mindflow/actions/runs/41029931957) 和 [push run41029924833](https://github.com/easonwycgz/mindflow/actions/runs/41029924833) 公开网页均核实SUCCESS（均约1m31s）。仓库blob页面实际读到了27 passed、53 passed、VALIDATION_EXIT_STATUS=0；源文件38条SHA256均匹配。
+- 随后的交接证据文档补充提交不改变应用或测试；最终PR/push运行仍须对应同一交付head，结果在交付消息另行核实，不拿前一个SHA的绿灯代替。
 
 ## 九个交付回答与未验证范围
 
