@@ -1,5 +1,13 @@
 # Mindflow V1 QA evidence
 
+## Independent round-five targeted acceptance — f22d68c
+
+B independently tested exact candidate `f22d68c3bed8e6ab23da2fb09373ac50c1c43124`; see [round-five independent report](independent-qa-report-round-5.md) and [synthetic raw outputs](evidence/round5/independent-validation.txt). Prior B tests were retained verbatim; production logic was not changed by B.
+
+The fourth-round favorite corruption case now rejects and preserves the target. Full-field/proof faults, private-snapshot boundary races, cancellation and rollback passed the selected independent execution: 30 existing targeted data tests plus 4 new B boundary tests. The 30-case native browser selection, four paste/CSP checks and two new normal-download cases passed; two added download-policy wording assertions failed (P2 R5-001: failed downloads still described as residing on device). This is 36 browser passes / 2 failures across separate runs, not a full rerun of the developer's 75/1 suite.
+
+R4-001 integrity P1 is PASS in the tested scope. No-Directory/zero-workspace-add-quota export actually downloaded 2001 cards, 54,301,665 data bytes, seven parts plus root, and restored the real files exactly in both Chromium projects. The 50.3MB/88.5MB and 2001/10001-card regressions passed. Conditional download/storage risk remains OPEN, QA-004 remains OPEN and historical RCA NOT CONFIRMED; no owner gate revision was supplied. QA-003 remains PASS and QA-008 PARTIAL. Overall No-Go for production; no merge/deployment, await owner decision.
+
 Executed 2026-10-30 (Asia/Shanghai), cloud Linux; Node 24.19.0, npm 11.9.0, Chromium 154.0.8037.57. These results apply to this delivery's implementation, not a published production site. Final SHA is supplied in the delivery report (a commit cannot embed its own hash).
 
 ## Reproduction and actual results
