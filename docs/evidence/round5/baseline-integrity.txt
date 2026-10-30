@@ -1,0 +1,45 @@
+
+> mindflow@1.0.0 pretest
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 test
+> vitest run tests/independent-round4.test.ts -t corrupted staged reading --reporter=verbose
+
+
+ RUN  v4.1.12 /workspace/mindflow
+
+ ↓ tests/independent-round4.test.ts > B-R4: independent count-only boundaries 501/2000/2001 preserve full ordered data
+ ↓ tests/independent-round4.test.ts > B-R4: capacity-only Unicode libraries near 49MB and larger than stress case roundtrip completely
+stdout | tests/independent-round4.test.ts > B-R4: corrupted staged reading must reject promotion rather than silently change validated backup
+B-R4 staged reading fault {"outcome":"fulfilled","targetChanged":true,"actualState":"complete"}
+
+ × tests/independent-round4.test.ts > B-R4: corrupted staged reading must reject promotion rather than silently change validated backup 173ms
+   → expected 'fulfilled' to be 'rejected' // Object.is equality
+ ↓ tests/independent-round4.test.ts > B-R4: interrupted sink and no-workspace quota retain source and publish no completion manifest
+ ↓ tests/independent-round4.test.ts > B-R4: concurrent duplicate promotion does not duplicate records and completed jobs reject resubmission
+ ↓ tests/independent-round4.test.ts > B-R4: a single record larger than the 8MiB volume is illegal under historical 2MiB rules and never truncated
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/independent-round4.test.ts > B-R4: corrupted staged reading must reject promotion rather than silently change validated backup
+AssertionError: expected 'fulfilled' to be 'rejected' // Object.is equality
+
+Expected: "rejected"
+Received: "fulfilled"
+
+ ❯ tests/independent-round4.test.ts:58:28
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 skipped (6)
+   Start at  11:06:58
+   Duration  1.08s (transform 362ms, setup 0ms, import 609ms, tests 176ms, environment 0ms)
+

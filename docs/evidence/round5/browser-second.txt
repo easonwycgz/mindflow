@@ -1,0 +1,107 @@
+
+> mindflow@1.0.0 test:e2e
+> playwright test e2e/round5.spec.ts e2e/round4.spec.ts
+
+[WebServer] (node:35449) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:35461) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+R4_STRESS_METRICS {"project":"chromium","cards":2001,"totalExportBytes":49424718,"maxPartBytes":8249808,"maxBatchCards":4,"observedJSHeapBytes":[22353589,71189114,91977116,24577993],"note":"Chromium reported phase samples, not a process/native peak-memory guarantee"}
+  ✓   1 [chromium] › e2e/round4.spec.ts:121:1 › R4 combined stress: 2001 cards AND >40MiB, bounded export, refresh-resume, quota rollback and exact restore (45.7s)
+  ✓   2 [chromium] › e2e/round4.spec.ts:421:1 › R4 page refresh during blocked export leaves original intact and no completion manifest (1.9s)
+  ✓   3 [chromium] › e2e/round5.spec.ts:129:1 › R5 all-field native faults reject, preserve complete destination, survive refresh and allow pristine retry (4.8s)
+  ✓   4 [chromium] › e2e/round5.spec.ts:240:1 › R5 final native add boundary races a competing workspace write and commits only the verified value snapshot (1.6s)
+  ✘   5 [chromium] › e2e/round5.spec.ts:307:1 › R5 no Directory API and zero workspace quota can download every part and root; real files restore exactly (30.9s)
+(node:36014) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 [chromium] › e2e/round5.spec.ts:476:1 › R5 cancel and Blob failure during zero-staging downloads retain originals and identify partial files (1.8s)
+(node:36150) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+R4_STRESS_METRICS {"project":"chromium-mobile","cards":2001,"totalExportBytes":49424718,"maxPartBytes":8249820,"maxBatchCards":4,"observedJSHeapBytes":[16636155,71417344,89144014,18282422],"note":"Chromium reported phase samples, not a process/native peak-memory guarantee"}
+  ✓   7 [chromium-mobile] › e2e/round4.spec.ts:121:1 › R4 combined stress: 2001 cards AND >40MiB, bounded export, refresh-resume, quota rollback and exact restore (39.0s)
+  ✓   8 [chromium-mobile] › e2e/round4.spec.ts:421:1 › R4 page refresh during blocked export leaves original intact and no completion manifest (1.3s)
+  ✓   9 [chromium-mobile] › e2e/round5.spec.ts:129:1 › R5 all-field native faults reject, preserve complete destination, survive refresh and allow pristine retry (3.5s)
+  ✓  10 [chromium-mobile] › e2e/round5.spec.ts:240:1 › R5 final native add boundary races a competing workspace write and commits only the verified value snapshot (1.6s)
+  ✘  11 [chromium-mobile] › e2e/round5.spec.ts:307:1 › R5 no Directory API and zero workspace quota can download every part and root; real files restore exactly (26.4s)
+(node:36470) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  12 [chromium-mobile] › e2e/round5.spec.ts:476:1 › R5 cancel and Blob failure during zero-staging downloads retain originals and identify partial files (1.6s)
+
+
+  1) [chromium] › e2e/round5.spec.ts:307:1 › R5 no Directory API and zero workspace quota can download every part and root; real files restore exactly 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('paged-migration-state')
+    Expected substring: "恢复暂存已打开"
+    Received string:    "迁移清单校验或分卷数量错误。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完成清单或任何分卷都不能恢复。"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByTestId('paged-migration-state') with timeout 5000ms
+      - waiting for getByTestId('paged-migration-state')
+        14 × locator resolved to <p aria-live="polite" data-testid="paged-migration-state">迁移清单校验或分卷数量错误。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完…</p>
+           - unexpected value "迁移清单校验或分卷数量错误。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完成清单或任何分卷都不能恢复。"
+
+
+      445 |   expect(root!.totalCards).toBe(2001);
+      446 |   expect(await snapshot(page)).toBe(before);
+    > 447 |   // Refresh clears fault hooks; restore from actual downloaded bytes, not an in-memory export shortcut.
+          |                                                           ^
+      448 |   await page.reload();
+      449 |   await page.getByText("超大旧库分页迁移", { exact: true }).click();
+      450 |   await page.getByLabel("分页迁移清单").setInputFiles(paths.at(-1)!);
+        at /workspace/mindflow/e2e/round5.spec.ts:447:59
+
+    Error Context: test-results/round5-R5-no-Directory-API-f67a0--real-files-restore-exactly-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/round5-R5-no-Directory-API-f67a0--real-files-restore-exactly-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/round5-R5-no-Directory-API-f67a0--real-files-restore-exactly-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium-mobile] › e2e/round5.spec.ts:307:1 › R5 no Directory API and zero workspace quota can download every part and root; real files restore exactly 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('paged-migration-state')
+    Expected substring: "恢复暂存已打开"
+    Received string:    "迁移清单校验或分卷数量错误。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完成清单或任何分卷都不能恢复。"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByTestId('paged-migration-state') with timeout 5000ms
+      - waiting for getByTestId('paged-migration-state')
+        14 × locator resolved to <p aria-live="polite" data-testid="paged-migration-state">迁移清单校验或分卷数量错误。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完…</p>
+           - unexpected value "迁移清单校验或分卷数量错误。操作未完成；不会为腾空间而清空原库。已请求下载的部分文件请保留，缺少完成清单或任何分卷都不能恢复。"
+
+
+      445 |   expect(root!.totalCards).toBe(2001);
+      446 |   expect(await snapshot(page)).toBe(before);
+    > 447 |   // Refresh clears fault hooks; restore from actual downloaded bytes, not an in-memory export shortcut.
+          |                                                           ^
+      448 |   await page.reload();
+      449 |   await page.getByText("超大旧库分页迁移", { exact: true }).click();
+      450 |   await page.getByLabel("分页迁移清单").setInputFiles(paths.at(-1)!);
+        at /workspace/mindflow/e2e/round5.spec.ts:447:59
+
+    Error Context: test-results/round5-R5-no-Directory-API-f67a0--real-files-restore-exactly-chromium-mobile/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/round5-R5-no-Directory-API-f67a0--real-files-restore-exactly-chromium-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/round5-R5-no-Directory-API-f67a0--real-files-restore-exactly-chromium-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › e2e/round5.spec.ts:307:1 › R5 no Directory API and zero workspace quota can download every part and root; real files restore exactly 
+    [chromium-mobile] › e2e/round5.spec.ts:307:1 › R5 no Directory API and zero workspace quota can download every part and root; real files restore exactly 
+  10 passed (2.9m)

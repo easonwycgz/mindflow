@@ -1,0 +1,48 @@
+
+> mindflow@1.0.0 pretest
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 test
+> vitest run --reporter=verbose
+
+
+ RUN  v4.1.12 /workspace/mindflow
+
+ ✓ tests/round3.test.ts > R3 settings: concurrent font and last-card patches preserve both; rapid changes converge to latest committed intent 26ms
+ ✓ tests/round3.test.ts > R3 settings: failed transaction never acknowledges saved; durable intent retries and clears only after commit 14ms
+ ✓ tests/round3.test.ts > R3 settings: synchronous journal failure is explicit and no DB success is fabricated 4ms
+ ✓ tests/round2.test.ts > QA-001: wide multi-card export -> clear all stores -> restore preserves every byte and reference 1089ms
+ ✓ tests/round2.test.ts > QA-001: restore interruption at final settings write rolls all stores back 35ms
+ ✓ tests/round2.test.ts > QA-001: count/byte capacity is shared and rejects unsafe exports before success 832ms
+ ✓ tests/round3.test.ts > R3 migration: valid legacy 501-card database -> all volumes -> empty new DB -> exact content, nodes and references 1270ms
+ ✓ tests/independent-round2.test.ts > B-R2: wide library clears all stores and restores exact data; corrupt variants preserve original 2471ms
+ ✓ tests/independent-qa.test.ts > QA: exact depth 16 accepted, depth 17 and overlong text rejected 15ms
+ ✓ tests/independent-qa.test.ts > QA: interrupted import rolls back both stores and permits retry 41ms
+ ✓ tests/independent-qa.test.ts > QA: simultaneous duplicate imports commit exactly one card and reading record 14ms
+ ✓ tests/independent-round2.test.ts > B-R2: legacy over-capacity library stays stored but UI backup has no export path 1010ms
+ ✓ tests/independent-qa.test.ts > QA: exported valid multi-card library can restore its own backup 964ms
+ ✓ tests/round3.test.ts > R3 migration: missing, duplicate, reordered, mixed and corrupt volumes preserve all destination stores 1201ms
+ ✓ tests/data.test.ts > authoritative contract > preserves original bytes 58ms
+ ✓ tests/data.test.ts > authoritative contract > accepts example and rejects missing, extra, type and URI errors 14ms
+ ✓ tests/data.test.ts > authoritative contract > rejects duplicate IDs, malformed trees and overdeep trees 3ms
+ ✓ tests/data.test.ts > authoritative contract > rejects invalid JSON and oversized input 7ms
+ ✓ tests/data.test.ts > authoritative contract > hash is independent of key order 2ms
+ ✓ tests/data.test.ts > IndexedDB integration > imports atomically and deduplicates without touching reading state 27ms
+ ✓ tests/data.test.ts > IndexedDB integration > accepts new content as a separate version preserving the original 11ms
+ ✓ tests/data.test.ts > IndexedDB integration > roundtrips all content, reading and settings 23ms
+ ✓ tests/data.test.ts > IndexedDB integration > rejects corrupt, unsupported and dangling backups without changing data 24ms
+ ✓ tests/data.test.ts > IndexedDB integration > rolls back if a database write fails mid-restore 13ms
+ ✓ tests/round3.test.ts > R3 migration: late write interruption rolls back the complete 501-card transaction 1078ms
+ ✓ tests/round3.test.ts > R3 settings: separate concurrent writers cannot resurrect an older font intent or overwrite card selection 4ms
+ ✓ tests/round3.test.ts > R3 migration: recomputed checksums cannot hide cross-volume duplicate identities 1048ms
+
+ Test Files  5 passed (5)
+      Tests  27 passed (27)
+   Start at  08:54:59
+   Duration  5.33s (transform 499ms, setup 0ms, import 1.72s, tests 11.32s, environment 1ms)
+

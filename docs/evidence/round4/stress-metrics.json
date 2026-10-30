@@ -1,0 +1,30 @@
+[
+  {
+    "project": "chromium",
+    "cards": 2001,
+    "totalExportBytes": 49424718,
+    "maxPartBytes": 8249812,
+    "maxBatchCards": 4,
+    "observedJSHeapBytes": [
+      35980802,
+      63925855,
+      51639476,
+      43170514
+    ],
+    "note": "Chromium reported phase samples, not a process/native peak-memory guarantee"
+  },
+  {
+    "project": "chromium-mobile",
+    "cards": 2001,
+    "totalExportBytes": 49424718,
+    "maxPartBytes": 8249807,
+    "maxBatchCards": 4,
+    "observedJSHeapBytes": [
+      22586152,
+      81071021,
+      64160679,
+      20636141
+    ],
+    "note": "Chromium reported phase samples, not a process/native peak-memory guarantee"
+  }
+]

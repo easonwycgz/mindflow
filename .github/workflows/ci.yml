@@ -1,0 +1,51 @@
+name: Mindflow checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Types and lint
+        run: |
+          mkdir -p ci-evidence
+          set -o pipefail
+          (npm run typecheck && npm run lint) 2>&1 | tee ci-evidence/static.log
+      - name: Data regression
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee ci-evidence/unit.log
+      - name: Production build
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee ci-evidence/build.log
+      - run: npx playwright install --with-deps chromium
+      - name: Browser regression
+        run: |
+          set -o pipefail
+          npm run test:e2e 2>&1 | tee ci-evidence/e2e.log
+      - name: Production audit
+        run: |
+          set -o pipefail
+          npm audit --omit=dev 2>&1 | tee ci-evidence/audit.log
+      - name: Public synthetic evidence summary
+        if: always()
+        env:
+          EVIDENCE_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: node scripts/ci-summary.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            playwright-report/
+            test-results/
+            ci-evidence/
+          retention-days: 14
+          if-no-files-found: ignore
