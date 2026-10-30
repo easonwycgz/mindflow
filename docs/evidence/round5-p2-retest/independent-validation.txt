@@ -1,0 +1,368 @@
+Mindflow V1 round-5 P2 targeted INDEPENDENT retest evidence
+2026-10-30 Asia/Shanghai; synthetic/public sample data only.
+All below commands executed by B against candidate production bytes; no full-suite or platform claims.
+
+{
+  "candidate": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "startAndEndPRHead": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "endFeature": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "candidateSourceFingerprints": 53,
+  "productionTreeDiffAgainstCandidate": "empty",
+  "priorHistory": [
+    {
+      "path": "docs/evidence/round5/independent-validation.txt",
+      "sha256": "7cb57df12dc2be41ce3101edafc418495fe12e555f003bb9f678514aac329bd3",
+      "matchesPriorQA": true
+    },
+    {
+      "path": "docs/independent-qa-report-round-2.md",
+      "sha256": "a3dda0961298e6fd1f5887b6aac8f849b0f624411849e6288c82deebd80c2874",
+      "matchesPriorQA": true
+    },
+    {
+      "path": "docs/independent-qa-report-round-3.md",
+      "sha256": "aad1ddefe5d0501dc19729f32084b3ee18a67a7716ce8c43e5ee00ce89ef6873",
+      "matchesPriorQA": true
+    },
+    {
+      "path": "docs/independent-qa-report-round-4.md",
+      "sha256": "593c7064adacd59217607d23a6f048a30fa5cc7c63f1bd766a29af7ec8c7bc75",
+      "matchesPriorQA": true
+    },
+    {
+      "path": "docs/independent-qa-report-round-5.md",
+      "sha256": "e75e1d8a2585c26ef1379ca65c48f89af4756a049688db20031d16ceb2a262fa",
+      "matchesPriorQA": true
+    },
+    {
+      "path": "docs/independent-qa-report.md",
+      "sha256": "672a42876529cf53b913e3bb1331baa8547b7d067dd4501112ae72ad5b5f4070",
+      "matchesPriorQA": true
+    },
+    {
+      "path": "docs/qa-004-gate-decision-request-round-4.md",
+      "sha256": "293c9472f6728ea75ef2a3681e164b378e915c972b617ce4583f678f2f2a8646",
+      "matchesPriorQA": true
+    }
+  ],
+  "independentExecution": {
+    "data": {
+      "pass": 4,
+      "fail": 0,
+      "skip": 0
+    },
+    "browser": {
+      "pass": 26,
+      "fail": 0,
+      "skip": 0
+    },
+    "originalP2Assertions": {
+      "pass": 2,
+      "fail": 0
+    },
+    "typecheck": 0,
+    "lint": 0,
+    "build": 0,
+    "audit": 0
+  }
+}
+
+=== typecheck.log ===
+$ npm run typecheck
+
+> mindflow@1.0.0 pretypecheck
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 typecheck
+> tsc -b
+
+
+COMMAND_EXIT_STATUS=0
+
+
+=== lint.log ===
+$ npm run lint
+
+> mindflow@1.0.0 lint
+> eslint .
+
+
+COMMAND_EXIT_STATUS=0
+
+
+=== data.log ===
+$ npm test -- tests/independent-round5.test.ts --reporter=verbose
+
+> mindflow@1.0.0 pretest
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 test
+> vitest run tests/independent-round5.test.ts --reporter=verbose
+
+
+ RUN  v4.1.12 /workspace/mindflow
+
+ ✓ tests/independent-round5.test.ts > B-R5: real staged mutation after preflight but before destination transaction rejects with exact rollback 79ms
+ ✓ tests/independent-round5.test.ts > B-R5: after private batch validation, committed external content+reading mutation cannot pollute actual writes 62ms
+ ✓ tests/independent-round5.test.ts > B-R5: after final proof verification, external proof changes do not replace the already verified settings snapshot 51ms
+ ✓ tests/independent-round5.test.ts > B-R5: cancel after real batch writes rolls back all destination stores and permits pristine retry 55ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  13:03:56
+   Duration  620ms (transform 140ms, setup 0ms, import 253ms, tests 249ms, environment 0ms)
+
+
+COMMAND_EXIT_STATUS=0
+
+
+=== build.log ===
+$ npm run build
+
+> mindflow@1.0.0 prebuild
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 build
+> tsc -b && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+node_modules/zod/v4/core/util.js (400:0): A comment
+
+"// Wrapped in a `@__PURE__` IIFE: esbuild never tree-shakes a top-level initializer that contains a member access on `Number`, so the bare object literal survived into every bundle."
+
+in "node_modules/zod/v4/core/util.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+node_modules/zod/v4/core/regexes.js (74:0): A comment
+
+"/** Anchors a pattern source. The interpolation lives here rather than at the call site because
+ * esbuild will not drop a `@__PURE__` call whose own argument interpolates a variable, but it
+ * will drop `anchor(dateSource)`. Keeping it inline pinned `date` into every bundle. */"
+
+in "node_modules/zod/v4/core/regexes.js" contains an annotation that Rollup cannot interpret due to the position of the comment. The comment will be removed to avoid issues.
+✓ 142 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                          0.33 kB
+dist/migration.html                                0.56 kB │ gzip:   0.36 kB
+dist/index.html                                    0.67 kB │ gzip:   0.41 kB
+dist/assets/style-BGrn-dwi.css                    10.28 kB │ gzip:   3.29 kB
+dist/assets/migration-kjdj7X33.js                  1.02 kB │ gzip:   0.73 kB
+dist/assets/workbox-window.prod.es5-BBnX5xw4.js    5.75 kB │ gzip:   2.36 kB
+dist/assets/main-CHwLQiEH.js                      26.34 kB │ gzip:  11.12 kB
+dist/assets/style-Bp_TMkjA.js                    473.37 kB │ gzip: 143.41 kB
+✓ built in 2.20s
+
+PWA v1.3.0
+mode      generateSW
+precache  13 entries (510.93 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-2fbc6a65.js
+
+COMMAND_EXIT_STATUS=0
+
+
+=== audit.log ===
+$ npm audit --omit=dev --json
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {},
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dependencies": {
+      "prod": 12,
+      "dev": 552,
+      "optional": 76,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 563
+    }
+  }
+}
+
+COMMAND_EXIT_STATUS=0
+
+
+=== browser-matrix.log ===
+
+> mindflow@1.0.0 test:e2e
+> playwright test e2e/independent-round5.spec.ts e2e/round5-p2.spec.ts
+
+[WebServer] (node:48133) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 18 tests using 1 worker
+
+(node:48145) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › e2e/independent-round5.spec.ts:5:1 › B-R5: repeated actual download is identical, missing/replaced file cannot restore, pristine files restore completely (1.5s)
+  ✓   2 [chromium] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source (1.3s)
+  ✓   3 [chromium] › e2e/round5-p2.spec.ts:72:1 › P2 actual successful download remains unconfirmed in UI; repeated requests and migration cancellation never promise device files (1.3s)
+  ✓   4 [chromium] › e2e/round5-p2.spec.ts:103:1 › P2 user reports cancelled download, migration stops safely and a fresh request can retry (1.4s)
+  ✓   5 [chromium] › e2e/round5-p2.spec.ts:141:3 › P2 observable NotAllowedError safely stops, reports blocked, and retries through a real download (1.4s)
+  ✓   6 [chromium] › e2e/round5-p2.spec.ts:141:3 › P2 observable SecurityError safely stops, reports blocked, and retries through a real download (1.4s)
+  ✓   7 [chromium] › e2e/round5-p2.spec.ts:141:3 › P2 observable AbortError safely stops, reports cancelled, and retries through a real download (1.2s)
+  ✓   8 [chromium] › e2e/round5-p2.spec.ts:141:3 › P2 observable QuotaExceededError safely stops, reports failed, and retries through a real download (1.3s)
+P2_NATIVE_DENIAL {"project":"chromium","attempt":0,"actualFailure":"Pass { acceptDownloads: true } when you are creating your browser context.","webpageStateBeforeReport":"requested/unconfirmed","webpageStateAfterReport":"blocked","sourcePreserved":true}
+P2_NATIVE_DENIAL {"project":"chromium","attempt":1,"actualFailure":"Pass { acceptDownloads: true } when you are creating your browser context.","webpageStateBeforeReport":"requested/unconfirmed","webpageStateAfterReport":"blocked","sourcePreserved":true}
+  ✓   9 [chromium] › e2e/round5-p2.spec.ts:195:3 › P2 real browser refusal has no webpage receipt › actual denied requests stay unknown until the user reports blocked; retry never inherits a saved status (1.1s)
+(node:48598) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  10 [chromium-mobile] › e2e/independent-round5.spec.ts:5:1 › B-R5: repeated actual download is identical, missing/replaced file cannot restore, pristine files restore completely (1.5s)
+  ✓  11 [chromium-mobile] › e2e/independent-round5.spec.ts:24:2 › B-R5 download policy denial › blocked browser download is not verified as saved; cancellation preserves source (1.2s)
+  ✓  12 [chromium-mobile] › e2e/round5-p2.spec.ts:72:1 › P2 actual successful download remains unconfirmed in UI; repeated requests and migration cancellation never promise device files (1.1s)
+  ✓  13 [chromium-mobile] › e2e/round5-p2.spec.ts:103:1 › P2 user reports cancelled download, migration stops safely and a fresh request can retry (1.3s)
+  ✓  14 [chromium-mobile] › e2e/round5-p2.spec.ts:141:3 › P2 observable NotAllowedError safely stops, reports blocked, and retries through a real download (1.2s)
+  ✓  15 [chromium-mobile] › e2e/round5-p2.spec.ts:141:3 › P2 observable SecurityError safely stops, reports blocked, and retries through a real download (1.1s)
+  ✓  16 [chromium-mobile] › e2e/round5-p2.spec.ts:141:3 › P2 observable AbortError safely stops, reports cancelled, and retries through a real download (1.2s)
+  ✓  17 [chromium-mobile] › e2e/round5-p2.spec.ts:141:3 › P2 observable QuotaExceededError safely stops, reports failed, and retries through a real download (1.1s)
+P2_NATIVE_DENIAL {"project":"chromium-mobile","attempt":0,"actualFailure":"Pass { acceptDownloads: true } when you are creating your browser context.","webpageStateBeforeReport":"requested/unconfirmed","webpageStateAfterReport":"blocked","sourcePreserved":true}
+P2_NATIVE_DENIAL {"project":"chromium-mobile","attempt":1,"actualFailure":"Pass { acceptDownloads: true } when you are creating your browser context.","webpageStateBeforeReport":"requested/unconfirmed","webpageStateAfterReport":"blocked","sourcePreserved":true}
+  ✓  18 [chromium-mobile] › e2e/round5-p2.spec.ts:195:3 › P2 real browser refusal has no webpage receipt › actual denied requests stay unknown until the user reports blocked; retry never inherits a saved status (1.1s)
+
+  18 passed (24.7s)
+
+COMMAND_EXIT_STATUS=0
+
+
+=== browser-transitions-integrity.log ===
+
+> mindflow@1.0.0 test:e2e
+> playwright test e2e/independent-round5-p2-retest.spec.ts e2e/round5.spec.ts -g B-P2:|R5 all-field native|R5 final native
+
+[WebServer] (node:49225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:49237) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+B_P2_FILE_TRANSITIONS {"project":"chromium","actualFiles":["mindflow-e640fb7d-12c8-44a0-a0f5-0f56ec99bffe-stream-00000001.json","mindflow-e640fb7d-12c8-44a0-a0f5-0f56ec99bffe-stream-manifest.json"],"partBytes":5644,"nextFileReset":true,"acknowledgementIsNotSystemVerification":true,"nextAttemptReset":true,"sourcePreserved":true}
+  ✓  1 [chromium] › e2e/independent-round5-p2-retest.spec.ts:59:1 › B-P2: acknowledging one file cannot confirm the next file or disk persistence; all requests remain unverified (1.9s)
+B_P2_FAILURE_TRANSITIONS {"project":"chromium","actualFirstDownload":true,"followingSynchronousFailure":"QuotaExceededError","failedStateOverridesRequested":true,"retryResetBeforeRequest":true,"realRetryDownload":true,"sourcePreserved":true}
+  ✓  2 [chromium] › e2e/independent-round5-p2-retest.spec.ts:98:1 › B-P2: an exception after an actual download overrides requested state; retry starts clean and preserves the source (1.4s)
+  ✓  3 [chromium] › e2e/round5.spec.ts:131:1 › R5 all-field native faults reject, preserve complete destination, survive refresh and allow pristine retry (2.6s)
+  ✓  4 [chromium] › e2e/round5.spec.ts:242:1 › R5 final native add boundary races a competing workspace write and commits only the verified value snapshot (1.2s)
+(node:49489) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+B_P2_FILE_TRANSITIONS {"project":"chromium-mobile","actualFiles":["mindflow-e74d0a51-5810-400e-9896-4fdbc44408c7-stream-00000001.json","mindflow-e74d0a51-5810-400e-9896-4fdbc44408c7-stream-manifest.json"],"partBytes":5644,"nextFileReset":true,"acknowledgementIsNotSystemVerification":true,"nextAttemptReset":true,"sourcePreserved":true}
+  ✓  5 [chromium-mobile] › e2e/independent-round5-p2-retest.spec.ts:59:1 › B-P2: acknowledging one file cannot confirm the next file or disk persistence; all requests remain unverified (1.3s)
+B_P2_FAILURE_TRANSITIONS {"project":"chromium-mobile","actualFirstDownload":true,"followingSynchronousFailure":"QuotaExceededError","failedStateOverridesRequested":true,"retryResetBeforeRequest":true,"realRetryDownload":true,"sourcePreserved":true}
+  ✓  6 [chromium-mobile] › e2e/independent-round5-p2-retest.spec.ts:98:1 › B-P2: an exception after an actual download overrides requested state; retry starts clean and preserves the source (1.2s)
+  ✓  7 [chromium-mobile] › e2e/round5.spec.ts:131:1 › R5 all-field native faults reject, preserve complete destination, survive refresh and allow pristine retry (2.8s)
+  ✓  8 [chromium-mobile] › e2e/round5.spec.ts:242:1 › R5 final native add boundary races a competing workspace write and commits only the verified value snapshot (1.3s)
+
+  8 passed (15.7s)
+
+COMMAND_EXIT_STATUS=0
+
+
+=== qa-typecheck.log ===
+
+> mindflow@1.0.0 pretypecheck
+> npm run generate:validator
+
+
+> mindflow@1.0.0 generate:validator
+> node scripts/generate-validator.mjs
+
+
+> mindflow@1.0.0 typecheck
+> tsc -b
+
+
+
+=== qa-lint.log ===
+
+> mindflow@1.0.0 lint
+> eslint .
+
+
+
+=== source-verification.log ===
+.github/workflows/ci.yml: OK
+contracts/mindflow-card-example-v1.json: OK
+contracts/mindflow-card-schema-v1.json: OK
+e2e/app.spec.ts: OK
+e2e/independent-font-diagnostic.spec.ts: OK
+e2e/independent-qa.spec.ts: OK
+e2e/independent-round2.spec.ts: OK
+e2e/independent-round3.spec.ts: OK
+e2e/independent-round4.spec.ts: OK
+e2e/independent-round5.spec.ts: OK
+e2e/round2.spec.ts: OK
+e2e/round3.spec.ts: OK
+e2e/round4.spec.ts: OK
+e2e/round5-p2.spec.ts: OK
+e2e/round5.spec.ts: OK
+eslint.config.js: OK
+index.html: OK
+migration.html: OK
+package-lock.json: OK
+package.json: OK
+playwright.config.ts: OK
+public/_headers: OK
+public/icon-192.png: OK
+public/icon-512.png: OK
+scripts/ci-summary.mjs: OK
+scripts/generate-validator.mjs: OK
+scripts/preview.mjs: OK
+src/App.tsx: OK
+src/LargeMigration.tsx: OK
+src/ReadingText.tsx: OK
+src/db.ts: OK
+src/generated/card-validator.d.ts: OK
+src/generated/card-validator.js: OK
+src/main.tsx: OK
+src/migration-main.tsx: OK
+src/model.ts: OK
+src/pagedMigration.ts: OK
+src/settings.ts: OK
+src/style.css: OK
+src/vite-env.d.ts: OK
+src/volumes.ts: OK
+tests/data.test.ts: OK
+tests/independent-qa.test.ts: OK
+tests/independent-round2.test.ts: OK
+tests/independent-round3.test.ts: OK
+tests/independent-round4.test.ts: OK
+tests/independent-round5.test.ts: OK
+tests/round2.test.ts: OK
+tests/round3.test.ts: OK
+tests/round4.test.ts: OK
+tests/round5.test.ts: OK
+tsconfig.json: OK
+vite.config.ts: OK
+
+
+CI identity and per-step status: see identity.json. Raw public-page SHA256 (local HTML not committed):
+
+pr.html 050997daa793333b767cc1ddaece52e4422192dd34d7f9b1aa8ed7995caab96d
+pr-end.html 1e2f448c54cfe5c6d1fffdaceae4c50c86369795eba93925d18882698f30dbcf
+actions.html e48d1845dd9cb98d481c7f2f1ba866a6e132c34a352e4d74917cb453900a3500
+run-pr.html e66f539f7486da35fc682da6cd72eb7f64f86facda8c4a2645427449d4a0270e
+run-push.html 1add9d379ad519d37360e7e39fe37004a44aa9a4d924a25b9b8fdde953b9e8ff
+job-pr.html 51a6b684807da04414e7b5d17b4908482fd27d1c389ab9588a7e3c0a2e6e6aa2
+job-push.html e03425125cb9f02216ac069c44cd3ea8797d3f955afa34a91e4d523a2c4f136f

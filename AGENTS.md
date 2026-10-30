@@ -33,3 +33,9 @@
 - No-workspace export may use explicit per-file local downloads with the same readonly snapshot/parts/root. A download request or user acknowledgement is not proof of disk persistence. Never delete source data to free quota; preserve and label incomplete files.
 - Synthetic-only text logs/source hashes are permitted under docs/evidence/round5 by the user's explicit evidence request. No real backups, secrets, environment dumps or private traces.
 - R4-001 is a developer repair candidate pending B's independent verdict; conditional storage/platform risk and QA-004 OPEN are not closed by developer tests.
+
+## Fifth-round P2 follow-up
+- B's pinned fifth-round QA commit b250a868757cecd9945b436a0011fef98f189ad6 supersedes the earlier pending verdict: R4-001 PASS/CLOSED; private snapshots and permitted-download/no-workspace migration PASS in the independently tested scope. Do not reopen or refactor that mechanism for wording.
+- R5-001 is the only code-fix scope: download request != browser acceptance != completed download != saved file. With no browser receipt, always state uncertainty. Distinguish observable exceptions from user-reported blocked/cancelled downloads; no fabricated automatic detection.
+- Conditional P1 OPEN; historical RCA NOT CONFIRMED; QA-004 OPEN; QA-003 PASS; QA-008 PARTIAL; release NO-GO. No main merge or production deployment. Stop development after handing the new candidate to B.
+- Keep B's fifth-round test copies byte-identical and all old reports/evidence unchanged. Synthetic-only text logs and source fingerprints are permitted under docs/evidence/round5-p2 for this user-requested follow-up.

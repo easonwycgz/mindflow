@@ -1,0 +1,208 @@
+{
+  "candidate": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "environment": {
+    "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "timezoneForReport": "Asia/Shanghai"
+  },
+  "pr": {
+    "headSha": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+    "state": "DRAFT",
+    "mergedTime": null
+  },
+  "ci": [
+    {
+      "kind": "pr",
+      "run": "41055762320",
+      "job": "124062769809",
+      "steps": [
+        {
+          "data-name": "Set up job",
+          "data-number": "1",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/1"
+        },
+        {
+          "data-name": "Run actions/checkout@v4",
+          "data-number": "2",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/2"
+        },
+        {
+          "data-name": "Run actions/setup-node@v4",
+          "data-number": "3",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/3"
+        },
+        {
+          "data-name": "Run npm ci",
+          "data-number": "4",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/4"
+        },
+        {
+          "data-name": "Types and lint",
+          "data-number": "5",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/5"
+        },
+        {
+          "data-name": "Data regression",
+          "data-number": "6",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/6"
+        },
+        {
+          "data-name": "Production build",
+          "data-number": "7",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/7"
+        },
+        {
+          "data-name": "Run npx playwright install --with-deps chromium",
+          "data-number": "8",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/8"
+        },
+        {
+          "data-name": "Browser regression",
+          "data-number": "9",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/9"
+        },
+        {
+          "data-name": "Production audit",
+          "data-number": "10",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/10"
+        },
+        {
+          "data-name": "Public synthetic evidence summary",
+          "data-number": "11",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/11"
+        },
+        {
+          "data-name": "Run actions/upload-artifact@v4",
+          "data-number": "12",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/12"
+        },
+        {
+          "data-name": "Post Run actions/setup-node@v4",
+          "data-number": "23",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/23"
+        },
+        {
+          "data-name": "Post Run actions/checkout@v4",
+          "data-number": "24",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/24"
+        },
+        {
+          "data-name": "Complete job",
+          "data-number": "25",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062769809/logs/25"
+        }
+      ]
+    },
+    {
+      "kind": "push",
+      "run": "41055755638",
+      "job": "124062747699",
+      "steps": [
+        {
+          "data-name": "Set up job",
+          "data-number": "1",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/1"
+        },
+        {
+          "data-name": "Run actions/checkout@v4",
+          "data-number": "2",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/2"
+        },
+        {
+          "data-name": "Run actions/setup-node@v4",
+          "data-number": "3",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/3"
+        },
+        {
+          "data-name": "Run npm ci",
+          "data-number": "4",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/4"
+        },
+        {
+          "data-name": "Types and lint",
+          "data-number": "5",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/5"
+        },
+        {
+          "data-name": "Data regression",
+          "data-number": "6",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/6"
+        },
+        {
+          "data-name": "Production build",
+          "data-number": "7",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/7"
+        },
+        {
+          "data-name": "Run npx playwright install --with-deps chromium",
+          "data-number": "8",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/8"
+        },
+        {
+          "data-name": "Browser regression",
+          "data-number": "9",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/9"
+        },
+        {
+          "data-name": "Production audit",
+          "data-number": "10",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/10"
+        },
+        {
+          "data-name": "Public synthetic evidence summary",
+          "data-number": "11",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/11"
+        },
+        {
+          "data-name": "Run actions/upload-artifact@v4",
+          "data-number": "12",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/12"
+        },
+        {
+          "data-name": "Post Run actions/setup-node@v4",
+          "data-number": "23",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/23"
+        },
+        {
+          "data-name": "Post Run actions/checkout@v4",
+          "data-number": "24",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/24"
+        },
+        {
+          "data-name": "Complete job",
+          "data-number": "25",
+          "data-conclusion": "success",
+          "data-log-url": "/easonwycgz/mindflow/commit/df48c9d2eae22f3fc97487db80ab61b59813adc9/checks/124062747699/logs/25"
+        }
+      ]
+    }
+  ]
+}
