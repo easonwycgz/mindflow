@@ -1,6 +1,24 @@
 import validate from "./generated/card-validator.js";
 import { z } from "zod";
 
+export class InputIssue extends Error {
+  constructor(
+    public code:
+      | "syntax"
+      | "protocol"
+      | "version"
+      | "uri"
+      | "tree"
+      | "duplicate-node"
+      | "capacity"
+      | "duplicate-card",
+    message: string,
+  ) {
+    super(message);
+    this.name = "InputIssue";
+  }
+}
+
 export interface Branch {
   id: string;
   title: string;
@@ -43,7 +61,7 @@ export function bounded(
   while (stack.length) {
     const { v, depth } = stack.pop()!;
     if (depth > maxDepth || ++count > maxValues)
-      throw Error("JSON 层级或节点数量超限");
+      throw new InputIssue("tree", "JSON 层级或节点数量超限");
     if (v && typeof v === "object")
       for (const child of Object.values(v))
         stack.push({ v: child, depth: depth + 1 });
@@ -56,35 +74,53 @@ export function parseJSON(
   maxDepth = 64,
 ): unknown {
   if (new TextEncoder().encode(text).length > max)
-    throw Error(`文件过大（上限 ${max / 1024 / 1024} MB）`);
+    throw new InputIssue(
+      "capacity",
+      `文件过大（上限 ${max / 1024 / 1024} MB）`,
+    );
   try {
     const value: unknown = JSON.parse(text);
     bounded(value, maxValues, maxDepth);
     return value;
   } catch (e) {
-    if (e instanceof SyntaxError) throw Error("JSON 格式错误");
+    if (e instanceof SyntaxError)
+      throw new InputIssue("syntax", "JSON 格式错误");
     throw e;
   }
 }
 export function validateCard(value: unknown): Card {
   bounded(value);
-  if (!validate(value))
-    throw Error(
+  if (!validate(value)) {
+    const errors = validate.errors ?? [];
+    const code = errors.some(
+      (e) => e.instancePath === "/schema_version" && e.keyword === "const",
+    )
+      ? "version"
+      : errors.some(
+            (e) =>
+              e.keyword === "format" && e.instancePath === "/source/chat_url",
+          )
+        ? "uri"
+        : "protocol";
+    throw new InputIssue(
+      code,
       "卡片协议校验失败：" +
         (validate.errors ?? [])
           .slice(0, 5)
           .map((e) => `${e.instancePath || "/"} ${e.message}`)
           .join("；"),
     );
+  }
   const card = value as Card;
   if (new TextEncoder().encode(JSON.stringify(card)).length > MAX_BYTES)
-    throw Error("卡片超过 2 MB");
+    throw new InputIssue("capacity", "卡片超过 2 MB");
   const ids = new Set<string>();
   const stack = card.branches.map((b) => ({ b, depth: 1 }));
   while (stack.length) {
     const { b, depth } = stack.pop()!;
-    if (depth > MAX_DEPTH) throw Error("知识树深度超过 16 层");
-    if (ids.has(b.id)) throw Error("重复节点 ID：" + b.id);
+    if (depth > MAX_DEPTH) throw new InputIssue("tree", "知识树深度超过 16 层");
+    if (ids.has(b.id))
+      throw new InputIssue("duplicate-node", "重复节点 ID：" + b.id);
     ids.add(b.id);
     stack.push(...b.children.map((c) => ({ b: c, depth: depth + 1 })));
   }

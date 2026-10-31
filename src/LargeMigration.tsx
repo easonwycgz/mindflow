@@ -27,10 +27,12 @@ export function LargeMigration({
   disabled,
   onBusy,
   onRestored,
+  withRestore,
 }: {
   disabled: boolean;
   onBusy: (value: boolean) => void;
   onRestored: () => Promise<void>;
+  withRestore?: (operation: () => Promise<void>) => Promise<void>;
 }) {
   const [jobs, setJobs] = useState<MigrationJob[]>([]),
     [current, setCurrent] = useState<MigrationJob | null>(null),
@@ -442,18 +444,22 @@ export function LargeMigration({
               )
                 return;
               void run(async () => {
-                const job = await commitPagedRestore(
-                  current.id,
-                  db,
-                  undefined,
-                  {
-                    signal: controller.current!.signal,
-                    onProgress: (p) =>
-                      setNotice(`正在原子恢复：${p.cards} 卡；尚未提交成功`),
-                  },
-                );
-                setCurrent(job);
-                await onRestored();
+                const replace = async () => {
+                  const job = await commitPagedRestore(
+                    current.id,
+                    db,
+                    undefined,
+                    {
+                      signal: controller.current!.signal,
+                      onProgress: (p) =>
+                        setNotice(`正在原子恢复：${p.cards} 卡；尚未提交成功`),
+                    },
+                  );
+                  setCurrent(job);
+                  await onRestored();
+                };
+                if (withRestore) await withRestore(replace);
+                else await replace();
                 setNotice("分页恢复已完整提交成功。可保留或删除迁移暂存。");
               });
             }}

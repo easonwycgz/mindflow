@@ -1,17 +1,14 @@
 import {
   useEffect,
+  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
   type ChangeEvent,
   type TouchEvent,
   type KeyboardEvent,
 } from "react";
-import {
-  FONT_INTENT_KEY,
-  FontWriter,
-  pendingFont,
-  patchSettings,
-} from "./settings";
+import { FONT_INTENT_KEY, FontWriter, pendingFont } from "./settings";
 import { exportVolumes, restoreVolumes, type TransferFile } from "./volumes";
 import { LargeMigration } from "./LargeMigration";
 import { ReadingText } from "./ReadingText";
@@ -22,13 +19,19 @@ import {
   db,
   defaults,
   importCard,
-  newReading,
   restore,
   type Reading,
   type Settings,
   type StoredCard,
 } from "./db";
-import { MAX_BYTES, MAX_BACKUP_BYTES, type Branch } from "./model";
+import { InputIssue, MAX_BYTES, MAX_BACKUP_BYTES, type Branch } from "./model";
+import { ReadingSession, type ReadingView } from "./readingSession";
+import {
+  QuickRead,
+  Boundaries,
+  sourceDescription,
+} from "./readingPresentation";
+import { explainImport, type ImportFeedback } from "./importFeedback";
 const basis = {
   conversation: "原对话",
   supplement: "补充说明",
@@ -57,9 +60,32 @@ function Tree({
           >
             {n.title}
           </button>
+          <details className="branch-preview">
+            <summary aria-label={`预览 ${n.title} 的分支摘要`}>
+              分支摘要
+            </summary>
+            <p>{n.summary}</p>
+          </details>
           {n.children.length > 0 && (
-            <details open={contains(n.children, selected) || undefined}>
-              <summary>展开 {n.title} 的子节点</summary>
+            <details
+              data-children
+              open={contains(n.children, selected) || undefined}
+              onToggle={(event) => {
+                const details = event.currentTarget;
+                if (
+                  event.target === details &&
+                  !details.open &&
+                  details.contains(document.activeElement)
+                ) {
+                  details.parentElement
+                    ?.querySelector<HTMLButtonElement>(":scope > button")
+                    ?.focus();
+                }
+              }}
+            >
+              <summary aria-label={`展开 ${n.title} 的子节点`}>
+                子节点 {n.children.length}
+              </summary>
               <Tree
                 nodes={n.children}
                 selected={selected}
@@ -90,10 +116,25 @@ export default function App() {
     [ready, setReady] = useState(false),
     [busy, setBusy] = useState(false),
     [online, setOnline] = useState(navigator.onLine);
+  const [importFeedback, setImportFeedback] = useState<ImportFeedback | null>(
+    null,
+  );
   const [pasteOpen, setPasteOpen] = useState(false),
     [paste, setPaste] = useState("");
+  function showMessage(text: string) {
+    setImportFeedback(null);
+    setMessage(text);
+  }
   const nodeRef = useRef<HTMLElement>(null);
-  const [locate, setLocate] = useState(0);
+  const [view, setView] = useState<ReadingView | null>(null);
+  const [readingError, setReadingError] = useState(false);
+  const [session] = useState(
+    () =>
+      new ReadingSession(db, () => {
+        setReadingError(true);
+        showMessage("阅读位置保存失败；原记录保留，请重试保存。");
+      }),
+  );
   const touch = useRef<{ x: number; y: number; time: number } | null>(null);
   const [confirmRestore, setConfirmRestore] = useState(false);
   const restoreFile = useRef<HTMLInputElement>(null);
@@ -172,10 +213,9 @@ export default function App() {
     if (e.key === "ArrowUp") next = all[Math.max(index - 1, 0)];
     if (e.key === "Home") next = all[0];
     if (e.key === "End") next = all.at(-1);
-    const children =
-      current.parentElement?.querySelector<HTMLDetailsElement>(
-        ":scope > details",
-      );
+    const children = current.parentElement?.querySelector<HTMLDetailsElement>(
+      ":scope > details[data-children]",
+    );
     if (e.key === "ArrowRight" && children) {
       if (children.open)
         next =
@@ -213,9 +253,9 @@ export default function App() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegisterError: () =>
-      setMessage("离线资源安装失败，请保持联网并重新打开。"),
+      showMessage("离线资源安装失败，请保持联网并重新打开。"),
   });
-  async function load(initial = false) {
+  async function load(initial = false, requestedId?: string) {
     const pending = initial ? pendingFont() : null;
     if (pending) {
       setFontDraft(pending.fontSize);
@@ -227,11 +267,18 @@ export default function App() {
       db.reading.toArray(),
       db.settings.get("main"),
     ]);
+    const targetId = requestedId ?? s?.lastCardId ?? null;
+    const nextView = await session.initialize(
+      targetId,
+      requestedId !== undefined,
+    );
+    if (targetId && !nextView) return;
     setCards(c);
     setStates(r);
+    setActive(targetId);
+    setView(nextView);
     if (s) {
-      setSettings(s);
-      setActive(s.lastCardId);
+      setSettings({ ...s, lastCardId: targetId });
       if (
         !pending &&
         (initial || (fontStatus !== "saving" && fontStatus !== "error"))
@@ -258,7 +305,7 @@ export default function App() {
   }
   useEffect(() => {
     void load(true).catch(() => {
-      setMessage("无法打开本地数据库。请检查浏览器存储权限，勿清除已有数据。");
+      showMessage("无法打开本地数据库。请检查浏览器存储权限，勿清除已有数据。");
     });
     const update = () => setOnline(navigator.onLine);
     window.addEventListener("online", update);
@@ -268,93 +315,168 @@ export default function App() {
       window.removeEventListener("offline", update);
     };
   }, []);
-  useEffect(() => {
-    if (locate) {
-      nodeRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
-      nodeRef.current?.focus({ preventScroll: true });
-    }
-  }, [locate]);
   const card = cards.find((c) => c.id === active),
-    reading = states.find((r) => r.cardId === active),
+    savedReading = states.find((r) => r.cardId === active),
+    reading =
+      savedReading && view?.cardId === active
+        ? { ...savedReading, ...view.cursor }
+        : savedReading,
     node = card
       ? findNode(card.content.branches, reading?.nodeId ?? null)
       : undefined;
-  // Persist scroll after scroll events; flush on pagehide as an additional best effort.
-  const readingRef = useRef(reading);
-  readingRef.current = reading;
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    const save = () => {
-      const r = readingRef.current;
-      if (r)
-        void db.reading
-          .update(r.cardId, { scroll: window.scrollY })
-          .catch(() => setMessage("阅读位置保存失败，请导出备份。"));
+  const nodePath = useMemo(() => {
+    const paths = new Map<string, Branch[]>();
+    function visit(nodes: Branch[], parents: Branch[]) {
+      for (const branch of nodes) {
+        const path = [...parents, branch];
+        paths.set(branch.id, path);
+        visit(branch.children, path);
+      }
+    }
+    if (card) visit(card.content.branches, []);
+    return paths;
+  }, [card]);
+  useLayoutEffect(() => {
+    if (!view) return;
+    let second = 0;
+    const first = requestAnimationFrame(() => {
+      if (!session.owns(view)) return;
+      if (view.location === "node") {
+        nodeRef.current?.scrollIntoView({
+          block: "start",
+          behavior: "instant",
+        });
+        nodeRef.current?.focus({ preventScroll: true });
+      } else if (view.location === "top") {
+        const heading = document.getElementById("card-title");
+        heading?.scrollIntoView({ block: "start", behavior: "instant" });
+        heading?.focus({ preventScroll: true });
+      } else if (view.location === "saved")
+        window.scrollTo(0, view.cursor.scroll);
+      second = requestAnimationFrame(() =>
+        session.finishRestore(view, window.scrollY),
+      );
+    });
+    return () => {
+      cancelAnimationFrame(first);
+      cancelAnimationFrame(second);
     };
-    const scroll = () => {
-      clearTimeout(timer);
-      timer = setTimeout(save, 150);
+  }, [view, session]);
+  useEffect(() => {
+    const scroll = () => session.noteScroll(window.scrollY);
+    const save = () => {
+      void session.flush().catch(() => {
+        setReadingError(true);
+        showMessage("阅读位置保存失败，请重试保存。");
+      });
     };
     window.addEventListener("scroll", scroll);
     window.addEventListener("pagehide", save);
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("scroll", scroll);
       window.removeEventListener("pagehide", save);
+      session.dispose();
     };
-  }, []);
-  useEffect(() => {
-    if (ready && active) {
-      void db.reading
-        .get(active)
-        .then((r) => window.scrollTo(0, r?.scroll ?? 0));
-    }
-  }, [active, ready]);
+  }, [session]);
   async function action(fn: () => Promise<void>) {
     setBusy(true);
     try {
       await fn();
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "操作失败；原数据保留。");
+      showMessage(e instanceof Error ? e.message : "操作失败；原数据保留。");
     } finally {
       setBusy(false);
     }
   }
-  async function select(id: string) {
-    await patchSettings({ lastCardId: id });
-    setSettings((prev) => ({ ...prev, lastCardId: id }));
-    setActive(id);
+  async function select(id: string, mode: ReadingView["mode"] = "resume") {
+    session.noteScroll(window.scrollY);
+    try {
+      const next = await session.open(id, mode);
+      if (!next) return;
+      setView(next);
+      setActive(id);
+      if (mode === "resume")
+        setSettings((prev) => ({ ...prev, lastCardId: id }));
+    } catch (error) {
+      setView(session.snapshot());
+      throw error;
+    }
   }
   async function state(change: Partial<Reading>) {
     if (!active) return;
-    const r = {
-      ...((await db.reading.get(active)) ?? newReading(active)),
-      ...change,
-    };
-    await db.reading.put(r);
-    setStates((prev) => [...prev.filter((x) => x.cardId !== active), r]);
+    if (typeof change.favorite === "boolean") {
+      const row = await session.favorite(active, change.favorite);
+      if (row)
+        setStates((prev) => [
+          ...prev.filter((x) => x.cardId !== row.cardId),
+          row,
+        ]);
+      return;
+    }
+    const next = await session.change(change, change.nodeId ? "node" : "top");
+    if (next) setView(next);
+  }
+  async function replaceReading(fn: () => Promise<void>) {
+    try {
+      await session.pause();
+      await fn();
+    } finally {
+      await load(true);
+    }
   }
   async function imported(text: string) {
-    const c = await importCard(text);
-    await load();
-    await select(c.id);
-    setMessage("卡片已安全导入");
+    let importedCard: StoredCard;
+    try {
+      importedCard = await importCard(text);
+    } catch (error) {
+      showMessage("");
+      setImportFeedback(explainImport(error));
+      return false;
+    }
+    showMessage("");
+    setImportFeedback({
+      kind: "success",
+      title: "卡片已安全导入",
+      guidance: "内容保存在此浏览器，可继续阅读。",
+    });
+    try {
+      await session.flush();
+      await load(false, importedCard.id);
+    } catch {
+      showMessage(
+        "卡片已导入，但阅读入口恢复失败；请重新打开卡片，不要重复导入。",
+      );
+    }
+    return true;
   }
   async function file(event: ChangeEvent<HTMLInputElement>, isRestore = false) {
     const f = event.target.files?.[0];
     event.target.value = "";
     if (!f) return;
     await action(async () => {
-      if (f.size > (isRestore ? MAX_BACKUP_BYTES : MAX_BYTES))
-        throw Error("文件过大");
+      if (f.size > (isRestore ? MAX_BACKUP_BYTES : MAX_BYTES)) {
+        if (isRestore) throw Error("文件过大");
+        showMessage("");
+        setImportFeedback(
+          explainImport(new InputIssue("capacity", "文件过大（上限 2 MB）")),
+        );
+        return;
+      }
       if (isRestore) {
-        await restore(await f.text());
+        await replaceReading(async () => {
+          await restore(await f.text());
+          localStorage.removeItem(FONT_INTENT_KEY);
+        });
         localStorage.removeItem(FONT_INTENT_KEY);
         setFontStatus("idle");
-        await load(true);
-        setMessage("备份恢复成功");
+        showMessage("备份恢复成功");
       } else {
-        await imported(await f.text());
+        try {
+          await imported(await f.text());
+        } catch (error) {
+          showMessage("");
+          setImportFeedback(explainImport(error));
+        }
       }
     });
   }
@@ -462,9 +584,9 @@ export default function App() {
                 onClick={() =>
                   void action(async () => {
                     const c = await importCard(JSON.stringify(example));
-                    await load();
-                    await select(c.id);
-                    setMessage("演示卡片已添加");
+                    await session.flush();
+                    await load(false, c.id);
+                    showMessage("演示卡片已添加");
                   })
                 }
               >
@@ -490,9 +612,10 @@ export default function App() {
                   disabled={busy || !paste.trim() || fontStatus === "saving"}
                   onClick={() =>
                     void action(async () => {
-                      await imported(paste);
-                      setPaste("");
-                      setPasteOpen(false);
+                      if (await imported(paste)) {
+                        setPaste("");
+                        setPasteOpen(false);
+                      }
                     })
                   }
                 >
@@ -524,6 +647,7 @@ export default function App() {
                     const pool = visible.filter((c) => c.id !== active);
                     await select(
                       pool[Math.floor(Math.random() * pool.length)].id,
+                      "discover",
                     );
                   })
                 }
@@ -573,7 +697,7 @@ export default function App() {
                     a.download = "mindflow-backup.json";
                     a.click();
                     setTimeout(() => URL.revokeObjectURL(url), 1000);
-                    setMessage("备份已生成，请妥善保管下载文件");
+                    showMessage("备份已生成，请妥善保管下载文件");
                   })
                 }
               >
@@ -590,7 +714,7 @@ export default function App() {
                 onClick={() =>
                   void action(async () => {
                     setVolumeFiles(await exportVolumes());
-                    setMessage(
+                    showMessage(
                       "分卷备份已生成。请下载清单及每一卷，恢复时同时选择全部文件。",
                     );
                   })
@@ -644,15 +768,17 @@ export default function App() {
                       files.reduce((n, f) => n + f.size, 0) > MAX_BACKUP_BYTES
                     )
                       throw Error("请选择完整分卷，合计最多40 MB");
-                    const inputs = [];
+                    const inputs: TransferFile[] = [];
                     for (const f of files)
                       inputs.push({ name: f.name, text: await f.text() });
-                    await restoreVolumes(inputs);
+                    await replaceReading(async () => {
+                      await restoreVolumes(inputs);
+                      localStorage.removeItem(FONT_INTENT_KEY);
+                    });
                     localStorage.removeItem(FONT_INTENT_KEY);
-                    await load(true);
                     setVolumeFiles([]);
                     setFontStatus("idle");
-                    setMessage("分卷恢复成功，全部数据已原子写入");
+                    showMessage("分卷恢复成功，全部数据已原子写入");
                   });
                 }}
               />
@@ -684,11 +810,11 @@ export default function App() {
               <LargeMigration
                 disabled={!ready || busy || fontStatus === "saving"}
                 onBusy={setBusy}
+                withRestore={replaceReading}
                 onRestored={async () => {
                   localStorage.removeItem(FONT_INTENT_KEY);
                   setFontStatus("idle");
-                  await load(true);
-                  setMessage("分页迁移恢复成功，所有数据已提交");
+                  showMessage("分页迁移恢复成功，所有数据已提交");
                 }}
               />
               <label className="font">
@@ -727,13 +853,53 @@ export default function App() {
           </details>
         </aside>
         <main id="main" tabIndex={-1}>
-          {message && (
-            <div role="status" className="notice">
-              {message}
-              <button aria-label="关闭提示" onClick={() => setMessage("")}>
+          {importFeedback && (
+            <div
+              role="status"
+              aria-live={importFeedback.kind === "error" ? "off" : "polite"}
+              className={`notice ${importFeedback.kind === "error" ? "import-error" : ""}`}
+            >
+              <div role={importFeedback.kind === "error" ? "alert" : undefined}>
+                <strong>
+                  {importFeedback.kind === "error" ? "导入失败：" : ""}
+                  {importFeedback.title}
+                </strong>
+                <p>{importFeedback.guidance}</p>
+              </div>
+              {importFeedback.kind === "error" && importFeedback.detail && (
+                <details>
+                  <summary>技术详情</summary>
+                  <pre>{importFeedback.detail}</pre>
+                </details>
+              )}
+              <button
+                aria-label="关闭提示"
+                onClick={() => setImportFeedback(null)}
+              >
                 ×
               </button>
             </div>
+          )}
+          {message && (
+            <div role="status" className="notice">
+              {message}
+              <button aria-label="关闭提示" onClick={() => showMessage("")}>
+                ×
+              </button>
+            </div>
+          )}
+          {readingError && (
+            <button
+              onClick={() =>
+                void action(async () => {
+                  await session.flush();
+                  setReadingError(false);
+                  showMessage("阅读位置已保存");
+                })
+              }
+            >
+              重试保存阅读位置
+            </button>
           )}
           {card && reading ? (
             <article
@@ -754,13 +920,47 @@ export default function App() {
                   {reading.favorite ? "★ 已收藏" : "☆ 收藏"}
                 </button>
               </div>
-              <h2>{card.content.title}</h2>
-              <p className="hook">{card.content.hook}</p>
-              <div className="tags">
-                {card.content.tags.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-              </div>
+              <h2 id="card-title" tabIndex={-1}>
+                {card.content.title}
+              </h2>
+              {view?.mode === "discover" && (
+                <aside className="discovery" aria-label="临时发现">
+                  <p>随看中 · 上次进度已保留；本次探索不会自动替换进度。</p>
+                  <button onClick={() => void action(() => select(card.id))}>
+                    继续上次阅读
+                  </button>
+                  <button
+                    onClick={() =>
+                      void action(async () => {
+                        const next = await session.adopt(window.scrollY);
+                        if (next) {
+                          setView(next);
+                          setSettings((prev) => ({
+                            ...prev,
+                            lastCardId: card.id,
+                          }));
+                          showMessage("已从这里继续，替换了上次阅读位置。");
+                        }
+                      })
+                    }
+                  >
+                    从这里继续（替换上次位置）
+                  </button>
+                </aside>
+              )}
+              <Boundaries
+                key={`boundaries:${active}`}
+                caveats={card.content.caveats}
+              />
+              <details className="card-context" key={`context:${active}`}>
+                <summary>问题引子与标签</summary>
+                <p className="hook">{card.content.hook}</p>
+                <div className="tags">
+                  {card.content.tags.map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
+                </div>
+              </details>
               <div className="row card-switch">
                 <button
                   disabled={visible.length < 2 || busy}
@@ -795,24 +995,35 @@ export default function App() {
                 ))}
               </nav>
               {reading.section === "summary" && (
-                <>
-                  <h3>01 / 先抓住核心</h3>
-                  <ReadingText text={card.content.summary} />
-                  <h3>值得带走的想法</h3>
-                  <ol className="takeaways">
-                    {card.content.key_takeaways.map((t, i) => (
-                      <li key={i}>{t}</li>
-                    ))}
-                  </ol>
-                  <button
-                    className="primary"
-                    onClick={() =>
-                      void action(() => state({ section: "tree", scroll: 0 }))
-                    }
-                  >
-                    继续探索知识树 →
-                  </button>
-                </>
+                <QuickRead
+                  key={`quick:${active}`}
+                  card={card.content}
+                  initialFull={
+                    view?.mode !== "discover" && (view?.cursor.scroll ?? 0) > 0
+                  }
+                  onTree={() =>
+                    void action(() => state({ section: "tree", scroll: 0 }))
+                  }
+                  onFaq={() =>
+                    void action(() => state({ section: "faq", scroll: 0 }))
+                  }
+                  onDone={() =>
+                    void action(async () => {
+                      if (!(await session.end(window.scrollY))) return;
+                      const library =
+                        document.querySelector<HTMLElement>(".library");
+                      if (!library) return;
+                      const panel = library.querySelector("details");
+                      if (panel) panel.open = true;
+                      const target =
+                        library.querySelector<HTMLElement>(
+                          ".card-link.selected",
+                        ) ?? library;
+                      target.scrollIntoView({ block: "start" });
+                      target.focus({ preventScroll: true });
+                    })
+                  }
+                />
               )}
               {reading.section === "tree" && (
                 <>
@@ -824,6 +1035,14 @@ export default function App() {
                       className="node"
                       aria-label="节点内容"
                     >
+                      <nav aria-label="当前知识路径" className="node-path">
+                        {nodePath.get(node.id)?.map((part, i) => (
+                          <span key={part.id}>
+                            {i > 0 && " › "}
+                            {part.title}
+                          </span>
+                        ))}
+                      </nav>
                       <h3>{node.title}</h3>
                       <ReadingText text={node.content} />
                       <button onClick={returnToTree}>返回知识树</button>
@@ -836,12 +1055,12 @@ export default function App() {
                     onKeyDown={treeKeys}
                   >
                     <Tree
+                      key={active}
                       nodes={card.content.branches}
                       selected={reading.nodeId}
                       onSelect={(id) =>
                         void action(async () => {
                           await state({ nodeId: id });
-                          setLocate((n) => n + 1);
                         })
                       }
                     />
@@ -852,7 +1071,7 @@ export default function App() {
                 <>
                   <h3>03 / 再多问一步</h3>
                   {card.content.faq.map((q, i) => (
-                    <details className="faq" key={i}>
+                    <details className="faq" key={`${active}:${i}`}>
                       <summary>{q.question}</summary>
                       <ReadingText text={q.answer} />
                       <small>{basis[q.basis]}</small>
@@ -861,19 +1080,10 @@ export default function App() {
                 </>
               )}
               <footer>
-                {card.content.caveats.length > 0 && (
-                  <details>
-                    <summary>适用边界与提醒</summary>
-                    {card.content.caveats.map((c, i) => (
-                      <p key={i}>{c}</p>
-                    ))}
-                  </details>
+                {card.content.caveats.length === 0 && (
+                  <p>未提供适用边界说明；这不表示内容不存在风险。</p>
                 )}
-                <p>
-                  来源：{card.content.source.chat_title ?? "未注明"}
-                  {card.content.source.chat_url &&
-                    "（来源链接仅作记录，不自动打开）"}
-                </p>
+                <p>来源：{sourceDescription(card.content.source)}</p>
               </footer>
             </article>
           ) : (

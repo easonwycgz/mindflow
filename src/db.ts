@@ -2,6 +2,8 @@ import Dexie, { type Table } from "dexie";
 import { z } from "zod";
 import {
   cardBoundary,
+  validateCard,
+  InputIssue,
   hash,
   MAX_LIBRARY_CARDS,
   MAX_BACKUP_BYTES,
@@ -67,7 +69,7 @@ export const newReading = (cardId: string): Reading => ({
   scroll: 0,
 });
 export async function importCard(text: string, target = db) {
-  const content = cardBoundary.parse(parseJSON(text));
+  const content = validateCard(parseJSON(text));
   const digest = await hash(content);
   const now = Date.now();
   const card: StoredCard = {
@@ -79,7 +81,10 @@ export async function importCard(text: string, target = db) {
   };
   await target.transaction("rw", target.cards, target.reading, async () => {
     if (await target.cards.where("hash").equals(digest).count())
-      throw Error("该内容已存在；原卡片与阅读状态保持不变");
+      throw new InputIssue(
+        "duplicate-card",
+        "该内容已存在；原卡片与阅读状态保持不变",
+      );
     assertCapacity([...(await target.cards.toArray()), card]);
     await target.cards.add(card);
     await target.reading.add(newReading(card.id));
