@@ -1,4 +1,5 @@
 import Dexie, { type Table } from "dexie";
+import { LibraryCapacityError } from "./libraryCapacity";
 import { z } from "zod";
 import {
   cardBoundary,
@@ -121,13 +122,13 @@ export function assertCapacity(
   maxCards = MAX_LIBRARY_CARDS,
 ) {
   if (cards.length > maxCards)
-    throw Error(`知识库最多 ${maxCards} 张卡片；原数据保持不变`);
+    throw new LibraryCapacityError("library-count", maxCards);
   const bytes =
     new TextEncoder().encode(JSON.stringify(cards)).length +
     cards.length * 512 +
     1024;
   if (bytes > MAX_BACKUP_BYTES)
-    throw Error("知识库超过 40 MB 可恢复容量；原数据保持不变");
+    throw new LibraryCapacityError("library-bytes", MAX_BACKUP_BYTES);
 }
 export async function backup(target = db) {
   const payload = await target.transaction(

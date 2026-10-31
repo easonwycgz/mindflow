@@ -1,4 +1,5 @@
 import { InputIssue } from "./model";
+import { LibraryCapacityError } from "./libraryCapacity";
 export interface ImportFeedback {
   kind: "error" | "success" | "duplicate";
   title: string;
@@ -6,6 +7,17 @@ export interface ImportFeedback {
   detail?: string;
 }
 export function explainImport(error: unknown): ImportFeedback {
+  if (error instanceof LibraryCapacityError)
+    return {
+      kind: "error",
+      title:
+        error.code === "library-count"
+          ? `知识库最多 ${error.limit} 张卡片`
+          : `知识库超过 ${error.limit / 1024 / 1024} MiB 可恢复容量预算`,
+      guidance:
+        "本次未导入，原有数据未更改。请先导出备份，暂缓新增导入；当前版本没有单卡删除入口，请保留原库并联系维护者协助整理。",
+      detail: error.message,
+    };
   if (!(error instanceof InputIssue))
     return {
       kind: "error",
