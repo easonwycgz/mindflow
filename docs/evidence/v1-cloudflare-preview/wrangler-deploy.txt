@@ -1,0 +1,16 @@
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+
+ ⛅️ wrangler 4.156.0
+────────────────────
+Uploading... (0/12)
+Uploading... (4/12)
+Uploading... (8/12)
+Uploading... (12/12)
+✨ Success! Uploaded 12 files (1.98 sec)
+
+✨ Uploading _headers
+🌎 Deploying...
+✨ Deployment complete! Take a peek over at https://36e604de.001beta.pages.dev
+✨ Deployment alias URL: https://rc-df48c9d.001beta.pages.dev

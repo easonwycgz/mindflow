@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "purpose": "Sanitized observations from completed Mindflow V1 non-production deployment; archival only, no new deployment or acceptance.",
+  "source_commit": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+  "governance_baseline_commit": "8a46eaef581b0d2b496947079498395170f5d0ef",
+  "archived_at": "2026-10-31T13:50:35+08:00",
+  "records": {
+    "authorization": {
+      "owner_confirmed_account_id": "9218ff438dcbf07fe98a9a24695ba776",
+      "owner_confirmed_permission": "Account Cloudflare Pages Edit covering this account",
+      "checks": [
+        {
+          "check": "token_verify",
+          "http_status": 200,
+          "success": true,
+          "errors": [],
+          "result": {
+            "status": "active"
+          }
+        },
+        {
+          "check": "pages_access",
+          "http_status": 200,
+          "success": true,
+          "errors": [],
+          "result": []
+        },
+        {
+          "check": "target_project",
+          "http_status": 404,
+          "success": false,
+          "errors": [
+            {
+              "code": 8000007,
+              "message": "Project not found. The specified project name does not match any of your existing projects."
+            }
+          ],
+          "result": {
+            "name": null,
+            "production_branch": null,
+            "subdomain": null
+          }
+        }
+      ],
+      "passed": true
+    },
+    "artifact-integrity": {
+      "artifact": "/workspace/artifacts/mindflow-v1-rc-df48c9d.zip",
+      "source_commit": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+      "governance_commit": "8a46eaef581b0d2b496947079498395170f5d0ef",
+      "actual_zip_bytes": 172354,
+      "actual_zip_sha256": "e0d83d8e73c2b0510ed4ca9199dc3d6c0d2d4a798520b3803a871c2a5b44d348",
+      "files": [
+        {
+          "path": "_headers",
+          "bytes": 459,
+          "sha256": "dc2326989f4e958341cfffc316f0f38f07e2b23c37a38992ae7dc4f313a8259f",
+          "expected_sha256": "dc2326989f4e958341cfffc316f0f38f07e2b23c37a38992ae7dc4f313a8259f",
+          "matched": true
+        },
+        {
+          "path": "assets/main-CHwLQiEH.js",
+          "bytes": 26335,
+          "sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+          "expected_sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+          "matched": true
+        },
+        {
+          "path": "assets/migration-kjdj7X33.js",
+          "bytes": 1019,
+          "sha256": "ad7711baf98398a41876e9ac40dda706770ae7e98570e2c1395e74c37aabdc23",
+          "expected_sha256": "ad7711baf98398a41876e9ac40dda706770ae7e98570e2c1395e74c37aabdc23",
+          "matched": true
+        },
+        {
+          "path": "assets/style-BGrn-dwi.css",
+          "bytes": 10284,
+          "sha256": "447de589b096e724903a9e2a13aa78f07a1bd7e280de49f080a50e2408dcaeba",
+          "expected_sha256": "447de589b096e724903a9e2a13aa78f07a1bd7e280de49f080a50e2408dcaeba",
+          "matched": true
+        },
+        {
+          "path": "assets/style-Bp_TMkjA.js",
+          "bytes": 473373,
+          "sha256": "475d7afdff4a66b36d7da06c6552afc4a0d734710c50b26526f4d3b741d6b8b2",
+          "expected_sha256": "475d7afdff4a66b36d7da06c6552afc4a0d734710c50b26526f4d3b741d6b8b2",
+          "matched": true
+        },
+        {
+          "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+          "bytes": 5748,
+          "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+          "expected_sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+          "matched": true
+        },
+        {
+          "path": "icon-192.png",
+          "bytes": 1097,
+          "sha256": "5de02cf3c52a5e00883c3b391b7c6760886fbdf99a1af8970409dd3c18624692",
+          "expected_sha256": "5de02cf3c52a5e00883c3b391b7c6760886fbdf99a1af8970409dd3c18624692",
+          "matched": true
+        },
+        {
+          "path": "icon-512.png",
+          "bytes": 3776,
+          "sha256": "7fd4acae02111223b969363b17b9c57bbb6a8acc1370e68cbba07a7176a86351",
+          "expected_sha256": "7fd4acae02111223b969363b17b9c57bbb6a8acc1370e68cbba07a7176a86351",
+          "matched": true
+        },
+        {
+          "path": "index.html",
+          "bytes": 666,
+          "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+          "expected_sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+          "matched": true
+        },
+        {
+          "path": "manifest.webmanifest",
+          "bytes": 333,
+          "sha256": "f8a35bdac22aa8b9be559a1c0276741334a1fe1370cf064bdab03fa00c88ba58",
+          "expected_sha256": "f8a35bdac22aa8b9be559a1c0276741334a1fe1370cf064bdab03fa00c88ba58",
+          "matched": true
+        },
+        {
+          "path": "migration.html",
+          "bytes": 560,
+          "sha256": "4d99f3d48cea2a98fbd726d0825d316332b12c70dbd5b392809364abf982686b",
+          "expected_sha256": "4d99f3d48cea2a98fbd726d0825d316332b12c70dbd5b392809364abf982686b",
+          "matched": true
+        },
+        {
+          "path": "sw.js",
+          "bytes": 1650,
+          "sha256": "703df3599d43f563b05b795a0ac05074e0de429b0c2f95a589b350d6e4ce17e6",
+          "expected_sha256": "703df3599d43f563b05b795a0ac05074e0de429b0c2f95a589b350d6e4ce17e6",
+          "matched": true
+        },
+        {
+          "path": "workbox-2fbc6a65.js",
+          "bytes": 15026,
+          "sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e",
+          "expected_sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e",
+          "matched": true
+        }
+      ],
+      "passed": true,
+      "dist_path": "/workspace/work/mindflow-preview/run-05tfmrhy/deployment/dist"
+    },
+    "project-create": {
+      "check": "create_project",
+      "http_status": 200,
+      "success": true,
+      "errors": [],
+      "result": {
+        "id": "6c86da89-cf52-49e7-b193-38703c693933",
+        "name": "001beta",
+        "subdomain": "001beta.pages.dev",
+        "production_branch": "production-disabled",
+        "created_on": "2026-10-31T05:30:51.690224Z",
+        "source": null,
+        "canonical_deployment": null,
+        "latest_deployment": null
+      }
+    },
+    "project-confirm": {
+      "check": "confirm_project",
+      "http_status": 200,
+      "success": true,
+      "errors": [],
+      "result": {
+        "id": "6c86da89-cf52-49e7-b193-38703c693933",
+        "name": "001beta",
+        "subdomain": "001beta.pages.dev",
+        "production_branch": "production-disabled",
+        "created_on": "2026-10-31T05:30:51.690224Z",
+        "source": null,
+        "canonical_deployment": null,
+        "latest_deployment": null
+      }
+    },
+    "project-after-deploy": {
+      "id": "6c86da89-cf52-49e7-b193-38703c693933",
+      "name": "001beta",
+      "subdomain": "001beta.pages.dev",
+      "production_branch": "production-disabled",
+      "source": null,
+      "canonical_deployment": null,
+      "latest_deployment": {
+        "id": "36e604de-ef6f-465f-886c-780803941ff9",
+        "url": "https://36e604de.001beta.pages.dev",
+        "environment": "preview"
+      }
+    },
+    "isolation": {
+      "passed": true,
+      "all_deployments_count": 1,
+      "production_deployments": 0
+    },
+    "wrangler-result": {
+      "command": [
+        "npx",
+        "--yes",
+        "wrangler@4.156.0",
+        "pages",
+        "deploy",
+        "/workspace/work/mindflow-preview/run-05tfmrhy/deployment/dist",
+        "--project-name",
+        "001beta",
+        "--branch",
+        "rc-df48c9d",
+        "--commit-hash",
+        "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+        "--commit-dirty=false",
+        "--commit-message",
+        "Mindflow V1 frozen RC; NON-PRODUCTION ONLY"
+      ],
+      "exit_code": 0
+    },
+    "deployment": {
+      "id": "36e604de-ef6f-465f-886c-780803941ff9",
+      "url": "https://36e604de.001beta.pages.dev",
+      "aliases": [
+        "https://rc-df48c9d.001beta.pages.dev"
+      ],
+      "environment": "preview",
+      "created_on": "2026-10-31T05:31:56.984511Z",
+      "project_id": "6c86da89-cf52-49e7-b193-38703c693933",
+      "project_name": "001beta",
+      "deployment_trigger": {
+        "type": "ad_hoc",
+        "metadata": {
+          "branch": "rc-df48c9d",
+          "commit_hash": "df48c9d2eae22f3fc97487db80ab61b59813adc9",
+          "commit_message": "Mindflow V1 frozen RC; NON-PRODUCTION ONLY",
+          "commit_dirty": false
+        }
+      },
+      "latest_stage": {
+        "name": "deploy",
+        "started_on": null,
+        "ended_on": "2026-10-31T05:31:58.543859Z",
+        "status": "success"
+      },
+      "stages": [
+        {
+          "name": "queued",
+          "started_on": "2026-10-31T05:31:56.984511Z",
+          "ended_on": null,
+          "status": "active"
+        },
+        {
+          "name": "initialize",
+          "started_on": null,
+          "ended_on": null,
+          "status": "idle"
+        },
+        {
+          "name": "clone_repo",
+          "started_on": null,
+          "ended_on": null,
+          "status": "idle"
+        },
+        {
+          "name": "build",
+          "started_on": null,
+          "ended_on": null,
+          "status": "idle"
+        },
+        {
+          "name": "deploy",
+          "started_on": null,
+          "ended_on": "2026-10-31T05:31:58.543859Z",
+          "status": "success"
+        }
+      ]
+    },
+    "online-assets": {
+      "url": "https://36e604de.001beta.pages.dev",
+      "client": "MindflowV1-PreviewVerification/1.0",
+      "tls": {
+        "verification_enabled": true,
+        "protocol": "TLSv1.3",
+        "cipher": "TLS_AES_256_GCM_SHA384",
+        "certificate_not_before": "Oct 31 05:31:57 2026 GMT",
+        "certificate_not_after": "Oct 31 05:32:57 2027 GMT",
+        "certificate_subject": [
+          [
+            [
+              "commonName",
+              "36e604de.001beta.pages.dev"
+            ]
+          ]
+        ],
+        "certificate_issuer": [
+          [
+            [
+              "countryName",
+              "US"
+            ]
+          ],
+          [
+            [
+              "stateOrProvinceName",
+              "California"
+            ]
+          ],
+          [
+            [
+              "localityName",
+              "San Francisco"
+            ]
+          ],
+          [
+            [
+              "organizationName",
+              "OpenAI, LLC"
+            ]
+          ],
+          [
+            [
+              "commonName",
+              "openai.com"
+            ]
+          ]
+        ],
+        "connection_path": "inherited trusted environment HTTPS proxy"
+      },
+      "files": [
+        {
+          "path": "assets/main-CHwLQiEH.js",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+          "bytes": 26335,
+          "sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+          "expected_sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "application/javascript",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "assets/migration-kjdj7X33.js",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+          "bytes": 1019,
+          "sha256": "ad7711baf98398a41876e9ac40dda706770ae7e98570e2c1395e74c37aabdc23",
+          "expected_sha256": "ad7711baf98398a41876e9ac40dda706770ae7e98570e2c1395e74c37aabdc23",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "application/javascript",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "assets/style-BGrn-dwi.css",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+          "bytes": 10284,
+          "sha256": "447de589b096e724903a9e2a13aa78f07a1bd7e280de49f080a50e2408dcaeba",
+          "expected_sha256": "447de589b096e724903a9e2a13aa78f07a1bd7e280de49f080a50e2408dcaeba",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "text/css; charset=utf-8",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "assets/style-Bp_TMkjA.js",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+          "bytes": 473373,
+          "sha256": "475d7afdff4a66b36d7da06c6552afc4a0d734710c50b26526f4d3b741d6b8b2",
+          "expected_sha256": "475d7afdff4a66b36d7da06c6552afc4a0d734710c50b26526f4d3b741d6b8b2",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "application/javascript",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+          "bytes": 5748,
+          "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+          "expected_sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "application/javascript",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "icon-192.png",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/icon-192.png",
+          "bytes": 1097,
+          "sha256": "5de02cf3c52a5e00883c3b391b7c6760886fbdf99a1af8970409dd3c18624692",
+          "expected_sha256": "5de02cf3c52a5e00883c3b391b7c6760886fbdf99a1af8970409dd3c18624692",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "image/png",
+            "strict-transport-security": null,
+            "server": "envoy"
+          },
+          "png_dimensions": [
+            192,
+            192
+          ]
+        },
+        {
+          "path": "icon-512.png",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/icon-512.png",
+          "bytes": 3776,
+          "sha256": "7fd4acae02111223b969363b17b9c57bbb6a8acc1370e68cbba07a7176a86351",
+          "expected_sha256": "7fd4acae02111223b969363b17b9c57bbb6a8acc1370e68cbba07a7176a86351",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "image/png",
+            "strict-transport-security": null,
+            "server": "envoy"
+          },
+          "png_dimensions": [
+            512,
+            512
+          ]
+        },
+        {
+          "path": "index.html",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/",
+          "bytes": 666,
+          "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+          "expected_sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "text/html; charset=utf-8",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "manifest.webmanifest",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+          "bytes": 333,
+          "sha256": "f8a35bdac22aa8b9be559a1c0276741334a1fe1370cf064bdab03fa00c88ba58",
+          "expected_sha256": "f8a35bdac22aa8b9be559a1c0276741334a1fe1370cf064bdab03fa00c88ba58",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "application/manifest+json",
+            "strict-transport-security": null,
+            "server": "envoy"
+          },
+          "manifest": {
+            "name": "Mindflow 知识卡片",
+            "short_name": "Mindflow",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#f6f5ef",
+            "theme_color": "#164e43",
+            "lang": "zh-CN",
+            "scope": "/",
+            "icons": [
+              {
+                "src": "/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+              },
+              {
+                "src": "/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable"
+              }
+            ]
+          }
+        },
+        {
+          "path": "migration.html",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/migration",
+          "bytes": 560,
+          "sha256": "4d99f3d48cea2a98fbd726d0825d316332b12c70dbd5b392809364abf982686b",
+          "expected_sha256": "4d99f3d48cea2a98fbd726d0825d316332b12c70dbd5b392809364abf982686b",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "text/html; charset=utf-8",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "sw.js",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/sw.js",
+          "bytes": 1650,
+          "sha256": "703df3599d43f563b05b795a0ac05074e0de429b0c2f95a589b350d6e4ce17e6",
+          "expected_sha256": "703df3599d43f563b05b795a0ac05074e0de429b0c2f95a589b350d6e4ce17e6",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "no-cache",
+            "content-type": "application/javascript",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        },
+        {
+          "path": "workbox-2fbc6a65.js",
+          "status": 200,
+          "final_url": "https://36e604de.001beta.pages.dev/workbox-2fbc6a65.js",
+          "bytes": 15026,
+          "sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e",
+          "expected_sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e",
+          "matched": true,
+          "headers": {
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "no-referrer",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "cache-control": "public, max-age=0, must-revalidate",
+            "content-type": "application/javascript",
+            "strict-transport-security": null,
+            "server": "envoy"
+          }
+        }
+      ],
+      "passed": true
+    },
+    "online-headers": {
+      "status": 200,
+      "final_url": "https://36e604de.001beta.pages.dev/",
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "no-referrer",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "text/html; charset=utf-8",
+        "strict-transport-security": null,
+        "server": "envoy"
+      },
+      "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+      "checks": {
+        "content-security-policy": true,
+        "referrer-policy": true,
+        "x-content-type-options": true,
+        "permissions-policy": true
+      },
+      "sw_cache_no_cache": true,
+      "passed": true
+    },
+    "headers-control-file": {
+      "status": 200,
+      "final_url": "https://36e604de.001beta.pages.dev/_headers",
+      "bytes": 666,
+      "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+      "served_as_original": false,
+      "note": "Cloudflare Pages consumes _headers as deployment configuration, not a public static asset."
+    },
+    "online-access-diagnostic": {
+      "client": "explicitly identified MindflowV1-PreviewVerification/1.0",
+      "attempts": [
+        {
+          "path": "/",
+          "status": 200,
+          "url": "https://36e604de.001beta.pages.dev/",
+          "content_type": "text/html; charset=utf-8",
+          "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+          "bytes": 666
+        },
+        {
+          "path": "/assets/main-CHwLQiEH.js",
+          "status": 200,
+          "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+          "content_type": "application/javascript",
+          "sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+          "bytes": 26335
+        }
+      ]
+    },
+    "browser-diagnostic": {
+      "url": "https://36e604de.001beta.pages.dev",
+      "ignoreHTTPSErrors": false,
+      "error": "page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://36e604de.001beta.pages.dev/\nCall log:\n  - navigating to \"https://36e604de.001beta.pages.dev/\", waiting until \"networkidle\"\n"
+    },
+    "browser-ca-attempt": {
+      "profile_path": "/workspace/work/mindflow-preview/run-05tfmrhy/chromium-profile",
+      "existing_system_ca": "/usr/local/share/ca-certificates/environment-proxy-ca.crt",
+      "import_completed": false,
+      "error": "Native WebUI filechooser event not received; 10000ms timeout",
+      "tls_verification_disabled": false
+    }
+  }
+}
