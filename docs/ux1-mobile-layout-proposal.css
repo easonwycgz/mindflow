@@ -1,0 +1,20 @@
+/* DESIGN PROTOTYPE ONLY. Not imported by src, public, dist, or CI. */
+/* Preserve DOM/content order, all caveats, body font size and 44px hit targets. */
+@media (max-width: 680px) {
+  .app { padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
+  header { min-height: 48px; }
+  .layout { padding-top: 8px; }
+  main { padding: 12px; }
+  h2 { margin: 12px 0; line-height: 1.35; }
+  .boundaries { padding: 8px 10px; line-height: 1.6; }
+  .boundaries p { margin: 4px 0; }
+  .card-context { margin: 4px 0; }
+  .card-context > summary { padding: 4px 0; min-height: 44px; }
+  .card-switch { margin-top: 4px; }
+  .tabs { margin-top: 4px; padding-bottom: 4px; }
+  section[aria-label="快速阅读"] > h3 { margin: 12px 0; }
+  .core-takeaway { padding: 4px 10px; }
+  .core-takeaway .prose { line-height: 1.75; margin: 6px 0; }
+  .discovery { margin-bottom: 8px; }
+  .discovery p { margin: 0 0 4px; }
+}
