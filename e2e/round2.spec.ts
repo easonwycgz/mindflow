@@ -13,13 +13,13 @@ test('QA-002: paste and file import share validation and dedup, multiple cards p
 test('QA-003: depth-16 disclosure, focused body and selected ancestors survive reload',async({page})=>{
  await page.goto('/');const c=structuredClone(example);c.title='16层合成树';c.branches=[{id:'d1',title:'第1层',summary:'长摘要'.repeat(80),content:'第1层正文',children:[]}];let b=c.branches[0];for(let i=2;i<=16;i++){const n={id:'d'+i,title:'第'+i+'层',summary:'长摘要'.repeat(80),content:'深层正文'+i,children:[]};b.children=[n];b=n;}
  await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(c));await page.getByRole('button',{name:'知识树',exact:true}).click();
- for(let i=1;i<16;i++)await page.getByText('展开 第'+i+'层 的子节点',{exact:true}).click();
+ for(let i=1;i<16;i++)await page.getByLabel('展开 第'+i+'层 的子节点',{exact:true}).click();
  await page.getByRole('button',{name:'第16层',exact:true}).click();const body=page.getByRole('region',{name:'节点内容'});await expect(body).toContainText('深层正文16');await expect(body).toBeFocused();expect((await body.boundingBox())!.y).toBeLessThan(200);
  await page.waitForTimeout(300);await page.reload();await expect(body).toContainText('深层正文16');expect((await body.boundingBox())!.y).toBeLessThan(200);await page.getByRole('button',{name:'返回知识树'}).click();await expect(page.getByRole('button',{name:'第16层',exact:true})).toBeVisible();
 });
 test('QA-008/009: basic Markdown is structured under actual strict CSP',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));const response=await page.goto('/');const csp=response!.headers()['content-security-policy'];expect(csp).toContain("script-src 'self'");expect(csp).not.toContain('unsafe-eval');
- const c={...example,summary:'## 核心标题\n- 第一项\n- **重要结论**\n\n公式 $x^2$ 保留原文'};await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(c));await expect(page.getByRole('heading',{name:'核心标题'})).toBeVisible();await expect(page.locator('.reading-text ul li')).toHaveCount(2);await expect(page.locator('.reading-text strong')).toHaveText('重要结论');expect(errors).toEqual([]);
+ const c={...example,summary:'## 核心标题\n- 第一项\n- **重要结论**\n\n公式 $x^2$ 保留原文'};await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(c));await page.locator('.full-summary>summary').click();await expect(page.getByRole('heading',{name:'核心标题'})).toBeVisible();await expect(page.locator('.reading-text ul li')).toHaveCount(2);await expect(page.locator('.reading-text strong')).toHaveText('重要结论');expect(errors).toEqual([]);
 });
 test('QA-006: vertical touch scroll does not switch cards or cancel reading',async({page})=>{
  await page.goto('/');await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(example));await expect(page.getByRole('heading',{name:example.title})).toBeAttached();await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload({...example,title:'竖向滚动卡片',summary:example.summary.repeat(4)}));await expect(page.getByRole('heading',{name:'竖向滚动卡片'})).toBeAttached();await page.locator('article h2').scrollIntoViewIfNeeded();const before=await page.evaluate(()=>scrollY);

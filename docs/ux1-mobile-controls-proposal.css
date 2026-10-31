@@ -1,0 +1,21 @@
+/* DESIGN OPTION B ONLY: requires explicit owner approval; never imported by app. */
+/* Used together with proposal A and the isolated control-grouping adapter. */
+@media (max-width: 680px) {
+  .prototype-controls header { min-height: 0; height: 0; border: 0; display: block; }
+  .prototype-controls .app { padding-left: max(8px, env(safe-area-inset-left)); padding-right: max(8px, env(safe-area-inset-right)); }
+  .prototype-controls main { padding: 6px 8px; }
+  .prototype-controls h2 { margin: 6px 0; line-height: 1.3; }
+  .prototype-controls .boundaries { padding: 4px 8px; line-height: 1.5; }
+  .prototype-controls .boundaries p { margin: 2px 0; }
+  .prototype-controls .core-takeaway { padding: 4px 8px; }
+  .prototype-controls .core-takeaway .prose { line-height: 1.5; margin: 4px 0; }
+  .prototype-controls section[aria-label="快速阅读"] > h3 { margin: 4px 0 2px; }
+  .prototype-controls .card-context { margin: 2px 0; }
+  .prototype-controls .card-switch { margin-top: 2px; }
+  .prototype-controls .tabs { margin-top: 2px; padding-bottom: 2px; }
+  .prototype-controls .prototype-tools-bar { display: flex; align-items: flex-start; gap: 6px; margin: 4px 0; }
+  .prototype-controls .prototype-tools { margin: 0; }
+  .prototype-controls .prototype-tools > summary { min-height: 44px; padding: 4px 0; }
+  .prototype-controls .prototype-tools > summary .status { margin-left: 8px; }
+  .prototype-controls .prototype-tools .brand { margin: 8px 0; }
+}

@@ -5,7 +5,7 @@ test('import, recursive reading, search, favorites and persistence',async({page}
  await page.goto('/');await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(example));
  await expect(page.getByRole('heading',{name:example.title})).toBeVisible();
  await page.getByRole('button',{name:'☆ 收藏',exact:true}).click();
- await page.getByRole('button',{name:'知识树',exact:true}).click();await page.getByText('展开 直觉：为什么位置会改变电的价值？ 的子节点',{exact:true}).click();await page.getByRole('button',{name:'一个两区域示意',exact:true}).click();
+ await page.getByRole('button',{name:'知识树',exact:true}).click();await page.getByLabel('展开 直觉：为什么位置会改变电的价值？ 的子节点',{exact:true}).click();await page.getByRole('button',{name:'一个两区域示意',exact:true}).click();
  await expect(page.getByRole('region',{name:'节点内容'})).toContainText('真实电网');
  await page.reload();await expect(page.getByRole('button',{name:'★ 已收藏',exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'节点内容'})).toContainText('真实电网');
  await page.getByRole('button',{name:'常见问题',exact:true}).click();await page.getByText(example.faq[0].question,{exact:true}).click();await expect(page.getByText(example.faq[0].answer,{exact:true})).toBeVisible();
@@ -17,7 +17,7 @@ test('import, recursive reading, search, favorites and persistence',async({page}
 test('safe rendering never requests remote images or executes HTML',async({page})=>{
  const requests:string[]=[];page.on('request',r=>requests.push(r.url()));await page.goto('/');
  const c=structuredClone(example);c.summary='<script>window.pwned=true</script> ![x](https://evil.invalid/tracker.png)';await page.getByLabel('导入卡片',{exact:true}).setInputFiles(upload(c));
- await expect(page.getByText(c.summary,{exact:true})).toBeVisible();expect(await page.evaluate(()=>('pwned' in window))).toBe(false);expect(requests.some(r=>r.includes('evil.invalid'))).toBe(false);
+ await page.locator('.full-summary>summary').click();await expect(page.getByText(c.summary,{exact:true})).toBeVisible();expect(await page.evaluate(()=>('pwned' in window))).toBe(false);expect(requests.some(r=>r.includes('evil.invalid'))).toBe(false);
 });
 test('backup export and restore preserve favorites and reject corrupt input',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:'体验示例'}).click();await page.getByRole('button',{name:'☆ 收藏',exact:true}).click();

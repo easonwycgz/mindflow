@@ -1,7 +1,10 @@
 import Dexie, { type Table } from "dexie";
+import { LibraryCapacityError } from "./libraryCapacity";
 import { z } from "zod";
 import {
   cardBoundary,
+  validateCard,
+  InputIssue,
   hash,
   MAX_LIBRARY_CARDS,
   MAX_BACKUP_BYTES,
@@ -67,7 +70,7 @@ export const newReading = (cardId: string): Reading => ({
   scroll: 0,
 });
 export async function importCard(text: string, target = db) {
-  const content = cardBoundary.parse(parseJSON(text));
+  const content = validateCard(parseJSON(text));
   const digest = await hash(content);
   const now = Date.now();
   const card: StoredCard = {
@@ -79,7 +82,10 @@ export async function importCard(text: string, target = db) {
   };
   await target.transaction("rw", target.cards, target.reading, async () => {
     if (await target.cards.where("hash").equals(digest).count())
-      throw Error("该内容已存在；原卡片与阅读状态保持不变");
+      throw new InputIssue(
+        "duplicate-card",
+        "该内容已存在；原卡片与阅读状态保持不变",
+      );
     assertCapacity([...(await target.cards.toArray()), card]);
     await target.cards.add(card);
     await target.reading.add(newReading(card.id));
@@ -116,13 +122,13 @@ export function assertCapacity(
   maxCards = MAX_LIBRARY_CARDS,
 ) {
   if (cards.length > maxCards)
-    throw Error(`知识库最多 ${maxCards} 张卡片；原数据保持不变`);
+    throw new LibraryCapacityError("library-count", maxCards);
   const bytes =
     new TextEncoder().encode(JSON.stringify(cards)).length +
     cards.length * 512 +
     1024;
   if (bytes > MAX_BACKUP_BYTES)
-    throw Error("知识库超过 40 MB 可恢复容量；原数据保持不变");
+    throw new LibraryCapacityError("library-bytes", MAX_BACKUP_BYTES);
 }
 export async function backup(target = db) {
   const payload = await target.transaction(
