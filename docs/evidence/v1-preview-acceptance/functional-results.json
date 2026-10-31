@@ -1,0 +1,816 @@
+{
+  "started_at": "2026-10-31T06:22:08.833204+00:00",
+  "updated_at": "2026-10-31T06:22:18.107705+00:00",
+  "tests": [
+    {
+      "id": "B01",
+      "name": "Trusted HTTPS initial empty library and import discoverability",
+      "status": "PASS",
+      "observed": {
+        "status": 200,
+        "secure_context": true,
+        "url": "https://36e604de.001beta.pages.dev/"
+      }
+    },
+    {
+      "id": "B02",
+      "name": "Paste official synthetic A JSON",
+      "status": "PASS",
+      "observed": "跳到阅读内容\n◈ Mindflow 慢读，深想\n仅本机存储\n知识库与导入\n\n你的私人知识花园\n\n让好奇心\n继续生长。\n\n把值得留下的想法，变成随时可读的知识卡片。\n\n粘贴 JSON\n导入卡片\n体验示例\n搜索知识\n★ 只看收藏\n随机一张\n\n1 张卡片\n\n合成\nMindflow 合成验收 A：太阳能入门\n备份、设置与隐私\n卡片已安全导入×\nKNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 A：太阳能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n01 / 先抓住核心\n\n用于试运行导入、搜索、收藏、知识树和FAQ操作。这里只包含合成数据。\n\n值得带走的想法\n只用于非生产体验。\n本机数据不会上传。\n继续探索知识树 →\n适用边界与提醒\n\n来源：未注明\n\nMindflow V1 · 你的想法，留在你的设备上"
+    },
+    {
+      "id": "B03",
+      "name": "File import official synthetic B JSON",
+      "status": "PASS",
+      "observed": "Mindflow 合成验收 B：储能入门"
+    },
+    {
+      "id": "B04",
+      "name": "Duplicate import preserves two-card library",
+      "status": "PASS",
+      "observed": "该内容已存在；原卡片与阅读状态保持不变×"
+    },
+    {
+      "id": "B05",
+      "name": "Reject empty object without damaging A/B",
+      "status": "PASS",
+      "observed": "[ { \"code\": \"custom\", \"message\": \"卡片协议校验失败：/ must have required property 'schema_version'；/ must have required property 'title'；/ must have required property 'hook'；/ must have required property 'summary'；/ must have required property 'topic_type'\", \"path\": [] } ]×"
+    },
+    {
+      "id": "B06",
+      "name": "Reject malformed JSON without damaging A/B",
+      "status": "PASS",
+      "observed": "JSON 格式错误×"
+    },
+    {
+      "id": "B07",
+      "name": "Summary title, takeaways and tag hierarchy",
+      "status": "PASS",
+      "observed": "KNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 A：太阳能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n01 / 先抓住核心\n\n用于试运行导入、搜索、收藏、知识树和FAQ操作。这里只包含合成数据。\n\n值得带走的想法\n只用于非生产体验。\n本机数据不会上传。\n继续探索知识树 →\n适用边界与提醒\n\n来源：未注明"
+    },
+    {
+      "id": "B08",
+      "name": "Tree child expansion, complete text, return focus and keyboard",
+      "status": "PASS",
+      "observed": {
+        "return_focus": "a-child",
+        "keyboard_focus": "a-root"
+      }
+    },
+    {
+      "id": "B09",
+      "name": "FAQ expansion and complete answers",
+      "status": "PASS",
+      "observed": "KNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 A：太阳能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n03 / 再多问一步\n这些是真实私人数据吗？\n\n不是。这是公开的合成验收数据。\n\n补充说明\n下载请求是否代表备份已保存？\n\n不代表，请检查下载记录并重新验证完整文件。\n\n补充说明\n适用边界与提醒\n\n来源：未注明"
+    },
+    {
+      "id": "B10",
+      "name": "Search synthetic and no-result recovery",
+      "status": "PASS",
+      "observed": "2 → 0 → 2"
+    },
+    {
+      "id": "B11",
+      "name": "Favorites-only, clear filters and card switching",
+      "status": "PASS",
+      "observed": "A favorite retained; filter cleared; A/B selectable"
+    },
+    {
+      "id": "B12",
+      "name": "Six random switches preserve search/favorite state",
+      "status": "PASS",
+      "observed": [
+        "Mindflow 合成验收 A：太阳能入门",
+        "Mindflow 合成验收 B：储能入门",
+        "Mindflow 合成验收 A：太阳能入门",
+        "Mindflow 合成验收 B：储能入门",
+        "Mindflow 合成验收 A：太阳能入门",
+        "Mindflow 合成验收 B：储能入门",
+        "Mindflow 合成验收 A：太阳能入门"
+      ]
+    },
+    {
+      "id": "B13",
+      "name": "Saving/Saved then reload preserves large, cards, favorite and node",
+      "status": "PASS",
+      "observed": {
+        "font_states": [
+          "正在保存字号；尚未提交，刷新后会继续完成。",
+          "字号已保存：大字"
+        ],
+        "large_after_reload": true,
+        "card_favorite_node_after_reload": true
+      }
+    },
+    {
+      "id": "B14",
+      "name": "Plaintext warning, browser completed download, saved bytes and UI feedback",
+      "status": "PASS",
+      "observed": {
+        "suggested_filename": "mindflow-backup.json",
+        "download_failure": null,
+        "saved_file_exists": true,
+        "bytes": 3183,
+        "sha256": "3deceb4e457b8359f8686d31f0391c8cbc82dc6a9ae995a92e27f4325a61cbb9",
+        "top_level_keys": [
+          "version",
+          "checksum",
+          "payload"
+        ],
+        "ui_feedback": "备份已生成，请妥善保管下载文件×"
+      }
+    },
+    {
+      "id": "B15",
+      "name": "Restore completed synthetic backup atomically in isolated library",
+      "status": "PASS",
+      "observed": "restored A/B, large, A favorite and reading state from completed synthetic backup"
+    },
+    {
+      "id": "B16",
+      "name": "Reject invalid backup and preserve synthetic library/settings",
+      "status": "PASS",
+      "observed": "[ { \"code\": \"invalid_value\", \"values\": [ 1 ], \"path\": [ \"version\" ], \"message\": \"Invalid input: expected 1\" }, { \"expected\": \"string\", \"code\": \"invalid_type\", \"path\": [ \"checksum\" ], \"message\": \"Invalid input: expected string, received undefined\" }, { \"expected\": \"object\", \"code\": \"invalid_type\", \"path\": [ \"payload\" ], \"message\": \"Invalid input: expected object, received undefined\" } ]×"
+    },
+    {
+      "id": "B17",
+      "name": "SW registration, activation, control and Workbox precache inventory",
+      "status": "PASS",
+      "observed": {
+        "controlled": true,
+        "controller": "https://36e604de.001beta.pages.dev/sw.js",
+        "registrations": [
+          {
+            "scope": "https://36e604de.001beta.pages.dev/",
+            "active": "https://36e604de.001beta.pages.dev/sw.js",
+            "state": "activated"
+          }
+        ],
+        "caches": [
+          {
+            "name": "workbox-precache-v2-https://36e604de.001beta.pages.dev/",
+            "urls": [
+              "https://36e604de.001beta.pages.dev/migration.html?__WB_REVISION__=2ac504062f6fab461541efaa0af22285",
+              "https://36e604de.001beta.pages.dev/manifest.webmanifest?__WB_REVISION__=3014ef84194392aaa1482e660b2ed352",
+              "https://36e604de.001beta.pages.dev/index.html?__WB_REVISION__=f9f93859359a524d964c0db629f9f264",
+              "https://36e604de.001beta.pages.dev/icon-512.png?__WB_REVISION__=28d913cab244a96d18cabf1f5822edb3",
+              "https://36e604de.001beta.pages.dev/icon-192.png?__WB_REVISION__=b542984f518a051f6dbdcf3d643c5a36",
+              "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+              "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+              "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+              "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+              "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "B18",
+      "name": "Offline reload and read previously imported B",
+      "status": "PASS",
+      "observed": {
+        "online": false,
+        "two_cards_readable": true,
+        "from_service_worker_responses": 12
+      }
+    },
+    {
+      "id": "B19",
+      "name": "Offline cold browser process start with existing synthetic profile",
+      "status": "PASS",
+      "observed": {
+        "new_browser_process": true,
+        "offline_before_navigation": true,
+        "faq_readable": true,
+        "controlled": true
+      }
+    },
+    {
+      "id": "B20",
+      "name": "Network recovery and persistence after offline restart",
+      "status": "PASS",
+      "observed": "online and two-card library recovered"
+    }
+  ],
+  "details": {
+    "initial_text": "跳到阅读内容\n◈ Mindflow 慢读，深想\n仅本机存储\n知识库与导入\n\n你的私人知识花园\n\n让好奇心\n继续生长。\n\n把值得留下的想法，变成随时可读的知识卡片。\n\n粘贴 JSON\n导入卡片\n体验示例\n搜索知识\n★ 只看收藏\n随机一张\n\n0 张卡片\n\n从一张卡片开始。导入文件，或体验公开示例。\n\n备份、设置与隐私\n✧\n为思考留一点空间\n\n从左侧导入一张知识卡片，\n以摘要开始，沿着知识树深入。\n\n首次联网打开并缓存完成后，可离线阅读。\n\nMindflow V1 · 你的想法，留在你的设备上",
+    "security_details": {
+      "issuer": "openai.com",
+      "protocol": "TLS 1.3",
+      "subjectName": "36e604de.001beta.pages.dev",
+      "validFrom": 1793427405,
+      "validTo": 1824963465
+    },
+    "node_focus": {
+      "tag": "SECTION",
+      "label": "节点内容"
+    },
+    "tree_keyboard_focus": "a-root",
+    "font_states": [
+      "正在保存字号；尚未提交，刷新后会继续完成。",
+      "字号已保存：大字"
+    ],
+    "backup": {
+      "suggested_filename": "mindflow-backup.json",
+      "download_failure": null,
+      "saved_file_exists": true,
+      "bytes": 3183,
+      "sha256": "3deceb4e457b8359f8686d31f0391c8cbc82dc6a9ae995a92e27f4325a61cbb9",
+      "top_level_keys": [
+        "version",
+        "checksum",
+        "payload"
+      ],
+      "ui_feedback": "备份已生成，请妥善保管下载文件×"
+    },
+    "service_worker": {
+      "controlled": true,
+      "controller": "https://36e604de.001beta.pages.dev/sw.js",
+      "registrations": [
+        {
+          "scope": "https://36e604de.001beta.pages.dev/",
+          "active": "https://36e604de.001beta.pages.dev/sw.js",
+          "state": "activated"
+        }
+      ],
+      "caches": [
+        {
+          "name": "workbox-precache-v2-https://36e604de.001beta.pages.dev/",
+          "urls": [
+            "https://36e604de.001beta.pages.dev/migration.html?__WB_REVISION__=2ac504062f6fab461541efaa0af22285",
+            "https://36e604de.001beta.pages.dev/manifest.webmanifest?__WB_REVISION__=3014ef84194392aaa1482e660b2ed352",
+            "https://36e604de.001beta.pages.dev/index.html?__WB_REVISION__=f9f93859359a524d964c0db629f9f264",
+            "https://36e604de.001beta.pages.dev/icon-512.png?__WB_REVISION__=28d913cab244a96d18cabf1f5822edb3",
+            "https://36e604de.001beta.pages.dev/icon-192.png?__WB_REVISION__=b542984f518a051f6dbdcf3d643c5a36",
+            "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+            "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+            "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+            "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+            "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js"
+          ]
+        }
+      ]
+    }
+  },
+  "screenshots": [
+    "01-empty-desktop.png",
+    "02-two-cards.png",
+    "03-summary-desktop.png",
+    "04-tree-desktop.png",
+    "05-faq-desktop.png",
+    "06-persistence.png",
+    "07-backup-feedback.png",
+    "08-offline-refresh.png",
+    "09-offline-browser-restart.png"
+  ],
+  "page_errors": [],
+  "network": [
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/sw.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/sw.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/workbox-2fbc6a65.js",
+      "method": "GET",
+      "type": "other",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/workbox-2fbc6a65.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/migration.html",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/migration.html",
+      "status": 308,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/migration",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/migration",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/index.html",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/index.html",
+      "status": 308,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/icon-512.png",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/icon-512.png",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/icon-192.png",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/icon-192.png",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    }
+  ]
+}

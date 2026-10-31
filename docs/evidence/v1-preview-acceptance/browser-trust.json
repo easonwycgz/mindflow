@@ -1,0 +1,151 @@
+{
+  "observer": "B independent online acceptance",
+  "started_at": "2026-10-31T06:17:44.748523+00:00",
+  "url": "https://36e604de.001beta.pages.dev/",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "playwright": "1.62.0",
+  "ignore_https_errors": false,
+  "certificate_trust_modified": false,
+  "attempts": [
+    {
+      "number": 1,
+      "new_isolated_context": true,
+      "navigation": "success",
+      "status": 200,
+      "title": "Mindflow · 慢读，深想",
+      "final_url": "https://36e604de.001beta.pages.dev/",
+      "text": "跳到阅读内容\n◈ Mindflow 慢读，深想\n仅本机存储\n知识库与导入\n\n你的私人知识花园\n\n让好奇心\n继续生长。\n\n把值得留下的想法，变成随时可读的知识卡片。\n\n粘贴 JSON\n导入卡片\n体验示例\n搜索知识\n★ 只看收藏\n随机一张\n\n0 张卡片\n\n从一张卡片开始。导入文件，或体验公开示例。\n\n备份、设置与隐私\n✧\n为思考留一点空间\n\n从左侧导入一张知识卡片，\n以摘要开始，沿着知识树深入。\n\n首次联网打开并缓存完成后，可离线阅读。\n\nMindflow V1 · 你的想法，留在你的设备上",
+      "events": [
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "document",
+          "url": "https://36e604de.001beta.pages.dev/"
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/",
+          "status": 200
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "script",
+          "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js"
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "script",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js"
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "stylesheet",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css"
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+          "status": 200
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+          "status": 200
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+          "status": 200
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "script",
+          "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js"
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+          "status": 200
+        }
+      ],
+      "screenshot": "browser-trust-attempt-1.png"
+    },
+    {
+      "number": 2,
+      "new_isolated_context": true,
+      "navigation": "success",
+      "status": 200,
+      "title": "Mindflow · 慢读，深想",
+      "final_url": "https://36e604de.001beta.pages.dev/",
+      "text": "跳到阅读内容\n◈ Mindflow 慢读，深想\n仅本机存储\n知识库与导入\n\n你的私人知识花园\n\n让好奇心\n继续生长。\n\n把值得留下的想法，变成随时可读的知识卡片。\n\n粘贴 JSON\n导入卡片\n体验示例\n搜索知识\n★ 只看收藏\n随机一张\n\n0 张卡片\n\n从一张卡片开始。导入文件，或体验公开示例。\n\n备份、设置与隐私\n✧\n为思考留一点空间\n\n从左侧导入一张知识卡片，\n以摘要开始，沿着知识树深入。\n\n首次联网打开并缓存完成后，可离线阅读。\n\nMindflow V1 · 你的想法，留在你的设备上",
+      "events": [
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "document",
+          "url": "https://36e604de.001beta.pages.dev/"
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/",
+          "status": 200
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "script",
+          "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js"
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "script",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js"
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "stylesheet",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css"
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+          "status": 200
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+          "status": 200
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+          "status": 200
+        },
+        {
+          "event": "request",
+          "method": "GET",
+          "type": "script",
+          "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js"
+        },
+        {
+          "event": "response",
+          "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+          "status": 200
+        }
+      ],
+      "screenshot": "browser-trust-attempt-2.png"
+    }
+  ],
+  "browser_version": "154.0.8037.57",
+  "launch_args_explicit": [
+    "--no-sandbox"
+  ],
+  "proxy": "inherited HTTPS_PROXY; value omitted",
+  "finished_at": "2026-10-31T06:17:48.153796+00:00"
+}

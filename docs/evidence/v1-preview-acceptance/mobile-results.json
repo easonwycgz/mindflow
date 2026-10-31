@@ -1,0 +1,539 @@
+{
+  "observed_at": "2026-10-31T06:21:52.997773+00:00",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "engine": "Chromium simulated mobile and CDP touch, not iPhone/WebKit",
+  "tests": [
+    {
+      "id": "B21",
+      "name": "390x844 empty first screen and no horizontal overflow",
+      "status": "PASS",
+      "observed": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "y": 0,
+        "height": 844,
+        "docHeight": 1180
+      }
+    },
+    {
+      "id": "B22",
+      "name": "Mobile A/B import and summary readability",
+      "status": "PASS",
+      "observed": {
+        "dimensions": {
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "y": 0,
+          "height": 844,
+          "docHeight": 2027
+        },
+        "text": "KNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 B：储能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n01 / 先抓住核心\n\n用于试运行导入、搜索、收藏、知识树和FAQ操作。这里只包含合成数据。\n\n值得带走的想法\n只用于非生产体验。\n本机数据不会上传。\n继续探索知识树 →\n适用边界与提醒\n\n来源：未注明"
+      }
+    },
+    {
+      "id": "B23",
+      "name": "Mobile tree expansion and return to child",
+      "status": "PASS",
+      "observed": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "y": 681,
+        "height": 844,
+        "docHeight": 2099
+      }
+    },
+    {
+      "id": "B24",
+      "name": "Mobile FAQ and saved large font",
+      "status": "PASS",
+      "observed": {
+        "font": "large",
+        "dimensions": {
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "y": 0,
+          "height": 844,
+          "docHeight": 2732
+        }
+      }
+    },
+    {
+      "id": "B25",
+      "name": "Native simulated horizontal touch card switching both directions",
+      "status": "PASS",
+      "observed": {
+        "left_result": "Mindflow 合成验收 B：储能入门",
+        "right_result": "Mindflow 合成验收 A：太阳能入门",
+        "touch_y": 434.625
+      }
+    },
+    {
+      "id": "B26",
+      "name": "Three-level tree, long content, vertical touch and refreshed reading position",
+      "status": "PASS",
+      "observed": {
+        "before_vertical_touch": 1000,
+        "after_vertical_touch": 1917,
+        "saved_y": 2070,
+        "reloaded_y": 2070
+      }
+    },
+    {
+      "id": "B27",
+      "name": "Mobile bounds, reachable controls and bottom layout",
+      "status": "PASS",
+      "observed": {
+        "dimensions": {
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "y": 10508,
+          "height": 844,
+          "docHeight": 12088
+        },
+        "bottom": {
+          "width": 390,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "y": 11244,
+          "height": 844,
+          "docHeight": 12088
+        },
+        "button_sizes": [
+          {
+            "text": "粘贴 JSON",
+            "width": 122.46875,
+            "height": 55
+          },
+          {
+            "text": "体验示例",
+            "width": 110,
+            "height": 55
+          },
+          {
+            "text": "★ 只看收藏",
+            "width": 135.203125,
+            "height": 55
+          },
+          {
+            "text": "随机一张",
+            "width": 110,
+            "height": 55
+          },
+          {
+            "text": "合成Mindflow 合成验收 A：太阳能入门",
+            "width": 358,
+            "height": 98.796875
+          },
+          {
+            "text": "合成Mindflow 合成验收 B：储能入门",
+            "width": 358,
+            "height": 98.796875
+          },
+          {
+            "text": "合成Mindflow B 公开合成长正文滚动测试",
+            "width": 358,
+            "height": 131.796875
+          },
+          {
+            "text": "导出完整备份",
+            "width": 114,
+            "height": 45.09375
+          },
+          {
+            "text": "恢复备份",
+            "width": 86,
+            "height": 45.09375
+          },
+          {
+            "text": "生成分卷备份",
+            "width": 114,
+            "height": 45.09375
+          },
+          {
+            "text": "恢复全部分卷",
+            "width": 114,
+            "height": 45.09375
+          },
+          {
+            "text": "直接导出到本地目录",
+            "width": 156,
+            "height": 45.09375
+          },
+          {
+            "text": "逐卷下载（无需暂存空间）",
+            "width": 198,
+            "height": 45.09375
+          },
+          {
+            "text": "选择分页迁移清单",
+            "width": 142,
+            "height": 45.09375
+          },
+          {
+            "text": "☆ 收藏",
+            "width": 95.203125,
+            "height": 55
+          },
+          {
+            "text": "上一张",
+            "width": 90,
+            "height": 55
+          },
+          {
+            "text": "下一张",
+            "width": 90,
+            "height": 55
+          },
+          {
+            "text": "30 秒摘要",
+            "width": 108.09375,
+            "height": 53
+          },
+          {
+            "text": "知识树",
+            "width": 80,
+            "height": 53
+          },
+          {
+            "text": "常见问题",
+            "width": 100,
+            "height": 53
+          },
+          {
+            "text": "返回知识树",
+            "width": 130,
+            "height": 55
+          },
+          {
+            "text": "合成根节点",
+            "width": 130,
+            "height": 55
+          },
+          {
+            "text": "合成子节点",
+            "width": 130,
+            "height": 55
+          },
+          {
+            "text": "合成第三级长正文",
+            "width": 190,
+            "height": 55
+          }
+        ],
+        "bottom_padding": "0px",
+        "safe_area_device_note": "notch/home-indicator not simulated; real safe area NOT VERIFIED"
+      }
+    }
+  ],
+  "details": {
+    "long_fixture": {
+      "derivation": "official public B with unique title/id, third-level child and 80 public synthetic paragraphs",
+      "paragraph_count": 80,
+      "title": "Mindflow B 公开合成长正文滚动测试"
+    },
+    "scroll": {
+      "before_vertical_touch": 1000,
+      "after_vertical_touch": 1917,
+      "saved_y": 2070,
+      "reloaded_y": 2070
+    },
+    "button_sizes": [
+      {
+        "text": "粘贴 JSON",
+        "width": 122.46875,
+        "height": 55
+      },
+      {
+        "text": "体验示例",
+        "width": 110,
+        "height": 55
+      },
+      {
+        "text": "★ 只看收藏",
+        "width": 135.203125,
+        "height": 55
+      },
+      {
+        "text": "随机一张",
+        "width": 110,
+        "height": 55
+      },
+      {
+        "text": "合成Mindflow 合成验收 A：太阳能入门",
+        "width": 358,
+        "height": 98.796875
+      },
+      {
+        "text": "合成Mindflow 合成验收 B：储能入门",
+        "width": 358,
+        "height": 98.796875
+      },
+      {
+        "text": "合成Mindflow B 公开合成长正文滚动测试",
+        "width": 358,
+        "height": 131.796875
+      },
+      {
+        "text": "导出完整备份",
+        "width": 114,
+        "height": 45.09375
+      },
+      {
+        "text": "恢复备份",
+        "width": 86,
+        "height": 45.09375
+      },
+      {
+        "text": "生成分卷备份",
+        "width": 114,
+        "height": 45.09375
+      },
+      {
+        "text": "恢复全部分卷",
+        "width": 114,
+        "height": 45.09375
+      },
+      {
+        "text": "直接导出到本地目录",
+        "width": 156,
+        "height": 45.09375
+      },
+      {
+        "text": "逐卷下载（无需暂存空间）",
+        "width": 198,
+        "height": 45.09375
+      },
+      {
+        "text": "选择分页迁移清单",
+        "width": 142,
+        "height": 45.09375
+      },
+      {
+        "text": "☆ 收藏",
+        "width": 95.203125,
+        "height": 55
+      },
+      {
+        "text": "上一张",
+        "width": 90,
+        "height": 55
+      },
+      {
+        "text": "下一张",
+        "width": 90,
+        "height": 55
+      },
+      {
+        "text": "30 秒摘要",
+        "width": 108.09375,
+        "height": 53
+      },
+      {
+        "text": "知识树",
+        "width": 80,
+        "height": 53
+      },
+      {
+        "text": "常见问题",
+        "width": 100,
+        "height": 53
+      },
+      {
+        "text": "返回知识树",
+        "width": 130,
+        "height": 55
+      },
+      {
+        "text": "合成根节点",
+        "width": 130,
+        "height": 55
+      },
+      {
+        "text": "合成子节点",
+        "width": 130,
+        "height": 55
+      },
+      {
+        "text": "合成第三级长正文",
+        "width": 190,
+        "height": 55
+      }
+    ],
+    "bottom_padding": "0px"
+  },
+  "screenshots": [
+    "10-mobile-empty.png",
+    "11-mobile-summary.png",
+    "12-mobile-tree.png",
+    "13-mobile-large.png",
+    "14-mobile-long-scroll.png",
+    "15-mobile-bottom.png"
+  ],
+  "page_errors": [],
+  "network": [
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/sw.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/workbox-2fbc6a65.js",
+      "method": "GET",
+      "type": "other",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/migration.html",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/migration",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/index.html",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/icon-512.png",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/icon-192.png",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    }
+  ]
+}

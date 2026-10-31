@@ -1,0 +1,213 @@
+{
+  "observer": "B independent original ZIP rehash; not a rebuild",
+  "observed_at": "2026-10-31T06:20:34.173277+00:00",
+  "zip_bytes": 172354,
+  "zip_sha256": "e0d83d8e73c2b0510ed4ca9199dc3d6c0d2d4a798520b3803a871c2a5b44d348",
+  "zip_matches_governance": true,
+  "files": [
+    {
+      "path": "_headers",
+      "bytes": 459,
+      "sha256": "dc2326989f4e958341cfffc316f0f38f07e2b23c37a38992ae7dc4f313a8259f",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "assets/main-CHwLQiEH.js",
+      "bytes": 26335,
+      "sha256": "a484415ad1fb8dffe68ade475c1dd932f6ac361bdf62aa2f74059d0fbf54d49e",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "assets/migration-kjdj7X33.js",
+      "bytes": 1019,
+      "sha256": "ad7711baf98398a41876e9ac40dda706770ae7e98570e2c1395e74c37aabdc23",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "assets/style-BGrn-dwi.css",
+      "bytes": 10284,
+      "sha256": "447de589b096e724903a9e2a13aa78f07a1bd7e280de49f080a50e2408dcaeba",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "assets/style-Bp_TMkjA.js",
+      "bytes": 473373,
+      "sha256": "475d7afdff4a66b36d7da06c6552afc4a0d734710c50b26526f4d3b741d6b8b2",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "bytes": 5748,
+      "sha256": "cadd21be4a88598a4dec91a26a025df0a5790ff6baec54a884e401c3f5c95557",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "icon-192.png",
+      "bytes": 1097,
+      "sha256": "5de02cf3c52a5e00883c3b391b7c6760886fbdf99a1af8970409dd3c18624692",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "icon-512.png",
+      "bytes": 3776,
+      "sha256": "7fd4acae02111223b969363b17b9c57bbb6a8acc1370e68cbba07a7176a86351",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "index.html",
+      "bytes": 666,
+      "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 333,
+      "sha256": "f8a35bdac22aa8b9be559a1c0276741334a1fe1370cf064bdab03fa00c88ba58",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "migration.html",
+      "bytes": 560,
+      "sha256": "4d99f3d48cea2a98fbd726d0825d316332b12c70dbd5b392809364abf982686b",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "sw.js",
+      "bytes": 1650,
+      "sha256": "703df3599d43f563b05b795a0ac05074e0de429b0c2f95a589b350d6e4ce17e6",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    },
+    {
+      "path": "workbox-2fbc6a65.js",
+      "bytes": 15026,
+      "sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e",
+      "matches_governance": true,
+      "safe_path": true,
+      "is_symlink": false
+    }
+  ],
+  "exact_13_unique_expected_files": true,
+  "source_tree": "a75bfbecb277fb4071d4880e8cad756c01ac5085",
+  "tree_matches_governance": true,
+  "headers_match_frozen_source": true,
+  "headers": "/*\n  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'\n  Referrer-Policy: no-referrer\n  X-Content-Type-Options: nosniff\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n/sw.js\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n",
+  "two_governance_manifests_agree": true,
+  "build_execution": "NOT PERFORMED; historic build commands/CI remain A provenance",
+  "online_header_checks": [
+    {
+      "path": "assets/main-CHwLQiEH.js",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "application/javascript",
+      "sw_no_cache": null
+    },
+    {
+      "path": "assets/migration-kjdj7X33.js",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "application/javascript",
+      "sw_no_cache": null
+    },
+    {
+      "path": "assets/style-BGrn-dwi.css",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/css; charset=utf-8",
+      "sw_no_cache": null
+    },
+    {
+      "path": "assets/style-Bp_TMkjA.js",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "application/javascript",
+      "sw_no_cache": null
+    },
+    {
+      "path": "assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "application/javascript",
+      "sw_no_cache": null
+    },
+    {
+      "path": "icon-192.png",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "image/png",
+      "sw_no_cache": null
+    },
+    {
+      "path": "icon-512.png",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "image/png",
+      "sw_no_cache": null
+    },
+    {
+      "path": "index.html",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "sw_no_cache": null
+    },
+    {
+      "path": "manifest.webmanifest",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "application/manifest+json",
+      "sw_no_cache": null
+    },
+    {
+      "path": "migration.html",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "sw_no_cache": null
+    },
+    {
+      "path": "sw.js",
+      "four_global_headers_match": true,
+      "cache_control": "no-cache",
+      "content_type": "application/javascript",
+      "sw_no_cache": true
+    },
+    {
+      "path": "workbox-2fbc6a65.js",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "application/javascript",
+      "sw_no_cache": null
+    },
+    {
+      "path": "/",
+      "four_global_headers_match": true,
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "sw_no_cache": null
+    }
+  ]
+}

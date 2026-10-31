@@ -1,0 +1,118 @@
+{
+  "observed_at": "2026-10-31T06:22:59.587158+00:00",
+  "browser_home_headers": {
+    "access-control-allow-origin": "*",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cache-control": "public, max-age=0, must-revalidate",
+    "cf-ray": "a53090526dd66b8d-LAX",
+    "content-encoding": "br",
+    "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+    "content-type": "text/html; charset=utf-8",
+    "date": "Sat, 31 Oct 2026 06:22:10 GMT",
+    "etag": "W/\"efe845d78df82ca4ee4c2b1e7dce2712\"",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "permissions-policy": "camera=(), microphone=(), geolocation=()",
+    "referrer-policy": "no-referrer",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IX71VQXgKwJ3KiQMtU3GOvgfkE0%2B4UBifEJgUEDUwyA6glpv4hfK20sG22%2FblihQELVYAtORHToZFY0lx2IgRWXiYI3Um%2BMyNhserU7NTJEP9JHbaL0pUKKSaLMhzNylR39exQJWwbaLmNBblQ%3D%3D\"}]}",
+    "server": "envoy",
+    "x-content-type-options": "nosniff",
+    "x-envoy-upstream-service-time": "41",
+    "x-robots-tag": "noindex"
+  },
+  "security_details": {
+    "issuer": "openai.com",
+    "protocol": "TLS 1.3",
+    "subjectName": "36e604de.001beta.pages.dev",
+    "validFrom": 1793427405,
+    "validTo": 1824963465
+  },
+  "browser_manifest": {
+    "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+    "errors": [],
+    "data": "{\"name\":\"Mindflow 知识卡片\",\"short_name\":\"Mindflow\",\"start_url\":\"/\",\"display\":\"standalone\",\"background_color\":\"#f6f5ef\",\"theme_color\":\"#164e43\",\"lang\":\"zh-CN\",\"scope\":\"/\",\"icons\":[{\"src\":\"/icon-192.png\",\"sizes\":\"192x192\",\"type\":\"image/png\"},{\"src\":\"/icon-512.png\",\"sizes\":\"512x512\",\"type\":\"image/png\",\"purpose\":\"any maskable\"}]}\n",
+    "parsed": {
+      "scope": "https://36e604de.001beta.pages.dev/"
+    },
+    "manifest": {
+      "backgroundColor": "rgba(246,245,239,1)",
+      "display": "kStandalone",
+      "icons": [
+        {
+          "url": "https://36e604de.001beta.pages.dev/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "url": "https://36e604de.001beta.pages.dev/icon-512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ],
+      "id": "https://36e604de.001beta.pages.dev/",
+      "name": "Mindflow 知识卡片",
+      "orientation": "DEFAULT",
+      "preferRelatedApplications": false,
+      "scope": "https://36e604de.001beta.pages.dev/",
+      "startUrl": "https://36e604de.001beta.pages.dev/",
+      "themeColor": "rgba(22,78,67,1)"
+    }
+  },
+  "browser_manifest_link": "/manifest.webmanifest",
+  "invalid_object_reproductions": [
+    "[ { \"code\": \"custom\", \"message\": \"卡片协议校验失败：/ must have required property 'schema_version'；/ must have required property 'title'；/ must have required property 'hook'；/ must have required property 'summary'；/ must have required property 'topic_type'\", \"path\": [] } ]×",
+    "[ { \"code\": \"custom\", \"message\": \"卡片协议校验失败：/ must have required property 'schema_version'；/ must have required property 'title'；/ must have required property 'hook'；/ must have required property 'summary'；/ must have required property 'topic_type'\", \"path\": [] } ]×"
+  ],
+  "library_count_after_invalid": "2 张卡片",
+  "http_followup": [
+    {
+      "path": "index.html",
+      "status": 308,
+      "headers": {
+        "date": "Sat, 31 Oct 2026 06:23:07 GMT",
+        "content-length": "0",
+        "location": "/",
+        "access-control-allow-origin": "*",
+        "cache-control": "no-cache",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=R3gXkN%2FlvOU%2Bz8Zc65%2Bf2%2BPaYHCtCf4xpLItj0%2FaAp8%2BHoxLfUEk04wxv5xvBTi5xbCDZteZetHag0mTXXXnY7VdOR1FP2sDSWVjf52EBpLdAuQYS1ejYqsCbZxTkHp4DV8Gl6SuKUr8H7co7w%3D%3D\"}]}",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "server": "envoy",
+        "cf-ray": "a53091b76beb6b8d-LAX",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-envoy-upstream-service-time": "17",
+        "connection": "close"
+      },
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_headers",
+      "status": 200,
+      "headers": {
+        "date": "Sat, 31 Oct 2026 06:23:07 GMT",
+        "content-type": "text/html; charset=utf-8",
+        "content-length": "666",
+        "access-control-allow-origin": "*",
+        "cache-control": "public, max-age=0, must-revalidate",
+        "etag": "\"efe845d78df82ca4ee4c2b1e7dce2712\"",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "x-robots-tag": "noindex",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6v4Ma8vQ41x8y0w9KJC5r85Qk3PcOFLVxUBKZe7JqtjEV%2ByY6Sz%2FkCm44OoGz7ALDzTFOLKGi3ZgORXLMbyPXqFwZC2%2BE3OF60%2FXdMUT8nClKn96ZnIEaY6hr9IBagzKJGOCSOgPvnzr59MZhw%3D%3D\"}]}",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "server": "envoy",
+        "cf-ray": "a53091b82995f7af-LAX",
+        "alt-svc": "h3=\":443\"; ma=86400",
+        "x-envoy-upstream-service-time": "95",
+        "connection": "close"
+      },
+      "bytes": 666,
+      "sha256": "f03d96fe6a84524394d1395da2439cabe12208d3f42bd78b86eb1e836c6cfe56"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "repository": "easonwycgz/mindflow",
+  "ref": "31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f",
+  "reader": "B via GitHub connector",
+  "files": [
+    {
+      "path": "docs/v1-cloudflare-preview-deployment.md",
+      "git_blob_sha": "2a22fe4fdd47f3bc18ec378f3a470239923cf1be",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/v1-cloudflare-preview-deployment.md",
+      "read": "full content"
+    },
+    {
+      "path": "docs/evidence/v1-cloudflare-preview/deployment-evidence.json",
+      "git_blob_sha": "c0354e51b47f9ec7d851aaf7a4d67794f223764e",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/evidence/v1-cloudflare-preview/deployment-evidence.json",
+      "read": "full content"
+    },
+    {
+      "path": "docs/evidence/v1-cloudflare-preview/wrangler-deploy.txt",
+      "git_blob_sha": "9d9c4dfd196fb6204b36e8561baf8ff83d60fb20",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/evidence/v1-cloudflare-preview/wrangler-deploy.txt",
+      "read": "full content"
+    },
+    {
+      "path": "docs/evidence/v1-rc/build-provenance.json",
+      "git_blob_sha": "048c8aad5eb46c94a04bdc2168e3cbf66552ce46",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/evidence/v1-rc/build-provenance.json",
+      "read": "full content"
+    },
+    {
+      "path": "docs/evidence/v1-rc/dist-sha256.txt",
+      "git_blob_sha": "b3039c61d30c19d0e26ef08fdf3f64b6a4354128",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/evidence/v1-rc/dist-sha256.txt",
+      "read": "full content"
+    },
+    {
+      "path": "docs/v1-release-decisions.md",
+      "git_blob_sha": "af3e9d6bcf18e39aaffa892415b0971d78351c2e",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/v1-release-decisions.md",
+      "read": "full content"
+    },
+    {
+      "path": "docs/v1-work-handoff.md",
+      "git_blob_sha": "32b36e0074ea035fb62e2f122b11889c59dbaa5c",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/v1-work-handoff.md",
+      "read": "full content"
+    },
+    {
+      "path": "docs/synthetic/mindflow-v1-work-example-a.json",
+      "git_blob_sha": "e8bbe847b3e3f84ef5ef25699d13376222408e71",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/synthetic/mindflow-v1-work-example-a.json",
+      "read": "full content"
+    },
+    {
+      "path": "docs/synthetic/mindflow-v1-work-example-b.json",
+      "git_blob_sha": "4a9c331da2b811435a097e4ea89055c1cde39df6",
+      "url": "https://github.com/easonwycgz/mindflow/blob/31cb07ee4ffe5c373cf797d6d28ce9fe5d7f288f/docs/synthetic/mindflow-v1-work-example-b.json",
+      "read": "full content"
+    }
+  ]
+}

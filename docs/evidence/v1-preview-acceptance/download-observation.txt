@@ -1,0 +1,14 @@
+Observer: B, independent online acceptance, 2026-10-31 Asia/Shanghai.
+Supplemental download-record attempt after the 27 final functional cases:
+  download_record.py used the existing isolated synthetic acceptance profile.
+  page.expect_download returned a Download.
+  d.save_as('/workspace/work/preview-review/download-confirmation-synthetic.json') failed:
+  playwright._impl._errors.TargetClosedError:
+  Download.save_as: Target page, context or browser has been closed
+No completed supplemental file, browser download record or screenshot was inferred for that failed attempt.
+No browser-process diagnostic was captured for the closure; cause and product attribution NOT VERIFIED.
+No application, browser certificate trust, CSP, Cloudflare configuration or deployment was changed.
+The same supplemental check in a NEW synthetic-only download-profile completed successfully.
+Successful evidence: download-record.json and 16-browser-download-record.png.
+Earlier final functional B14/B15 already recorded completed saved bytes and successful restore.
+Reproduction: not reproduced in the subsequent fresh-profile attempt.

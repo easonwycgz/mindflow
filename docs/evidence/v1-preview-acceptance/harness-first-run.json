@@ -1,0 +1,669 @@
+{
+  "started_at": "2026-10-31T06:19:50.838079+00:00",
+  "updated_at": "2026-10-31T06:21:09.160955+00:00",
+  "tests": [
+    {
+      "id": "B01",
+      "name": "Trusted HTTPS initial empty library and import discoverability",
+      "status": "PASS",
+      "observed": {
+        "status": 200,
+        "secure_context": true,
+        "url": "https://36e604de.001beta.pages.dev/"
+      }
+    },
+    {
+      "id": "B02",
+      "name": "Paste official synthetic A JSON",
+      "status": "PASS",
+      "observed": "跳到阅读内容\n◈ Mindflow 慢读，深想\n仅本机存储\n知识库与导入\n\n你的私人知识花园\n\n让好奇心\n继续生长。\n\n把值得留下的想法，变成随时可读的知识卡片。\n\n粘贴 JSON\n导入卡片\n体验示例\n搜索知识\n★ 只看收藏\n随机一张\n\n1 张卡片\n\n合成\nMindflow 合成验收 A：太阳能入门\n备份、设置与隐私\n卡片已安全导入×\nKNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 A：太阳能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n01 / 先抓住核心\n\n用于试运行导入、搜索、收藏、知识树和FAQ操作。这里只包含合成数据。\n\n值得带走的想法\n只用于非生产体验。\n本机数据不会上传。\n继续探索知识树 →\n适用边界与提醒\n\n来源：未注明\n\nMindflow V1 · 你的想法，留在你的设备上"
+    },
+    {
+      "id": "B03",
+      "name": "File import official synthetic B JSON",
+      "status": "PASS",
+      "observed": "Mindflow 合成验收 B：储能入门"
+    },
+    {
+      "id": "B04",
+      "name": "Duplicate import preserves two-card library",
+      "status": "PASS",
+      "observed": "该内容已存在；原卡片与阅读状态保持不变×"
+    },
+    {
+      "id": "B05",
+      "name": "Reject empty object without damaging A/B",
+      "status": "PASS",
+      "observed": "[ { \"code\": \"custom\", \"message\": \"卡片协议校验失败：/ must have required property 'schema_version'；/ must have required property 'title'；/ must have required property 'hook'；/ must have required property 'summary'；/ must have required property 'topic_type'\", \"path\": [] } ]×"
+    },
+    {
+      "id": "B06",
+      "name": "Reject malformed JSON without damaging A/B",
+      "status": "PASS",
+      "observed": "JSON 格式错误×"
+    },
+    {
+      "id": "B07",
+      "name": "Summary title, takeaways and tag hierarchy",
+      "status": "PASS",
+      "observed": "KNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 A：太阳能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n01 / 先抓住核心\n\n用于试运行导入、搜索、收藏、知识树和FAQ操作。这里只包含合成数据。\n\n值得带走的想法\n只用于非生产体验。\n本机数据不会上传。\n继续探索知识树 →\n适用边界与提醒\n\n来源：未注明"
+    },
+    {
+      "id": "B08",
+      "name": "Tree child expansion, complete text, return focus and keyboard",
+      "status": "PASS",
+      "observed": {
+        "return_focus": "a-child",
+        "keyboard_focus": "a-root"
+      }
+    },
+    {
+      "id": "B09",
+      "name": "FAQ expansion and complete answers",
+      "status": "PASS",
+      "observed": "KNOWLEDGE CARD / 知识卡片\n☆ 收藏\nMindflow 合成验收 A：太阳能入门\n\n这是一张公开合成测试卡，不含私人聊天。\n\n合成\nwork验收\n上一张\n下一张\n30 秒摘要\n知识树\n常见问题\n03 / 再多问一步\n这些是真实私人数据吗？\n\n不是。这是公开的合成验收数据。\n\n补充说明\n下载请求是否代表备份已保存？\n\n不代表，请检查下载记录并重新验证完整文件。\n\n补充说明\n适用边界与提醒\n\n来源：未注明"
+    },
+    {
+      "id": "B10",
+      "name": "Search synthetic and no-result recovery",
+      "status": "PASS",
+      "observed": "2 → 0 → 2"
+    },
+    {
+      "id": "B11",
+      "name": "Favorites-only, clear filters and card switching",
+      "status": "PASS",
+      "observed": "A favorite retained; filter cleared; A/B selectable"
+    },
+    {
+      "id": "B12",
+      "name": "Six random switches preserve search/favorite state",
+      "status": "PASS",
+      "observed": [
+        "Mindflow 合成验收 A：太阳能入门",
+        "Mindflow 合成验收 B：储能入门",
+        "Mindflow 合成验收 A：太阳能入门",
+        "Mindflow 合成验收 B：储能入门",
+        "Mindflow 合成验收 A：太阳能入门",
+        "Mindflow 合成验收 B：储能入门",
+        "Mindflow 合成验收 A：太阳能入门"
+      ]
+    },
+    {
+      "id": "B13",
+      "name": "Saving/Saved then reload preserves large, cards, favorite and node",
+      "status": "FAIL",
+      "error": "Locator.select_option: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_label(\"字号\", exact=True)\n",
+      "trace": "Traceback (most recent call last):\n  File \"/workspace/work/preview-review/acceptance.py\", line 11, in test\n    value=fn();results.append({'id':id,'name':name,'status':'PASS','observed':value}); print(id,'PASS',name,flush=True)\n          ^^^^\n  File \"/workspace/work/preview-review/acceptance.py\", line 103, in persistence\n    page.get_by_label('字号',exact=True).select_option('large');expect(page.get_by_test_id('font-save-state')).to_have_text('字号已保存：大字');details['font_states']=page.evaluate('window.fontStates')\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 20069, in select_option\n    self._sync(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_locator.py\", line 633, in select_option\n    return await self._frame.select_option(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_frame.py\", line 814, in select_option\n    return await self._channel.send(\"selectOption\", self._timeout, params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_label(\"字号\", exact=True)\n\n"
+    },
+    {
+      "id": "B14",
+      "name": "Plaintext warning, browser completed download, saved bytes and UI feedback",
+      "status": "PASS",
+      "observed": {
+        "suggested_filename": "mindflow-backup.json",
+        "download_failure": null,
+        "saved_file_exists": true,
+        "bytes": 3183,
+        "sha256": "a59ba8092558765e417b2ba77c43e7406adf2450050b08a86c2f834549ee7144",
+        "top_level_keys": [
+          "version",
+          "checksum",
+          "payload"
+        ],
+        "ui_feedback": "备份已生成，请妥善保管下载文件×"
+      }
+    },
+    {
+      "id": "B15",
+      "name": "Restore completed synthetic backup atomically in isolated library",
+      "status": "FAIL",
+      "error": "Locator.select_option: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_label(\"字号\", exact=True)\n",
+      "trace": "Traceback (most recent call last):\n  File \"/workspace/work/preview-review/acceptance.py\", line 11, in test\n    value=fn();results.append({'id':id,'name':name,'status':'PASS','observed':value}); print(id,'PASS',name,flush=True)\n          ^^^^\n  File \"/workspace/work/preview-review/acceptance.py\", line 115, in restore\n    open_storage();page.get_by_label('字号',exact=True).select_option('normal');expect(page.get_by_test_id('font-save-state')).to_have_text('字号已保存：标准');select(A);page.get_by_role('button',name='★ 已收藏',exact=True).click()\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 20069, in select_option\n    self._sync(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_locator.py\", line 633, in select_option\n    return await self._frame.select_option(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_frame.py\", line 814, in select_option\n    return await self._channel.send(\"selectOption\", self._timeout, params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_label(\"字号\", exact=True)\n\n"
+    },
+    {
+      "id": "B16",
+      "name": "Reject invalid backup and preserve synthetic library/settings",
+      "status": "FAIL",
+      "error": "Locator expected to have Value 'large'\nActual value: None\nError: element(s) not found \nCall log:\n  - Expect \"to_have_value\" with timeout 5000ms\n  - waiting for get_by_label(\"字号\", exact=True)\n\nAria snapshot:\n- banner:\n  - link \"跳到阅读内容\":\n    - /url: \"#main\"\n  - text: ◈ Mindflow 慢读，深想 可离线阅读\n- complementary:\n  - group:\n    - text: 知识库与导入\n    - paragraph: 你的私人知识花园\n    - heading \"让好奇心 继续生长。\" [level=1]\n    - paragraph: 把值得留下的想法，变成随时可读的知识卡片。\n    - button \"粘贴 JSON\"\n    - text: 导入卡片\n    - button \"导入卡片\"\n    - button \"体验示例\"\n    - text: 搜索知识\n    - searchbox \"搜索知识\"\n    - button \"★ 只看收藏\"\n    - button \"随机一张\"\n    - paragraph: 2 张卡片\n    - navigation \"卡片列表\":\n      - button \"合成 Mindflow 合成验收 A：太阳能入门 ★\":\n        - text: 合成\n        - strong: Mindflow 合成验收 A：太阳能入门\n        - text: ★\n      - button \"合成 Mindflow 合成验收 B：储能入门\":\n        - text: 合成\n        - strong: Mindflow 合成验收 B：储能入门\n    - group:\n      - text: 备份、设置与隐私\n      - paragraph: 卡片仅保存在此浏览器。清除网站数据、卸载或系统回收存储都可能导致丢失。请定期导出备份。\n      - paragraph: 备份文件未经加密，以明文包含全部知识内容、阅读状态与设置。任何获得文件的人都能读取；请勿公开分享，并妥善保管。\n      - button \"导出完整备份\"\n      - button \"恢复备份\"\n      - button \"生成分卷备份\"\n      - button \"恢复全部分卷\"\n      - group \"确认恢复\":\n        - paragraph: 恢复将替换当前全部卡片、阅读状态和设置。请先导出备份。\n        - button \"选择备份并替换\"\n        - button \"取消\"\n      - link \"打开独立迁移页（不加载整库）\":\n        - /url: /migration.html\n      - group: 超大旧库分页迁移\n      - text: 字号\n      - combobox \"字号\":\n        - option \"标准\" [selected]\n        - option \"大字\"\n      - paragraph: 字号与本机已保存设置一致。\n      - paragraph: 无账户、无 AI 调用、无数据上传。不加载远程图片。内容默认按纯文本安全显示，Markdown 标记会保留。\n- main:\n  - status:\n    - text: \"[ { \\\"code\\\": \\\"invalid_value\\\", \\\"values\\\": [ 1 ], \\\"path\\\": [ \\\"version\\\" ], \\\"message\\\": \\\"Invalid input: expected 1\\\" }, { \\\"expected\\\": \\\"string\\\", \\\"code\\\": \\\"invalid_type\\\", \\\"path\\\": [ \\\"checksum\\\" ], \\\"message\\\": \\\"Invalid input: expected string, received undefined\\\" }, { \\\"expected\\\": \\\"object\\\", \\\"code\\\": \\\"invalid_type\\\", \\\"path\\\": [ \\\"payload\\\" ], \\\"message\\\": \\\"Invalid input: expected object, received undefined\\\" } ]\"\n    - button \"关闭提示\": ×\n  - article:\n    - text: KNOWLEDGE CARD / 知识卡片\n    - button \"★ 已收藏\" [pressed]\n    - heading \"Mindflow 合成验收 A：太阳能入门\" [level=2]\n    - paragraph: 这是一张公开合成测试卡，不含私人聊天。\n    - text: 合成 work验收\n    - button \"上一张\"\n    - button \"下一张\"\n    - navigation \"阅读模式\":\n      - button \"30 秒摘要\"\n      - button \"知识树\"\n      - button \"常见问题\" [pressed]\n    - heading \"03 / 再多问一步\" [level=3]\n    - group: 这些是真实私人数据吗？\n    - group: 下载请求是否代表备份已保存？\n    - group: 适用边界与提醒\n    - paragraph: 来源：未注明\n- contentinfo: Mindflow V1 · 你的想法，留在你的设备上",
+      "trace": "Traceback (most recent call last):\n  File \"/workspace/work/preview-review/acceptance.py\", line 11, in test\n    value=fn();results.append({'id':id,'name':name,'status':'PASS','observed':value}); print(id,'PASS',name,flush=True)\n          ^^^^\n  File \"/workspace/work/preview-review/acceptance.py\", line 120, in bad_restore\n    (ROOT/'invalid-backup.json').write_text('{}');open_storage();page.get_by_role('button',name='恢复备份',exact=True).click();page.get_by_label('恢复备份文件',exact=True).set_input_files(str(ROOT/'invalid-backup.json'));expect(page.get_by_role('status')).not_to_contain_text('备份恢复成功');msg=page.get_by_role('status').inner_text();count(2);open_storage();expect(page.get_by_label('字号',exact=True)).to_have_value('large');select(A);expect(page.get_by_role('button',name='★ 已收藏',exact=True)).to_be_visible();return msg\n                                                                                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 22638, in to_have_value\n    self._sync(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_assertions.py\", line 568, in to_have_value\n    await self._expect_impl(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_assertions.py\", line 128, in _expect_impl\n    _record_soft_or_raise(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_assertions.py\", line 60, in _record_soft_or_raise\n    raise error\nAssertionError: Locator expected to have Value 'large'\nActual value: None\nError: element(s) not found \nCall log:\n  - Expect \"to_have_value\" with timeout 5000ms\n  - waiting for get_by_label(\"字号\", exact=True)\n\nAria snapshot:\n- banner:\n  - link \"跳到阅读内容\":\n    - /url: \"#main\"\n  - text: ◈ Mindflow 慢读，深想 可离线阅读\n- complementary:\n  - group:\n    - text: 知识库与导入\n    - paragraph: 你的私人知识花园\n    - heading \"让好奇心 继续生长。\" [level=1]\n    - paragraph: 把值得留下的想法，变成随时可读的知识卡片。\n    - button \"粘贴 JSON\"\n    - text: 导入卡片\n    - button \"导入卡片\"\n    - button \"体验示例\"\n    - text: 搜索知识\n    - searchbox \"搜索知识\"\n    - button \"★ 只看收藏\"\n    - button \"随机一张\"\n    - paragraph: 2 张卡片\n    - navigation \"卡片列表\":\n      - button \"合成 Mindflow 合成验收 A：太阳能入门 ★\":\n        - text: 合成\n        - strong: Mindflow 合成验收 A：太阳能入门\n        - text: ★\n      - button \"合成 Mindflow 合成验收 B：储能入门\":\n        - text: 合成\n        - strong: Mindflow 合成验收 B：储能入门\n    - group:\n      - text: 备份、设置与隐私\n      - paragraph: 卡片仅保存在此浏览器。清除网站数据、卸载或系统回收存储都可能导致丢失。请定期导出备份。\n      - paragraph: 备份文件未经加密，以明文包含全部知识内容、阅读状态与设置。任何获得文件的人都能读取；请勿公开分享，并妥善保管。\n      - button \"导出完整备份\"\n      - button \"恢复备份\"\n      - button \"生成分卷备份\"\n      - button \"恢复全部分卷\"\n      - group \"确认恢复\":\n        - paragraph: 恢复将替换当前全部卡片、阅读状态和设置。请先导出备份。\n        - button \"选择备份并替换\"\n        - button \"取消\"\n      - link \"打开独立迁移页（不加载整库）\":\n        - /url: /migration.html\n      - group: 超大旧库分页迁移\n      - text: 字号\n      - combobox \"字号\":\n        - option \"标准\" [selected]\n        - option \"大字\"\n      - paragraph: 字号与本机已保存设置一致。\n      - paragraph: 无账户、无 AI 调用、无数据上传。不加载远程图片。内容默认按纯文本安全显示，Markdown 标记会保留。\n- main:\n  - status:\n    - text: \"[ { \\\"code\\\": \\\"invalid_value\\\", \\\"values\\\": [ 1 ], \\\"path\\\": [ \\\"version\\\" ], \\\"message\\\": \\\"Invalid input: expected 1\\\" }, { \\\"expected\\\": \\\"string\\\", \\\"code\\\": \\\"invalid_type\\\", \\\"path\\\": [ \\\"checksum\\\" ], \\\"message\\\": \\\"Invalid input: expected string, received undefined\\\" }, { \\\"expected\\\": \\\"object\\\", \\\"code\\\": \\\"invalid_type\\\", \\\"path\\\": [ \\\"payload\\\" ], \\\"message\\\": \\\"Invalid input: expected object, received undefined\\\" } ]\"\n    - button \"关闭提示\": ×\n  - article:\n    - text: KNOWLEDGE CARD / 知识卡片\n    - button \"★ 已收藏\" [pressed]\n    - heading \"Mindflow 合成验收 A：太阳能入门\" [level=2]\n    - paragraph: 这是一张公开合成测试卡，不含私人聊天。\n    - text: 合成 work验收\n    - button \"上一张\"\n    - button \"下一张\"\n    - navigation \"阅读模式\":\n      - button \"30 秒摘要\"\n      - button \"知识树\"\n      - button \"常见问题\" [pressed]\n    - heading \"03 / 再多问一步\" [level=3]\n    - group: 这些是真实私人数据吗？\n    - group: 下载请求是否代表备份已保存？\n    - group: 适用边界与提醒\n    - paragraph: 来源：未注明\n- contentinfo: Mindflow V1 · 你的想法，留在你的设备上\n"
+    },
+    {
+      "id": "B17",
+      "name": "SW registration, activation, control and Workbox precache inventory",
+      "status": "FAIL",
+      "error": "Page.wait_for_function: EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n\n    at eval (<anonymous>)\n    at predicate (eval at evaluate (:311:30), <anonymous>:4:60)\n    at next (eval at evaluate (:311:30), <anonymous>:29:33)",
+      "trace": "Traceback (most recent call last):\n  File \"/workspace/work/preview-review/acceptance.py\", line 11, in test\n    value=fn();results.append({'id':id,'name':name,'status':'PASS','observed':value}); print(id,'PASS',name,flush=True)\n          ^^^^\n  File \"/workspace/work/preview-review/acceptance.py\", line 123, in sw\n    page.wait_for_function('navigator.serviceWorker.controller !== null',timeout=15000)\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 12761, in wait_for_function\n    self._sync(\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_page.py\", line 1151, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_frame.py\", line 940, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.wait_for_function: EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n\n    at eval (<anonymous>)\n    at predicate (eval at evaluate (:311:30), <anonymous>:4:60)\n    at next (eval at evaluate (:311:30), <anonymous>:29:33)\n"
+    },
+    {
+      "id": "B18",
+      "name": "Offline reload and read previously imported B",
+      "status": "PASS",
+      "observed": {
+        "online": false,
+        "two_cards_readable": true,
+        "from_service_worker_responses": 6
+      }
+    },
+    {
+      "id": "B19",
+      "name": "Offline cold browser process start with existing synthetic profile",
+      "status": "PASS",
+      "observed": {
+        "new_browser_process": true,
+        "offline_before_navigation": true,
+        "faq_readable": true,
+        "controlled": true
+      }
+    },
+    {
+      "id": "B20",
+      "name": "Network recovery and persistence after offline restart",
+      "status": "PASS",
+      "observed": "online and two-card library recovered"
+    }
+  ],
+  "details": {
+    "initial_text": "跳到阅读内容\n◈ Mindflow 慢读，深想\n仅本机存储\n知识库与导入\n\n你的私人知识花园\n\n让好奇心\n继续生长。\n\n把值得留下的想法，变成随时可读的知识卡片。\n\n粘贴 JSON\n导入卡片\n体验示例\n搜索知识\n★ 只看收藏\n随机一张\n\n0 张卡片\n\n从一张卡片开始。导入文件，或体验公开示例。\n\n备份、设置与隐私\n✧\n为思考留一点空间\n\n从左侧导入一张知识卡片，\n以摘要开始，沿着知识树深入。\n\n首次联网打开并缓存完成后，可离线阅读。\n\nMindflow V1 · 你的想法，留在你的设备上",
+    "security_details": {
+      "issuer": "openai.com",
+      "protocol": "TLS 1.3",
+      "subjectName": "36e604de.001beta.pages.dev",
+      "validFrom": 1793427405,
+      "validTo": 1824963465
+    },
+    "node_focus": {
+      "tag": "SECTION",
+      "label": "节点内容"
+    },
+    "tree_keyboard_focus": "a-root",
+    "backup": {
+      "suggested_filename": "mindflow-backup.json",
+      "download_failure": null,
+      "saved_file_exists": true,
+      "bytes": 3183,
+      "sha256": "a59ba8092558765e417b2ba77c43e7406adf2450050b08a86c2f834549ee7144",
+      "top_level_keys": [
+        "version",
+        "checksum",
+        "payload"
+      ],
+      "ui_feedback": "备份已生成，请妥善保管下载文件×"
+    }
+  },
+  "screenshots": [
+    "01-empty-desktop.png",
+    "02-two-cards.png",
+    "03-summary-desktop.png",
+    "04-tree-desktop.png",
+    "05-faq-desktop.png",
+    "07-backup-feedback.png",
+    "08-offline-refresh.png",
+    "09-offline-browser-restart.png"
+  ],
+  "page_errors": [],
+  "network": [
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/sw.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/sw.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/workbox-2fbc6a65.js",
+      "method": "GET",
+      "type": "other",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/workbox-2fbc6a65.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/migration.html",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/migration.html",
+      "status": 308,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/migration",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/migration",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/index.html",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/index.html",
+      "status": 308,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/icon-512.png",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/icon-512.png",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/icon-192.png",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/icon-192.png",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/migration-kjdj7X33.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "fetch",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": false
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/",
+      "method": "GET",
+      "type": "document",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "method": "GET",
+      "type": "stylesheet",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/main-CHwLQiEH.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-BGrn-dwi.css",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "method": "GET",
+      "type": "manifest",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/manifest.webmanifest",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/style-Bp_TMkjA.js",
+      "status": 200,
+      "from_service_worker": true
+    },
+    {
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "method": "GET",
+      "type": "script",
+      "post_data_bytes": 0
+    },
+    {
+      "event": "response",
+      "url": "https://36e604de.001beta.pages.dev/assets/workbox-window.prod.es5-BBnX5xw4.js",
+      "status": 200,
+      "from_service_worker": true
+    }
+  ]
+}

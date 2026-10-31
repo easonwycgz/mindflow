@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-31T06:24:56.279957+00:00",
+  "download_failure": null,
+  "saved_file_bytes": 3181,
+  "saved_file_sha256": "eaffb55de423985853f2e2e85a85201d89f42ee8fc3f7637c87734d4ead51282",
+  "chrome_downloads_records": [
+    {
+      "fileName": "7f04ac67-3db4-4b2b-b1a7-bfd8cc6d5662",
+      "state": 2,
+      "percent": -2,
+      "url": "blob:https://36e604de.001beta.pages.dev/c5346519-f5dd-4926-b5e0-abf4360a4fbf",
+      "receivedBytes": null,
+      "totalBytes": null,
+      "exists": true
+    }
+  ],
+  "note": "Browser download list plus Playwright completion and saved local bytes; not inferred from anchor click. Blob URL contains no remote destination."
+}
