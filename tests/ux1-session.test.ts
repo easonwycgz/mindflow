@@ -132,6 +132,7 @@ it("saved replay never persists programmatic clamping; failed scroll save retrie
   const v = (await session.open(a.id, "resume"))!;
   session.noteScroll(0);
   session.finishRestore(v, 0);
+  session.noteScroll(0); // queued programmatic event after restoration acknowledgement
   await session.flush();
   expect((await db.reading.get(a.id))?.scroll).toBe(720);
   session.noteScroll(1300);
@@ -171,4 +172,17 @@ it("ending a reading session flushes its position and ignores the programmatic l
   expect((await db.reading.get(a.id))?.scroll).toBe(1000);
   const reopened = (await session.open(a.id, "resume"))!;
   expect(reopened.cursor.scroll).toBe(1000);
+});
+it("a user scroll after applying saved layout but before restore acknowledgement is retained", async () => {
+  const { a } = await setup();
+  await db.reading.update(a.id, {
+    scroll: 0,
+    section: "summary",
+    nodeId: null,
+  });
+  const view = (await session.open(a.id, "resume"))!;
+  // The rendered layout applied y=0; an input moves it to y=300 before the RAF ack.
+  Reflect.apply(session.finishRestore, session, [view, 300, 0]);
+  await session.flush();
+  expect((await db.reading.get(a.id))?.scroll).toBe(300);
 });

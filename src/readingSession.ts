@@ -22,6 +22,7 @@ export class ReadingSession {
   private render = 0;
   private view: ReadingView | null = null;
   private restored = false;
+  private ignoredScroll: number | null = null;
   private paused = false;
   private pending: Pending | null = null;
   private timer: ReturnType<typeof setTimeout> | undefined;
@@ -59,6 +60,9 @@ export class ReadingSession {
     )
       return;
     if (this.view.mode === "discover") return;
+    // A scroll event queued by layout replay can arrive after ownership is ready.
+    if (scroll === this.ignoredScroll) return;
+    this.ignoredScroll = null;
     this.pending = { cardId: this.view.cardId, scroll: Math.max(0, scroll) };
     this.cancelTimer();
     this.timer = setTimeout(() => {
@@ -91,6 +95,7 @@ export class ReadingSession {
     const token = ++this.epoch;
     const previous = this.view;
     this.restored = false;
+    this.ignoredScroll = null;
     try {
       await this.flush();
       const row = (await this.db.reading.get(cardId)) ?? newReading(cardId);
@@ -126,13 +131,16 @@ export class ReadingSession {
       throw error;
     }
   }
-  finishRestore(view: ReadingView, scroll: number) {
+  finishRestore(view: ReadingView, scroll: number, appliedScroll = scroll) {
     if (!this.owns(view)) return;
     this.restored = true;
+    this.ignoredScroll = appliedScroll;
     // A deliberate navigation should save its resulting position; replaying a saved
     // position must not clamp and overwrite that saved value merely because layout changed.
-    if (view.location === "node" || view.location === "top")
+    if (view.location === "node" || view.location === "top") {
+      this.ignoredScroll = null;
       this.noteScroll(scroll);
+    } else if (scroll !== appliedScroll) this.noteScroll(scroll);
   }
   async change(
     change: Partial<Cursor>,

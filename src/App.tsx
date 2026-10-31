@@ -337,30 +337,26 @@ export default function App() {
     return paths;
   }, [card]);
   useLayoutEffect(() => {
-    if (!view) return;
-    let second = 0;
-    const first = requestAnimationFrame(() => {
-      if (!session.owns(view)) return;
-      if (view.location === "node") {
-        nodeRef.current?.scrollIntoView({
-          block: "start",
-          behavior: "instant",
-        });
-        nodeRef.current?.focus({ preventScroll: true });
-      } else if (view.location === "top") {
-        const heading = document.getElementById("card-title");
-        heading?.scrollIntoView({ block: "start", behavior: "instant" });
-        heading?.focus({ preventScroll: true });
-      } else if (view.location === "saved")
-        window.scrollTo(0, view.cursor.scroll);
-      second = requestAnimationFrame(() =>
-        session.finishRestore(view, window.scrollY),
-      );
-    });
+    const previous = history.scrollRestoration;
+    history.scrollRestoration = "manual";
     return () => {
-      cancelAnimationFrame(first);
-      cancelAnimationFrame(second);
+      history.scrollRestoration = previous;
     };
+  }, []);
+  useLayoutEffect(() => {
+    if (!view || !session.owns(view)) return;
+    // Apply and acknowledge before paint: visible content must already accept
+    // user scrolling. No remote media/fonts can change this layout asynchronously.
+    if (view.location === "node") {
+      nodeRef.current?.scrollIntoView({ block: "start", behavior: "instant" });
+      nodeRef.current?.focus({ preventScroll: true });
+    } else if (view.location === "top") {
+      const heading = document.getElementById("card-title");
+      heading?.scrollIntoView({ block: "start", behavior: "instant" });
+      heading?.focus({ preventScroll: true });
+    } else if (view.location === "saved")
+      window.scrollTo(0, view.cursor.scroll);
+    session.finishRestore(view, window.scrollY);
   }, [view, session]);
   useEffect(() => {
     const scroll = () => session.noteScroll(window.scrollY);
